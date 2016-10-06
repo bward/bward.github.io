@@ -1,0 +1,45 @@
+\documentclass[a4paper]{article}
+\title{Part III Topics in Additive Combinatorics}
+\author{Based on lectures by Prof W.T. Gowers}
+\date{Michaelmas 2016\\University of Cambridge}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{tikz-cd}
+\newtheorem*{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newcommand*\conj[1]{\overline{#1}}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Discrete Fourier Analysis and Roth's Theorem}
+Let $N\in\mathbb{N}$, $\omega = e^{\frac{2\pi i}{N}}$. Write $\mathbb{Z}_N$ for the cyclic group of integers mod $N$. Use the notation $\mathbb{E}_xf(x)$ to stand for the average $N^{-1}\sum_{x\in\mathbb{Z}_N}f(x)$.
+
+\begin{definition}[Discrete Fourier Transform]
+	Given a function $f: \mathbb{Z}_N \to \mathbb{C}$, define its \textbf{discrete Fourier transform} $\hat{f}$ by the formula $$\hat{f}(r)=\mathbb{E}_xf(x)\omega^{-rx}$$
+\end{definition}
+
+\begin{definition}[Convolution]
+	We define the \textbf{convolution} $f * g$ of $f$ and $g$ by $$f*g(x) = \mathbb{E}_{y+z=x}f(y)g(z)$$
+	$$\hat{f}*\hat{g}(r) = \sum_{s+t=r}\hat{f}(s)\hat{g}(t)$$
+\end{definition}
+
+We also define two inner products
+$$\langle f,g \rangle = \mathbb{E}_xf(x)\conj{g(x)}$$
+$$\langle \hat{f}, \hat{g} \rangle = \sum_r \hat{f}(r)\conj{\hat{g}(r)}$$
+
+Have the following basic properties:
+\begin{enumerate}
+	\item Parseval's Identity: $$\langle \hat{f}, \hat{g} \rangle = \langle f, g \rangle$$ for any $f, g: \mathbb{Z}_N \to \mathbb{C}$.
+	
+	\item Convolution Law: for any $f,g:\mathbb{Z}_N \to \mathbb{C}$, $r \in \mathbb{Z}_N$ $$\widehat{f*g}(r) = \hat{f}(r)\hat{g}(r)$$
+	
+	\item Inversion Formula: let $f:\mathbb{Z}_N\to\mathbb{C}$. Then $$f(x)=\sum_r \hat{f}(r)\omega^{rx}$$
+	
+	\item Dilation Rule: let $a$ be invertible mod $N$ and define $f_a(x)$ to be $f(a^{-1}x)$. Then $$\hat{f_a(r)} = \hat{f}(ar)$$
+\end{enumerate}
+\end{document}
