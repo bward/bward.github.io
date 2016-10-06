@@ -1,0 +1,76 @@
+\documentclass[a4paper]{article}
+\title{Part III Algebraic Geometry}
+\author{Based on lectures by Dr C. Birkar}
+\date{Michaelmas 2016\\University of Cambridge}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{tikz-cd}
+\newtheorem*{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Sheaves}
+
+\begin{definition}[Presheaf]
+	Let $X$ be a topological space. A \textbf{presheaf} $\mathcal{F}$ consists of a collection of abelian groups, $\mathcal{F}(U)$, where $U \subseteq X$ are the open subsets of $X$ s.t. $\mathcal{F}(\emptyset)=0$.
+	
+	$\exists$ a homomorphism $\mathcal{F}(U)\to\mathcal{F}(V)$, $s \mapsto s|_V$ for each inclusion $V\subseteq U$ of open sets. $\mathcal{F}(U)\to\mathcal{F}(U)$ is the identity map. If $W\subseteq V \subseteq U$ are open sets then $\forall s \in \mathcal{F}(U)$, $(s|_V)|_W=s|_W$.
+\end{definition}
+
+\begin{definition}[Sheaf]
+	A \textbf{sheaf} $\mathcal{F}$ is a presheaf s.t. if $U=\bigcup U_i$, $U$, $U_i$ open and if $s_i \in \mathcal{F}(U_i)$ s.t. $s_i|_{U_i\cap U_j}=s_j|_{U_i \cap U_j}$ $\forall i,j$ then $\exists ! s\in\mathcal{F}(U)$ s.t. $s|_{U_i}=s_i$ $\forall i$.
+\end{definition}
+
+\begin{definition}[Stalk]
+	Let $X$ be a topological space, $\mathcal{F}$ a presheaf, $x \in X$. Define the \textbf{stalk} of $\mathcal{F}$ at $x$ by $\mathcal{F}_x = \lim_{U \ni x}\mathcal{F}(U)$.
+	
+	More explicitly, each element of $\mathcal{F}_x$ is given by a pair $(U, s)$ where $x \in U$ open, $s \in \mathcal{F}(U)$ subject to the condition $$(U,s)=(V,t) \text{ if } \exists x \in W \subseteq U \cap V \text{ s.t. } s|_W=t|_W$$
+\end{definition}
+
+\begin{definition}[Morphism]
+	Let $X$ be a topological space, $\mathcal{F}$, $\mathcal{G}$ presheaves. A \textbf{morphism} $\varphi: \mathcal{F} \to \mathcal{G}$ is given by a collection of homomorphisms $\mathcal{F}(U)\overset{\varphi(U)}{\to}\mathcal{G}$ s.t. if $V \subseteq U$, the diagram
+
+	\begin{tikzcd}
+		\mathcal{F}(U) \arrow[r, "\varphi_U"] \arrow[d] & \mathcal{G}(U) \arrow[d] \\
+		\mathcal{F}(V) \arrow[r, "\varphi_V"] & \mathcal{G}(V)
+	\end{tikzcd}
+	
+	\noindent commutes. We say $\varphi$ is an \textbf{isomorphism} if it has an inverse.
+\end{definition}
+
+\begin{definition}
+	Let $X$ be a topological space, $\mathcal{F}$ a presheaf. Then $\exists$ a sheaf $\mathcal{F}^+$ and a morphism $\alpha:\mathcal{F}\to\mathcal{F}^+$ s.t. if $\varphi:\mathcal{F}\to\mathcal{G}$ is a morphism into a sheaf $\mathcal{G}$, then $\varphi$ factors uniquely
+	
+	\begin{tikzcd}[row sep=tiny]
+		&\mathcal{F}^+ \arrow[dd]\\
+		\mathcal{F}\arrow[ru, "\alpha"] \arrow[rd, "\varphi"] &\\
+		&\mathcal{G}
+	\end{tikzcd}
+	
+	\noindent for some morphism $\mathcal{F}^+ \to \mathcal{G}$. We call $\mathcal{F}^+$ the sheaf \textbf{associated} to $\mathcal{F}$.
+	
+	$\mathcal{F}^+$ is constructed as follows:
+	\[\mathcal{F}^+(U):=\left\{\text{functions }s:U\to\bigsqcup_{x\in U}\mathcal{F}_x
+	\ \middle|\ 
+	\begin{tabular}{c}
+	$\forall x \in U,\  s(x) \in \mathcal{F}_x,\ \exists x \in W \subseteq V \text{ and }$\\$ t \in\mathcal{F}(W)\text{ s.t. } s(y)=(V,t)\in\mathcal{F}_y\ \forall y \in W$
+	\end{tabular}
+	\right\}\]
+\end{definition}
+
+\begin{definition}[Kernel and Image]
+	Let $X$ be a topological space, $\mathcal{F}\overset{\varphi}{\to}\mathcal{G}$ a morphism of presheaves. The \textbf{kernel} of $\varphi$, denoted $Ker\varphi$, is defined by
+	$$(Ker\varphi)(U)=Ker(\varphi_U:\mathcal{F}(U)\to\mathcal{G}(U)$$
+	
+	The \textbf{presheaf image} of $\varphi$, denoted $Im(\varphi^{pre})$ is defined by
+	$$(Im\varphi^{pre})(U)=Im(\varphi_U)$$
+	
+	Now assume $\mathcal{F}$ and $\mathcal{G}$ are sheaves. Define the kernel of $\varphi=Ker\varphi$ as above, which is a sheaf. Define the image of $\varphi$ by $Im(\varphi^{pre})^+$, denoted $Im \varphi$.
+\end{definition}
+\end{document}
