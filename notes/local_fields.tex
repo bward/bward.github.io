@@ -1,0 +1,71 @@
+\documentclass[a4paper]{article}
+\title{Part III Local Fields}
+\author{Based on lectures by Dr. C Johansson}
+\date{Michaelmas 2016\\University of Cambridge}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\newtheorem*{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{prop}{Proposition}
+\newcommand*\conj[1]{\overline{#1}}
+\newcommand*\dom[1]{\textnormal{dom}\,#1}
+\newcommand*\cod[1]{\textnormal{cod}\,#1}
+\newcommand*\ob[1]{\textnormal{ob}\,#1}
+\newcommand*\mor[1]{\textnormal{mor}\,#1}
+\newcommand*\abs[1]{|#1|}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Basic Theory}
+\begin{definition}[Absolute value]
+	Let $K$ be a field. An \textbf{absolute value} on $K$ is a function $\abs{\cdot}:K\to\mathbb{R}_{\geq 0}$ s.t.
+	\begin{enumerate}[label=\roman*.]
+		\item $\abs{x}=0 \iff x=0$
+		\item $\abs{xy}=\abs{x}\abs{y} \quad \forall x,y \in K$
+		\item $\abs{x+y} \leq \abs{x} + \abs{y}$
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Valued field]
+	A \textbf{valued field} is a field with an absolute value.
+\end{definition}
+
+\begin{definition}[Equivalence of absolute values]
+	Let $K$ be a field and let $\abs{\cdot}$, $\abs{\cdot}^{'}$ be absolute values on K. We say that $\abs{\cdot}$ and $\abs{\cdot}^{'}$ are \textbf{equivalent} if the associated metrics induce the same topology.
+\end{definition}
+
+\begin{definition}[Non-archimedean absolute value]
+	An absolute value $\abs{\cdot}$ on a field $K$ is called \textbf{non-archimedean} if $\abs{x+y}\leq\max(\abs{x},\abs{y})$ (the \textbf{strong triangle inequality}).
+	
+	Metrics s.t. $d(x,z)\leq\max(d(x,y),d(y,z))$ are called \textbf{ultrametrics}.
+\end{definition}
+
+Assumption: unless otherwise mentioned, all absolute values will be non-archimedean. These metrics are weird!
+
+\begin{prop}
+	Let $K$ be a valued field. Then $\mathcal{O}=\{x \,|\, \abs{x}\leq 1\}$ is an open subring of $K$, called the \textbf{valuation ring} of K. $\forall r \in (0,1]$, $\{x \,|\, x < r\}$ and $\{x \,|\, x \leq r\}$ are open ideals of $\mathcal{O}$.
+	
+	Moreover, $\mathcal{O}^x = \{x \,|\, \abs{x}=1\}$.
+\end{prop}
+
+\begin{prop}
+	Let $K$ be a valued field.
+	\begin{enumerate}[label=\roman*.]
+		\item Let $(x_n)$ be a sequence in $K$. If $x_n - x_{n+1} \to 0$ then $(x_n)$ is Cauchy
+	\end{enumerate}
+	Assume that $K$ is complete
+	\begin{enumerate}[label=\roman*.]
+		\setcounter{enumi}{1}
+		\item Let $(x_n)$ be a sequence in $K$. If $x_n - x_{n+1} \to 0$ then $(x_n)$ converges
+		\item Let $\sum_{n=0}^{\infty}y_n$ be a series in $K$. If $y_n\to0$, then $\sum_{n=0}^{\infty}y_n$ converges
+	\end{enumerate}
+\end{prop}
+	
+\end{document}
