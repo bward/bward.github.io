@@ -1,0 +1,50 @@
+\documentclass[a4paper]{article}
+\title{Part III Combinatorics}
+\author{Based on lectures by Prof B. Bollob\'{a}s}
+\date{Michaelmas 2016\\University of Cambridge}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\newtheorem*{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand*\conj[1]{\overline{#1}}
+\newcommand*\dom[1]{\textnormal{dom}\,#1}
+\newcommand*\cod[1]{\textnormal{cod}\,#1}
+\newcommand*\ob[1]{\textnormal{ob}\,#1}
+\newcommand*\mor[1]{\textnormal{mor}\,#1}
+\newcommand*\abs[1]{\left|#1\right|}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+Let $X, Y, \dots$ be sets
+\begin{definition}
+	We call $\mathcal{A}\subset \mathcal{P}(X)$ a \textbf{set system} or \textbf{family of sets}. $\mathcal{A}$ is naturally identified with a bipartite graph $G_\mathcal{A}(U,W)$ with $U=\mathcal{A}$, $W=\bigcup_{A\in\mathcal{A}}A$ or $W=X$. Indeed, $Ax\in E(G_\mathcal{A}) \iff x \in A$.
+\end{definition}
+
+\begin{definition}
+	Given $\mathcal{A}\in\mathcal{P}(X)$, a \textbf{set of distinct representatives} (SDR) is an injection $f:\mathcal{A}\to X$ s.t. $f(A)\in A$ $\forall A \in \mathcal{A}$. In its bipartite graph, an SDR corresponds to a complete matching $U \to W$.
+\end{definition}
+
+\begin{theorem}[Hall, 1935]
+	A set system $\mathcal{A}$ has an SDR if $\forall \mathcal{A}'\subset\mathcal{A}$, $\abs{\cup_{A\in\mathcal{A}'}A} \geq \abs{\mathcal{A}}'$.
+\end{theorem}
+\setcounter{theorem}{0}
+\renewcommand{\thetheorem}{\arabic{theorem}'}
+\begin{theorem}
+	A bipartite graph $G(U,W)$ has a complete matching $U \to W$ if $\forall S \subset U$, $\abs{\Gamma(S)} \geq \abs{S}$
+\end{theorem}
+\renewcommand{\thetheorem}{\arabic{theorem}}
+\begin{corollary}
+	Suppose $G(U, W)$ bipartite, $d(u) \geq d(w)$ $\forall u \in U,\ w \in W$. Then $\exists$ a complete matching $U \to W$.
+\end{corollary}
+\end{document}
