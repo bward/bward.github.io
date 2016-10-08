@@ -6,11 +6,16 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{textcomp}
-\usepackage{enumerate}
+\usepackage{enumitem}
 \usepackage{graphicx}
 \usepackage{tikz-cd}
+\renewcommand{\baselinestretch}{1.3}
+
 \newtheorem*{definition}{Definition}
-\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\Ker}{Ker}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -35,23 +40,26 @@
 
 \begin{definition}[Morphism]
 	Let $X$ be a topological space, $\mathcal{F}$, $\mathcal{G}$ presheaves. A \textbf{morphism} $\varphi: \mathcal{F} \to \mathcal{G}$ is given by a collection of homomorphisms $\mathcal{F}(U)\overset{\varphi(U)}{\to}\mathcal{G}$ s.t. if $V \subseteq U$, the diagram
+	\begin{center}
 
 	\begin{tikzcd}
 		\mathcal{F}(U) \arrow[r, "\varphi_U"] \arrow[d] & \mathcal{G}(U) \arrow[d] \\
 		\mathcal{F}(V) \arrow[r, "\varphi_V"] & \mathcal{G}(V)
 	\end{tikzcd}
+	\end{center}
 	
 	\noindent commutes. We say $\varphi$ is an \textbf{isomorphism} if it has an inverse.
 \end{definition}
 
 \begin{definition}
 	Let $X$ be a topological space, $\mathcal{F}$ a presheaf. Then $\exists$ a sheaf $\mathcal{F}^+$ and a morphism $\alpha:\mathcal{F}\to\mathcal{F}^+$ s.t. if $\varphi:\mathcal{F}\to\mathcal{G}$ is a morphism into a sheaf $\mathcal{G}$, then $\varphi$ factors uniquely
-	
+	\begin{center}
 	\begin{tikzcd}[row sep=tiny]
 		&\mathcal{F}^+ \arrow[dd]\\
 		\mathcal{F}\arrow[ru, "\alpha"] \arrow[rd, "\varphi"] &\\
 		&\mathcal{G}
 	\end{tikzcd}
+	\end{center}
 	
 	\noindent for some morphism $\mathcal{F}^+ \to \mathcal{G}$. We call $\mathcal{F}^+$ the sheaf \textbf{associated} to $\mathcal{F}$.
 	
@@ -65,12 +73,46 @@
 \end{definition}
 
 \begin{definition}[Kernel and Image]
-	Let $X$ be a topological space, $\mathcal{F}\overset{\varphi}{\to}\mathcal{G}$ a morphism of presheaves. The \textbf{kernel} of $\varphi$, denoted $Ker\varphi$, is defined by
-	$$(Ker\varphi)(U)=Ker(\varphi_U:\mathcal{F}(U)\to\mathcal{G}(U)$$
+	Let $X$ be a topological space, $\mathcal{F}\overset{\varphi}{\to}\mathcal{G}$ a morphism of presheaves. The \textbf{kernel} of $\varphi$, denoted $\Ker\varphi$, is defined by
+	$$(\Ker\varphi)(U)=\Ker(\varphi_U:\mathcal{F}(U)\to\mathcal{G}(U)$$
 	
-	The \textbf{presheaf image} of $\varphi$, denoted $Im(\varphi^{pre})$ is defined by
-	$$(Im\varphi^{pre})(U)=Im(\varphi_U)$$
+	The \textbf{presheaf image} of $\varphi$, denoted $\Ima(\varphi^{pre})$ is defined by
+	$$(\Ima\varphi^{pre})(U)=\Ima(\varphi_U)$$
 	
-	Now assume $\mathcal{F}$ and $\mathcal{G}$ are sheaves. Define the kernel of $\varphi=Ker\varphi$ as above, which is a sheaf. Define the image of $\varphi$ by $Im(\varphi^{pre})^+$, denoted $Im \varphi$.
+	Now assume $\mathcal{F}$ and $\mathcal{G}$ are sheaves. Define the kernel of $\varphi=\Ker\varphi$ as above, which is a sheaf. Define the image of $\varphi$ by $\Ima(\varphi^{pre})^+$, denoted $\Ima \varphi$.
+\end{definition}
+
+\begin{theorem}
+	Suppose $\varphi:\mathcal{F}\to\mathcal{G}$ is a morphism of sheaves on a topological space $X$. Then
+	\begin{enumerate}[label=\roman*.]
+		\item $\varphi$ is injective $\iff \varphi_x:\mathcal{F}_x\to\mathcal{G}_x$ is injective $\forall x \in X$
+		\item $\varphi$ is surjective $\iff \varphi_x:\mathcal{F}_x\to\mathcal{G}_x$ is surjective $\forall x \in X$
+		\item $\varphi$ is an isomorphism $\iff \varphi_x:\mathcal{F}_x\to\mathcal{G}_x$ is an isomorphism $\forall x \in X$
+	\end{enumerate}
+\end{theorem}
+
+\begin{definition}
+	Let $X$ be a topological space. A \textbf{complex of sheaves} is a sequence
+	$$\dots \to \mathcal{F}_{-2} \overset{\varphi_{-2}}{\to} \mathcal{F}_{-1} \overset{\varphi_{-1}}{\to} \mathcal{F}_0 \overset{\varphi_0}{\to} \mathcal{F}_1 \overset{\varphi_1}{\to} \mathcal{F}_2 \overset{\varphi_2}{\to} \dots$$
+	of sheaves s.t. $\Ima \varphi_i \subseteq \Ker \varphi_{i+1}$ $\forall i$. We say it is an \textbf{exact sequence} if $\Ima \varphi_i = \Ker\varphi_{i+1}$ $\forall i$. An exact sequence
+	$$0 \to \mathcal{F} \to \mathcal{G} \to \mathcal{H} \to 0$$
+	is called a \textbf{short exact sequence}.
+\end{definition}
+
+\begin{definition}[Constant sheaf]
+	Let $X$ be a topological space and $A$ an abelian group. Define a presheaf $\mathcal{F}$ by $\mathcal{F}(U)=A$ $\forall \text{ open } U \neq \emptyset$. We call $\mathcal{F}^+$ the \textbf{constant sheaf} associated to $A$.
+\end{definition}
+
+\begin{definition}[Direct image]
+	Let $f:X\to Y$ be a continuous map of topological spaces, and let $\mathcal{F}$ be a presheaf on $X$. The \textbf{direct image} $f_*\mathcal{F}$ is defined by $$(f_*\mathcal{F})(V) = \mathcal{F}(f^{-1}V)$$
+\end{definition}
+
+\begin{definition}[Skyscraper sheaf]
+	Let $X$ be a topological space, $x \in X$, $A$ an abelian group. Define $\mathcal{F}$ by \[\mathcal{F} = \left\{
+	\begin{tabular}{r}
+	$A$ if $x \in U$\\$0$ if $x \not\in U$
+	\end{tabular}\right.
+	\]
+	We call $\mathcal{F}$ the \textbf{skyscraper sheaf} associated to $A$ at $x$.
 \end{definition}
 \end{document}
