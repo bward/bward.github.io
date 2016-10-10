@@ -47,4 +47,49 @@ Let $X, Y, \dots$ be sets
 \begin{corollary}
 	Suppose $G(U, W)$ bipartite, $d(u) \geq d(w)$ $\forall u \in U,\ w \in W$. Then $\exists$ a complete matching $U \to W$.
 \end{corollary}
+
+\begin{definition}
+	A bipartite graph $G(U,W)$ is $(r,s)$\textbf{-regular} if $d(u)=r$ and $d(w)=s$ $\forall u\in U$, $w \in W$.
+\end{definition}
+
+Instant from Cor 2: if $G(U,W)$ is $(r,s)$-regular then $\exists$ a complete matching from $U$ to $W$ if $\abs{U} \leq \abs{W}$.
+
+\begin{corollary}
+	Let $0 \leq i,j \leq n$, ${n \choose i} \leq {n \choose j}$. Then $\exists$ a complete matching $f: [n]^{(i)} \to [n]^{(j)}$ s.t. $f(A) \subset A$ if $j \leq i$, and $f(A) \supset A$ if $i \leq j$.
+\end{corollary}
+
+\begin{theorem}
+	Let $G=G(U,W)$ be a connected $(r,s)$-regular graph. Then for $\emptyset \neq A \subset U$,
+	$$\frac{\abs{\Gamma(A)}}{\abs{W}} \geq \frac{\abs{A}}{\abs{U}}$$
+	Also, equality holds iff $A=U$.
+\end{theorem}
+
+The \textbf{cube} $Q^n \cong \mathcal{P}(n) \cong [2]^n =$ set of all 0, 1 sequences of length $n$. $Q^n$ is also a graph: $AB$ is an edge if $\abs{A \vartriangle B}=1$. It is also a poset: $A<B$ if $A \subset B$.
+
+$Q^n$ has a natural orientation: $\overrightarrow{AB}$ if $A=B \cup \{a\}$.
+
+\begin{center}
+	\begin{tikzcd}
+		& 123 \arrow[ld] \arrow[d] \arrow[rd]& \\
+		12 \arrow[d] \arrow[rd] & 13 \arrow[ld] \arrow[rd] & 23 \arrow[ld] \arrow[d] \\
+		1 \arrow[rd] & 2 \arrow[d] & 3 \arrow[ld] \\
+		& \emptyset &
+	\end{tikzcd}
+\end{center}
+
+The order on $Q^n \cong \mathcal{P}(n)$ is induced by this oriented graph.
+\section{Sperner Systems}
+\setcounter{theorem}{0}
+\begin{definition}
+	A set system $\mathcal{A} \subset \mathcal{P}(n)$ is \textbf{Sperner} if $A,B \in \mathcal{A}$, $A \neq B \implies A \not\subset B$
+\end{definition}
+\begin{theorem}[Sperner, 1928]
+	If $\mathcal{A} \subset \mathcal{P}(n)$ is Sperner then $$\abs{\mathcal{A}} \leq {n \choose \lfloor\frac{n}{2}\rfloor}$$
+\end{theorem}
+\begin{definition}
+	The \textbf{weight} $w(A)$ of a set $A \in \mathcal{P}(n)$ is $w(A) = \frac{1}{{n \choose \abs{A}}}$
+\end{definition}
+\begin{theorem}
+	Let $\mathcal{A}$ be a Sperner system on $X$, $\abs{X}=n$. Then $$w(\mathcal{A}) = \sum_{A \in \mathcal{A}}w(A) \leq 1$$
+\end{theorem}
 \end{document}
