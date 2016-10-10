@@ -12,6 +12,7 @@
 \usepackage{enumitem}
 \newtheorem*{definition}{Definition}
 \newtheorem{lemma}{Lemma}
+\renewcommand{\baselinestretch}{1.3}
 \newcommand*\conj[1]{\overline{#1}}
 \newcommand*\dom[1]{\textnormal{dom}\,#1}
 \newcommand*\cod[1]{\textnormal{cod}\,#1}
@@ -31,5 +32,29 @@
 		\item an operation assigning to each object $A$ a morphism $1_A:A\to A$
 		\item a partial binary operation $(f, g) \mapsto gf$, s.t. $gf$ is defined $\iff \dom{g}=\cod{f}$, and then $gf:\dom{f}\to\cod{g}$
 	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Functor]
+	Let $\mathcal{C}$ and $\mathcal{D}$ be categories. A \textbf{functor} $\mathcal{C}\to\mathcal{D}$ consists of
+	\begin{enumerate}[label=\alph*.]
+		\item a mapping $A \to FA$ from $\ob{\mathcal{C}}$ to $\ob{\mathcal{D}}$
+		\item a mapping $f \to Ff$ from $\mor{\mathcal{C}}$ to $\mor{\mathcal{D}}$
+	\end{enumerate}
+	satisfying $\dom{Ff}=F\dom{f}$, $\cod{Ff}=F\cod{f}$ for all $f$, $F(1_A)=1_{FA}$ for all $A$, and $F(gf)=(Fg)(Ff)$ whenever $gf$ is defined.
+\end{definition}
+
+\begin{definition}
+	By a \textbf{contravariant functor} $\mathcal{C} \to \mathcal{D}$ we mean a functor $\mathcal{C} \to \mathcal{D}^{op}$ (or equivalently $\mathcal{C}^{op} \to \mathcal{D}$). A functor $\mathcal{C} \to \mathcal{D}$ is sometimes said to be \textbf{covariant}.
+\end{definition}
+
+\begin{definition}[Natural transformation]
+	Let $\mathcal{C}$ and $\mathcal{D}$ be two categories and $F, G: \mathcal{C} \rightrightarrows \mathcal{D}$ two functors. A \textbf{natural transformation} $\alpha:F\to G$ assigns to each $A \in \ob{\mathcal{C}}$ a morphism $\alpha_A:FA\to GA$ in $\mathcal{D}$, such that
+	\begin{center}
+		\begin{tikzcd}
+			FA \arrow[r, "Ff"] \arrow[d, "\alpha_A"] & FB \arrow[d, "\alpha_B"]\\
+			GA \arrow[r, "Gf"]& GB
+		\end{tikzcd}
+	\end{center}
+	commutes.
 \end{definition}
 \end{document}

@@ -12,6 +12,7 @@
 \renewcommand{\baselinestretch}{1.3}
 
 \newtheorem*{definition}{Definition}
+\newtheorem*{remark}{Remark}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \DeclareMathOperator{\Ima}{Im}
@@ -39,7 +40,7 @@
 \end{definition}
 
 \begin{definition}[Morphism]
-	Let $X$ be a topological space, $\mathcal{F}$, $\mathcal{G}$ presheaves. A \textbf{morphism} $\varphi: \mathcal{F} \to \mathcal{G}$ is given by a collection of homomorphisms $\mathcal{F}(U)\overset{\varphi(U)}{\to}\mathcal{G}$ s.t. if $V \subseteq U$, the diagram
+	Let $X$ be a topological space, $\mathcal{F}$, $\mathcal{G}$ presheaves. A \textbf{morphism} $\varphi: \mathcal{F} \to \mathcal{G}$ is given by a collection of homomorphisms $\mathcal{F}(U)\overset{\varphi(U)}{\to}\mathcal{G}(U)$ s.t. if $V \subseteq U$, the diagram
 	\begin{center}
 
 	\begin{tikzcd}
@@ -50,6 +51,14 @@
 	
 	\noindent commutes. We say $\varphi$ is an \textbf{isomorphism} if it has an inverse.
 \end{definition}
+
+\begin{remark}
+	$\forall x \in X$, any morphism $\varphi: \mathcal{F} \to \mathcal{G}$, we get a homomorphism
+	\begin{align*}
+	\varphi_x:\mathcal{F}_x &\to \mathcal{G}_x\\
+	(U, s) &\mapsto (U, \varphi_U(s))
+	\end{align*}
+\end{remark}
 
 \begin{definition}
 	Let $X$ be a topological space, $\mathcal{F}$ a presheaf. Then $\exists$ a sheaf $\mathcal{F}^+$ and a morphism $\alpha:\mathcal{F}\to\mathcal{F}^+$ s.t. if $\varphi:\mathcal{F}\to\mathcal{G}$ is a morphism into a sheaf $\mathcal{G}$, then $\varphi$ factors uniquely
