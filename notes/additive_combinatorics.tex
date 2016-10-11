@@ -9,9 +9,14 @@
 \usepackage{enumerate}
 \usepackage{graphicx}
 \usepackage{tikz-cd}
+\renewcommand{\baselinestretch}{1.3}
+\setlength{\parskip}{1em}
 \newtheorem*{definition}{Definition}
 \newtheorem{lemma}{Lemma}
+\newtheorem{theorem}[lemma]{Theorem}
 \newcommand*\conj[1]{\overline{#1}}
+\newcommand*\abs[1]{\left|#1\right|}
+\newcommand*\norm[1]{\abs{\abs{#1}}}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -42,4 +47,62 @@ Have the following basic properties:
 	
 	\item Dilation Rule: let $a$ be invertible mod $N$ and define $f_a(x)$ to be $f(a^{-1}x)$. Then $$\hat{f_a(r)} = \hat{f}(ar)$$
 \end{enumerate}
+
+If $A \subset \mathbb{Z}_N$, we shall write $A(x)$ for $\left\{\begin{tabular}{r} $1 \quad x \in A$ \\ $0 \quad x \not\in A$\end{tabular}\right.$. If $\abs{A} = \alpha N$, then $\hat{A}(0)=\mathbb{E}_xA(x)=\alpha$.
+
+We shall define $\norm{f}_p$ to be $(\mathbb{E}_x\abs{f(x)}^p)^{\frac{1}{p}}$ and $\norm{\hat{f}}_p$ to be $\left(\sum_{r}\abs{\hat{f}(x)}^p\right)^{\frac{1}{p}}$.
+
+Then if $A \subset \mathbb{Z}_N$, $\norm{A}_2^2 = \langle A,A\rangle = \alpha$. By Parseval, we get $$\sum_r \abs{\hat{A}(r)}^2 = \alpha\ \left(= \norm{\hat{A}}_2^2\right)$$
+
+\begin{theorem}[Roth]
+	For every $\delta > 0\ \exists N$ s.t. every subset $A \subset [N]$ of size at least $\delta N$ contains an arithmetic progression of length 3.
+\end{theorem}
+
+Broad strategy: a density increment argument.
+
+The idea is to show that if $A$ has density $\alpha$ and contains no 3-AP then there is a reasonably long AP $P$ s.t. $\frac{\abs{A\cap P}}{\abs{P}}$ is significantly larger than $\alpha$. There we are either done or can pass to $P$ and start again with a larger density. Then repeat, and eventually, since $\alpha$ can't exceed 1, we must get a 3-AP.
+
+In order to use Fourier analysis, we want to think of $A$ as a subset of $\mathbb{Z}_n$. For this purpose, define sets $B=C=A \cap \left[\frac{N}{3},\frac{2N}{3}\right]$, and observe that if $(x, y, z)$ is an AP in $A \times B \times C$ in $\mathbb{Z}_N$, then it also is in $[N]$.
+
+Let $\alpha$ be the density of $A$. Assume that $N$ is odd. If $\abs{B} < \frac{\alpha N}{5}$ then one of $\abs{A \cap \left[1, \frac{N}{3}\right]}$ and $\abs{A \cap \left[\frac{2N}{3}, N\right]}$ is at least $\frac{2\alpha N}{5}$, so we get an interval in which $A$ has density at least $\frac{6\alpha}{5}$, which is a very healthy density increment.
+
+Otherwise, $\abs{B}=\abs{C} > \frac{\alpha N}{5}$, so let's assume that.
+
+Define the \textbf{3-AP-density} of $(A, B, C)$ to be $\mathbb{E}_{x+z=2y}A(x)B(y)C(z)$. This is the probability that a random $(x, y, z)$ with $x+z=2y$ lies in $A \times B \times C$.
+\begin{align*}
+	\mathbb{E}_{x+z=2y}A(x)B(y)C(z) & = \mathbb{E}_u\left(\mathbb{E}_{x+z=u}A(x)C(z)\right)B(u/2)\\
+	&= \mathbb{E}_u A*C(u)B_2(u) \\
+	&= \langle A*C, B_2 \rangle \\
+	&= \langle \widehat{A*C}, \hat{B_2} \rangle \\
+	&= \langle \hat{A}\hat{C}, \hat{B_2} \rangle \\
+	&= \sum_r\hat{A}(r)\hat{C}(r)\conj{\hat{B_2}(r)} \\
+	&= \sum_r\hat{A}(r)\hat{C}(r)\hat{B}(-2r) \\
+	&= \alpha\beta\gamma + \sum_{r\neq 0}\hat{A}(r)\hat{C}(r)\hat{B}(-2r)
+\end{align*}
+where $\beta=\gamma=$ density of $B$ (or $C$). Now
+\begin{align*}
+	\abs{\sum_{r\neq 0}\hat{A}(r)\hat{B}(-2r)\hat{C}(r)} &\leq \max_{r\neq 0}\abs{\hat{A}(r)}\sum_r\hat{B}(-2r)\hat{C}(r)\\
+	&\leq \max_{r \neq 0}\abs{\hat{A}(r)}\norm{\hat{B}}_2\norm{\hat{C}}_2 \text{ (Cauchy-Schwarz)}\\
+	&= \beta^{\frac{1}{2}}\gamma^{\frac{1}{2}}\max_{r \neq 0}\abs{\hat{A}(r)}
+\end{align*}
+Therefore, if $\max_{r \neq 0}\abs{\hat{A}(r)}\beta^{\frac{1}{2}}\gamma^{\frac{1}{2}} \leq \frac{\alpha\beta\gamma}{2}$, i.e. $\max_{r \neq 0}\abs{\hat{A}(r)} \leq \frac{1}{2}\alpha(\beta\gamma)^{\frac{1}{2}}$ then the 3-AP-density of $(A, B, C)$ is at least $\frac{\alpha\beta\gamma}{2}$. Since $\beta\gamma \geq \frac{\alpha^2}{25}$, this tells us that we get 3-APs provided $\max_{r \neq 0}\abs{\hat{A}(r)} \leq \frac{\alpha^2}{10}$ and $\frac{\alpha^3}{50} > \frac{1}{N}$ (ensures that the progression is non-trivial). So we may assume that $\exists r$ s.t. $\abs{\hat{A}(r)} \geq \frac{\alpha^2}{10}$.
+
+\begin{lemma}
+	Let $\epsilon > 0$ and let $r \in \mathbb{Z}_N$. Then the set $[N]$ can be partitioned into arithmetic progressions of length at least $\frac{\epsilon}{8\pi}N^{\frac{1}{2}}$ on each of which the function $x \mapsto \omega^{rx}$ varies by at most $\epsilon$.
+\end{lemma}
+
+\begin{proof}
+	Let $m=\lfloor N^{\frac{1}{2}}\rfloor$. Of the numbers $1,\, \omega^r,\dots,\, \omega ^{mr}$ there must be two, say $\omega^{ur}$ and $\omega^{vr}$ with $u<v$, that differ by at most $\frac{2\pi}{m}$.
+	
+	Let $t=v-u$ and note that $\abs{\omega^{ur}-\omega^{vr}} = \abs{1-\omega^{tr}}$, so $\abs{1-\omega^{tr}} \leq \frac{2\pi}{m}$.
+	
+	Note also that if $a < b$, then
+	\begin{align*}
+		\abs{\omega^{btr}-\omega^{atr}} & \leq \sum_{j=1}^{b-a}\abs{\omega^{(a+j)tr}-\omega^{(a+j-1)tr}}\\
+		&\leq(b-a)\frac{2\pi}{m}
+	\end{align*}
+	by the triangle inquality.
+	
+	Now partition $[N]$ into congruence classes mod $t$, and partition each congruence class into `intervals' of length at most $\frac{\epsilon m}{2\pi}$ and at least $\frac{\epsilon m}{4\pi}$. This is possible, since $t \leq m \leq \sqrt{N}$ (exercise). These progressions do the job, since $\frac{\epsilon m}{4\pi} \geq \frac{\epsilon N^{\frac{1}{2}}}{8\pi}$.
+\end{proof}
 \end{document}
