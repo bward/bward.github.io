@@ -10,13 +10,15 @@
 \usepackage{graphicx}
 \usepackage{tikz-cd}
 \renewcommand{\baselinestretch}{1.3}
-
 \newtheorem*{definition}{Definition}
+\newtheorem*{fact}{Fact}
 \newtheorem*{remark}{Remark}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \DeclareMathOperator{\Ima}{Im}
 \DeclareMathOperator{\Ker}{Ker}
+\newcommand{\properideal}{%
+	\mathrel{\ooalign{$\lneq$\cr\raise.22ex\hbox{$\lhd$}\cr}}}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -91,6 +93,7 @@
 	Now assume $\mathcal{F}$ and $\mathcal{G}$ are sheaves. Define the kernel of $\varphi=\Ker\varphi$ as above, which is a sheaf. Define the image of $\varphi$ by $\Ima(\varphi^{pre})^+$, denoted $\Ima \varphi$.
 \end{definition}
 
+\section{Sheaves II}
 \begin{theorem}
 	Suppose $\varphi:\mathcal{F}\to\mathcal{G}$ is a morphism of sheaves on a topological space $X$. Then
 	\begin{enumerate}[label=\roman*.]
@@ -123,5 +126,68 @@
 	\end{tabular}\right.
 	\]
 	We call $\mathcal{F}$ the \textbf{skyscraper sheaf} associated to $A$ at $x$.
+\end{definition}
+
+\section{Basics of Commutative Algebra}
+Ref: Atiyah and Macdonald, \textit{Introduction to Commutative Algebra}.
+
+Convention: all rings in this course are commutative with 1 (unless ring $=0$).
+
+\begin{definition}
+	Let $A$ be a ring. A \textbf{prime ideal} is an ideal $P \trianglelefteq A$ s.t. $ab \in P \implies a \in P$ or $b \in P$. \textbf{maximal ideal} is an ideal $M \trianglelefteq A$ s.t. if $M \subseteq I \properideal A$, then $M=I$. (Maximal ideals are prime).
+	
+	$A$ is an \textbf{integral domain} if 0 is a prime ideal.
+	
+	$A$ is a \textbf{local ring} if it has a unique maximal ideal.
+	
+	A \textbf{local homomorphism} is a homomorphism of local rings $\alpha: A \to B$ s.t. $\alpha(\text{maximal ideal of } A) \subseteq$ maximal ideal of $B$.
+\end{definition}
+
+\begin{definition}[Radical]
+	Let $A$, be a ring, $I \trianglelefteq A$. The \textbf{radical} of I is defined as $$\sqrt{I} = \{a\in A \,|\, a^n \in I\text{, some } n \in N\}$$
+\end{definition}
+\noindent$\sqrt{I}$ is an ideal. Fact: $\sqrt{I} = \bigcap_{I \subseteq \text{ prime } P \trianglelefteq A} P$
+
+\begin{fact}
+	Let $K$ be an algebraically closed field. Then $I \trianglelefteq K[t_1,\dots,t_n]$ is maximal $\iff I = \langle t_1-a_1,\dots,t_n-a_n\rangle$ for some $a_1,\dots,a_n \in K$.
+\end{fact}
+
+\begin{definition}[Ring of fractions]
+	Let $A$ be a ring. $S \subseteq A$ is a \textbf{multiplicatively closed set} if $1 \in S$ and $s,t \in S \implies st \in S$.
+	
+	Pick such a set. Let $S^{-1}A = \{\frac{a}{s} \,|\, a \in A,\, s \in S\}$ subject to $\frac{a}{s} = \frac{b}{t} \iff \exists u \in S$ s.t. $u(at-bs)=0$.
+	
+	$S^{-1}A$ is a ring: $\frac{a}{s}+\frac{b}{t} = \frac{at+bs}{st}$, $\frac{a}{s}\cdot\frac{b}{t}=\frac{ab}{st}$.
+	
+	We call $S^{-1}A$ the \textbf{ring of fractions} of $A$ w.r.t $S$.
+\end{definition}
+We have a homomoprhism $\alpha:A \to S^{-1}A$, $a \mapsto \frac{a}{1}$. If $s \in S$, then $\alpha(s) = \frac{s}{1}$ is a unit in $S^{-1}A$. Also, $\alpha{a}=0 \iff \exists u \in S$ s.t. $ua=0$.
+
+If $I \trianglelefteq A$, then $S^{-1}I = \{\frac{a}{s}\in S^{-1}A \,|\, a \in I\}$ is an ideal of $S^{-1}A$.
+
+\begin{fact}
+	Every ideal of $S^{-1}A$ is of the form $S^{-1}I$ for some $I \trianglelefteq A$.
+	
+	$$\{P \trianglelefteq A \,|\, P \text{ prime, } P \cap S = \emptyset\} \overset{1-1}{\longleftrightarrow} \{\text{prime ideals of } S^{-1}A\}$$
+\end{fact}
+
+\begin{definition}
+	Let $A$ be a ring, $S$ a multiplicatively closed set, $M$ an $A$-module. Let $S^{-1}M = \{\frac{m}{s} \,|\, m\in M,\, s\in S\}$ subject to: $\frac{m}{s}=\frac{n}{t} \iff \exists u \in S$ s.t. $u(tm-sn)=0$.
+	Thus $\frac{m}{s}+\frac{n}{t}=\frac{tm+sn}{st}$, $\frac{a}{s}\cdot\frac{m}{t}=\frac{am}{st}$, $\forall a\in A ,\, m,n \in M,\, s,t \in S$. So $S^{-1}M$ is an $S^{-1}A$-module.
+\end{definition}
+
+If $M \to N$ is an $A$-homomorphism, then we get an $S^{-1}A$-homomorphism $S^{-1}M \to S^{-1}N$.
+
+\begin{fact}
+	$S^{-1}(M/K)=(S^{-1}M)/(S^{-1}K)$, $K\subseteq M$ a submodule.
+\end{fact}
+
+\begin{definition}[Direct product and direct sum]
+	Let $A$ be a ring, $\{M_i\}_{i\in I}$ a family of $A$-modules. Define the \textbf{direct product} $$\prod_{i \in I}M_i = \left\{(m_i)_{i \in I} \,|\, m_i \in M_i\right\}$$
+	
+	This is an $A$-module: $(m_i)+(n_i) = (m_i+n_i)$, $a\cdot(m_i)=(am_i)$ $\forall m_i,n_i \in M_i ,\, a \in A$.
+	
+	Also define the \textbf{direct sum}
+	$$\bigoplus_{i \in I} M_i = \left\{(m_i)\in \prod_{i \in I}M_i \,|\, m_i=0 \text{ for all but finitely many } i\right\}$$
 \end{definition}
 \end{document}
