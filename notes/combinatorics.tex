@@ -93,4 +93,30 @@ The order on $Q^n \cong \mathcal{P}(n)$ is induced by this oriented graph.
 \begin{theorem}
 	Let $\mathcal{A}$ be a Sperner system on $X$, $\abs{X}=n$. Then $$w(\mathcal{A}) = \sum_{A \in \mathcal{A}}w(A) \leq 1$$
 \end{theorem}
+
+\begin{corollary}
+	If $\mathcal{A} \in \mathcal{P}(n)$ is a Sperner system then $\abs{\mathcal{A}} \leq {n \choose {\lfloor \frac{n}{2} \rfloor}}$, with equality $\iff \mathcal{A}$ is $X^{\lfloor n/2 \rfloor}$ or $X^{\lceil n/2 \rceil}$.
+\end{corollary}
+
+\begin{definition}
+	$\mathcal{A} \in \mathcal{P}(n)$ is \textbf{k-Sperner} if it does not contain $$A_1 \subsetneq A_2 \subsetneq \dots \subsetneq A_{k+1}$$
+\end{definition}
+
+Note that Sperner = 1-Sperner.
+
+\begin{corollary}[Erd\H{o}s, 1945]
+If $\mathcal{A} \subset \mathcal{P}(n)$ is $k$-Sperner then $\abs{\mathcal{A}}$ is at most the sum of the $k$ largest binomial coefficients.	
+\end{corollary}
+
+\begin{theorem}[Erd\H{o}s, 1945]
+	Let $x_1, \dots, x_n \in \mathbb{R}$, $x_i \geq 1$. Then the number of sums $\sum_1^n \pm x_i$ in an open interval $J$ of length $2k$ is at most the sum of the $k$ largest binomial coefficients.
+\end{theorem}
+
+\begin{definition}
+	A chain $A_o \subset A_1 \subset \dots \subset A_k$ is \textbf{symmetric} if $\abs{A_{i+1}} = \abs{A_i} + 1\ \forall i$ and $\abs{A_o} + \abs{A_k} = n$.
+\end{definition}
+
+\begin{theorem}[Kleitman and Katona]
+	$\mathcal{P}(n)$ has a decomposition into symmetric chains
+\end{theorem}
 \end{document}
