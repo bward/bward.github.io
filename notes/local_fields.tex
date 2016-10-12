@@ -108,5 +108,54 @@ Assumption: unless otherwise mentioned, all absolute values will be non-archimed
 
 \begin{definition}
 	Let $R$ be a ring, $I$ an ideal. The \textbf{I-adic completion} of $R$ is the topological ring $\varprojlim_n R/I^n$ ($R/I^n$ has the discrete topology, and $R/I^{n+1} \to R/I^{n}$ is the natural map).
+	
+	There exists a map $\nu: R \to \varprojlim R/I^n$, $r \mapsto (r \mod I^n)_n$ This map is a continuous ring homomorphism when $R$ is given the $I$-adic topology. We say that $R$ is \textbf{I-adically complete} if $\nu$ is a bijection.
+	
+	If $I=xR$ then we often call the $I$-adic topology the \textbf{x-adic topology}.
 \end{definition}
+
+\subsection{The p-adic Numbers}
+Let $p$ be a prime number throughout.
+
+If $x \in \mathbb{Q} \backslash \{0\}$ then $\exists!$ representation $x=p^n \frac{a}{b}$, where $n \in \mathbb{Z}$, $a \in \mathbb{Z}$, $b \in \mathbb{Z}_{>0}$ and $(a,p)=(b,p)=(a,b)=1$.
+
+We define the \textbf{p-adic absolute value} on $\mathbb{Q}$ to be the function $\abs{\cdot}_p: \mathbb{Q} \to \mathbb{R}_{\geq 0}$ given by
+\begin{align*}
+	\abs{x}_p =
+	\begin{cases}
+	0 &\text{if } x=0\\
+	p^{-n}  &\text{if } x=p^n \frac{a}{b}\ (\neq 0) \text{ as before}
+	\end{cases}
+\end{align*}
+Then $\abs{\cdot}_p$ is an absolute value.
+
+\begin{definition}
+	The \textbf{p-adic numbers} $\mathbb{Q}_p$ are the completion of $\mathbb{Q}$ w.r.t. $\abs{\cdot}_p$.
+	
+	The valuation ring $\mathbb{Z}_p = \{x \in \mathbb{Q}_p \,|\, \abs{x}_p \leq 1 \}$ is called the \textbf{p-adic integers}.
+\end{definition}
+
+\begin{prop}
+	$\mathbb{Z}_p$ is the closure of $\mathbb{Z}$ inside $\mathbb{Q}_p$.
+\end{prop}
+
+\begin{prop}
+	The non-zero ideals of $\mathbb{Z}_p$ are $p_n\mathbb{Z}_p$ for $n \geq 0$. Moreover, $\mathbb{Z}/p^n\mathbb{Z} \cong \mathbb{Z}_p/p^n\mathbb{Z}_p$
+\end{prop}
+
+\begin{corollary}
+	$\mathbb{Z}_p$ is a PID with a unique prime element $p$ (up to units).
+\end{corollary}
+
+\begin{prop}
+	The topology on $\mathbb{Z}$ induced by $\abs{\cdot}_p$ is the $p$-adic topology.
+\end{prop}
+
+\begin{prop}
+	$\mathbb{Z}_p$ is $p$-adically complete and is (isomorphic to) the $p$-adic completion of $\mathbb{Z}$.
+\end{prop}
+
+\begin{corollary}
+	Every $a \in \mathbb{Z}_p$ has a unique expansion $$a = \sum_{i=0}^\infty a_ip^i$$ with $a_i \in \{0, 1, \dots, p-1\}$
+\end{corollary}
 \end{document}
