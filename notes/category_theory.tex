@@ -57,4 +57,44 @@
 	\end{center}
 	commutes.
 \end{definition}
+
+We can compose natural transformations: given $\alpha: F \to G$ and $\beta: G \to H$, the mapping $A \mapsto \beta_A \alpha_A$ is the $A$-component of a natural transformation $\beta\alpha: F \to H$.
+
+\begin{definition}
+	Given categories $\mathcal{C}, \mathcal{D}$, we write $[\mathcal{C},\mathcal{D}]$ for the category of all functors $\mathcal{C} \to \mathcal{D}$ and natural transformations between them.
+\end{definition}
+
+\begin{lemma}
+	Given $F,G: \mathcal{C} \to \mathcal{D}$ and $\alpha: F \to G$, $\alpha$ is an isomorphism in $[\mathcal{C}, \mathcal{D}] \iff$ each $\alpha_A$ is an isomorphism in $\mathcal{D}$.
+\end{lemma}
+
+\begin{definition}[Faithful and full]
+	Let $F: \mathcal{C} \to \mathcal{D}$ be a functor.
+	\begin{enumerate}[label=\alph*.]
+		\item We say that $F$ is \textbf{faithful} if, given $f, g \in \mor{\mathcal{C}}$, the equations $\dom{f}=\dom{g}$, $\cod{f}=\cod{g}$ and $Ff = Fg$ imply $f=g$.
+		\item $F$ is \textbf{full} if, given any $g: FA \to FB$ in $\mathcal{D}$, there exists $f: A \to B$ in $\mathcal{C}$ with $Ff =g$.
+		\item We say a subcategory $\mathcal{C}'$ of $\mathcal{C}$ is \textbf{full} if the inclusion $\mathcal{C}' \hookrightarrow \mathcal{C}$ is a full functor.
+	\end{enumerate}
+\end{definition}
+
+For example, \textbf{Gp} is a full subcategory of the category \textbf{Mon} of monoids, but \textbf{Mon} is a non-full subcategory of the category \textbf{Sgp} of semigroups.
+
+\begin{definition}[Equivalence of categories]
+	Let $\mathcal{C}$ and $\mathcal{D}$ be categories. An \textbf{equivalence} between $\mathcal{C}$ and $\mathcal{D}$ is a pair of functors $F: \mathcal{C} \to \mathcal{D}$, $G: \mathcal{D} \to \mathcal{C}$ together with natural isomorphisms $\alpha: 1_\mathcal{C} \to GF$, $\beta: FG \to 1_\mathcal{D}$. We write $\mathcal{C} \simeq \mathcal{D}$ to mean that $\mathcal{C}$ and $\mathcal{D}$ are equivalent.
+	
+	We say a property $P$ of categories is \textbf{categorical} if whenever $\mathcal{C}$ has $P$ and $\mathcal{C}\simeq\mathcal{D}$ then $\mathcal{D}$ has $P$.
+\end{definition}
+
+For example, being a groupoid is a categorical property, but being a group is not.
+
+\begin{definition}[Slice category]
+	Given an object $B$ of a category $\mathcal{C}$, define the \textbf{slice category} $\mathcal{C}/B$ to have morphisms $A \overset{f}{\to} B$ as objects, and morphisms $(A \overset{f}{\to} B) \to (A' \overset{f'}{\to} B)$ are morphisms $h: A \to A'$ making
+	\begin{center}
+		\begin{tikzcd}[column sep=tiny]
+				A \arrow[rr, "h"] \arrow[rd, "f"] & & A'\arrow[ld, "f'"]\\
+				& B &
+		\end{tikzcd}
+	\end{center}
+	commute.
+\end{definition}
 \end{document}
