@@ -32,6 +32,12 @@
 		\item an operation assigning to each object $A$ a morphism $1_A:A\to A$
 		\item a partial binary operation $(f, g) \mapsto gf$, s.t. $gf$ is defined $\iff \dom{g}=\cod{f}$, and then $gf:\dom{f}\to\cod{g}$
 	\end{enumerate}
+	satisfying
+	\begin{enumerate}[label=\alph*.]
+		\setcounter{enumi}{5}
+		\item $f 1_A = f$ and $1_B f=f$ $\forall f: A \to B$
+		\item $h(fg) = (hg)f$ whenever $gf$ and $hg$ are defined
+	\end{enumerate}
 \end{definition}
 
 \begin{definition}[Functor]
