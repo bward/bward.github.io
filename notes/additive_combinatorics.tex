@@ -105,4 +105,59 @@ Therefore, if $\max_{r \neq 0}\abs{\hat{A}(r)}\beta^{\frac{1}{2}}\gamma^{\frac{1
 	
 	Now partition $[N]$ into congruence classes mod $t$, and partition each congruence class into `intervals' of length at most $\frac{\epsilon m}{2\pi}$ and at least $\frac{\epsilon m}{4\pi}$. This is possible, since $t \leq m \leq \sqrt{N}$ (exercise). These progressions do the job, since $\frac{\epsilon m}{4\pi} \geq \frac{\epsilon N^{\frac{1}{2}}}{8\pi}$.
 \end{proof}
+
+The \textbf{balanced function} $f$ of $A$ is defined by $f(x) = A(x) - \alpha$. Note that $\mathbb{E}_xf(x)=0$ and $\hat{f}(r)=\hat{A}(r)$ when $r \neq 0$.
+
+Let $r \neq 0$ be such that $\abs{\hat{f}(r)} \geq \frac{\alpha^2}{10}$. Then
+\begin{align*}
+	\frac{a^2}{10} &\leq \abs{\hat{f}(r)} \\
+	&= \abs{\mathbb{E}_xf(x)\omega^{-rx}} \\
+	&= N^{-1}\abs{\sum_xf(x)\omega^{-rx}}
+\end{align*}
+
+Now let $\epsilon = \frac{\alpha^2}{20}$ and let $P_1, \dots, P_m$ be given by Lemma 2.
+\begin{align*}
+	N^{-1}\abs{\sum_xf(x)\omega^{-rx}} &\leq N^{-1}\sum_i\abs{\sum_{x \in P_i}f(x)\omega^{-rx}}\\
+	&\leq N^{-1}\sum_i\abs{\sum_{x \in P_i} f(x)(\omega^{-rx}-\omega^{-rx_i})} + N^{-1}\sum_i\abs{\sum_{x \in P_i}f(x)\omega^{-rx_i}} \\
+	&\text{where $x_i \in P_i$ is arbitrary}\\
+	&\leq \frac{\alpha^2}{20} + N^{-1}\sum_i\abs{\sum_{x \in P_i} f(x)}
+\end{align*}
+
+So we may conclude that $\sum_i \abs{\sum_{x \in P_i} f(x)} \geq \frac{\alpha^2}{20}N$. Also, $\sum_i \sum_{x \in P_i} f(x) = 0$. Therefore, $\sum_i\left(\abs{\sum_{x \in P_i}f(x)} + \sum_{x \in P_i}f(x)\right) \geq \frac{\alpha^2}{20}N$.
+
+So $\exists i$ s.t. $\abs{\sum_{x \in P_i} f(x)} + \sum_{x \in P_i} f(x) \geq \frac{\alpha^2 \abs{P_i}}{20}$, which implies that $$\sum_{x\in P_i} f(x) \geq \frac{\alpha^2}{40}\abs{P_i}$$
+
+Or equivalently, $\abs{A \cap P_i} \geq \left(\alpha + \frac{\alpha^2}{40} \right) \abs{P_i}$.
+
+Back of envelope calculation: each time we iterate, $\alpha$ goes to at least $\alpha + \frac{\alpha^2}{40}$, so after $\frac{40}{\alpha}$ iterations, the density at least doubles. So the total number of iterations (before we get a 3-AP) is at most $\frac{40}{\alpha} + \frac{40}{2\alpha} + \frac{40}{4\alpha} + \dots = \frac{80}{\alpha}$.
+
+Each time we iterate, $N$ goes to $\frac{\alpha^2}{20}\frac{N^{\frac{1}{2}}}{8\pi}$, so as long as $N \geq ??$ this is at least $N^{\frac{1}{3}}$. So all the iterative processes have that the new $N$ is at least $N^{(\frac{1}{3})^{\frac{80}{\alpha}}}$, which we need to be greater than $\frac{50}{\alpha^3}$.
+
+To solve $N^{(\frac{1}{3})^{\frac{80}{\alpha}}} > \frac{50}{\alpha^3}$ take logs twice.
+\begin{align*}
+	\left(\frac{1}{3}\right)^{\frac{80}{\alpha}} \log N &> \log 50 + \log(\alpha^{-3}) \\
+	\implies \frac{80}{\alpha}\log(\frac{1}{3}) + \log\log N &> \log(\log 50 + \log(\alpha^{-3}))
+\end{align*}
+So for an appropriate constant $C$, we are done if $$\log\log N \geq \frac{C}{\alpha} \text{, or } \alpha \geq \frac{C}{\log\log N}$$
+
+\begin{theorem}[Behrend, 1947]
+	For every $N$ there exists a subset $A \subset [N]$ of size $\frac{N}{e^{c\sqrt{\log N}}}$ that contains no 3-AP.
+\end{theorem}
+\begin{proof}
+	For this proof let $[N]$ mean $\{0,1,\dots,N-1\}$.
+	
+	Let $m, d$ be positive integers and consider the grid $[m]^{d}$. Note that in $\mathbb{R}^d$, no sphere $\{x: x_1^2 + \dots + x_d^2 =t \}$ contains three distinct points $x$, $y$, $z$ with $x+z=2y$.
+	
+	But on $[m]^d$, $x_1^2+ \dots + x_d ^2$ takes at most $dm^2$ different values. Therefore, we can find a sphere that intersects $[m]^d$ in at least $\frac{m^d}{m^2d}$ points.
+	
+	Let $\phi: [m]^d \to [(2m)^d]$ be defined by $$\phi(x) = x_1 + 2mx_2 + (2m)^2x_3 + \dots + (2m)^{d-1}x_d$$
+	
+	So $\phi$ sends $(x_1, \dots, x_d)$ to the integer with base-$2m$ representation $x_dx_{d-1}\dots x_1$.
+	
+	If we add $\phi(x)$ and $\phi(y)$ then no carrying takes place base-$2m$ since all digits are $<m$. So if $\phi(x) + \phi(z) = 2\phi(y)$ it follows that $x+z=2y$, i.e. no new 3-APs are created.
+	
+	So (ignoring divisibility etc.) we can find a subset of $[(2m)^d]$ of size $\frac{m^d}{m^2d}$ that contains no 3-AP. If we let $N=(2m)^d$, then $m=\frac{N^{\frac{1}{d}}}{2}$ and $\frac{m^d}{m^2d} = \frac{4N}{2^dN^\frac{2}{d}d}$. So we'd like to minimise $2^dN^\frac{2}{d}d$.
+	
+	Take logs: $d\log 2 + \frac{2}{d}\log N + \log d$, so $d = \sqrt{\log N}$ is a pretty good choice. So we get $$\frac{N}{2^{\sqrt{\log N}}e^{2 \sqrt{\log N}}\sqrt{\log N}} \geq \frac{N}{e^{c \sqrt{ \log N}}}$$
+\end{proof}
 \end{document}
