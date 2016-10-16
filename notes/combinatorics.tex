@@ -11,6 +11,7 @@
 \usepackage{tikz-cd}
 \usepackage{enumitem}
 \newtheorem*{definition}{Definition}
+\newtheorem*{conjecture}{Conjecture}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{prop}[theorem]{Proposition}
@@ -22,6 +23,7 @@
 \newcommand*\ob[1]{\textnormal{ob}\,#1}
 \newcommand*\mor[1]{\textnormal{mor}\,#1}
 \newcommand*\abs[1]{\left|#1\right|}
+\newcommand*\norm[1]{\abs{\abs{#1}}}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -119,4 +121,37 @@ If $\mathcal{A} \subset \mathcal{P}(n)$ is $k$-Sperner then $\abs{\mathcal{A}}$ 
 \begin{theorem}[Kleitman and Katona]
 	$\mathcal{P}(n)$ has a decomposition into symmetric chains.
 \end{theorem}
+
+Take such a partition $\mathcal{P}(n) = \bigcup_{i=1}^k \mathcal{C}_i$, $j = {n \choose {\lfloor\frac{n}{2}\rfloor}}$. There is one chain of length $n+1$, $n-1$ chains of length $n-1$, etc: there are ${n \choose i} - {n \choose {i-1}}$ chains of length $n+1-2i$.
+
+Let $E$ be a normed space, let $x_1, \dots, x_n \in E$, $\norm{x_i} \geq 1 \ \forall i$, for $A \in \mathcal{P}(n)$ let $x_A = \sum{i \in A} x_i$.
+\begin{conjecture}[Erd\H{o}s, 1945]
+	If $\mathcal{A} \in \mathcal{P}(n)$ s.t. $\norm{x_A - x_B} < 1$ then $\abs{\mathcal{A}} \leq {n \choose {\lfloor\frac{n}{2}\rfloor}}$
+\end{conjecture}
+
+\begin{definition}
+	Call $\mathcal{D} \in \mathcal{P}(n)$ \textbf{scattered} if $\norm{x_A - x_B} \geq 1 \ \forall A,B \in \mathcal{D}$. Call a partition $\mathcal{P}(n) = \bigcup_{i=1}^s \mathcal{D}_i$ \textbf{symmetric} if there are precisely ${n \choose i} - {n \choose i-1}$ sets $\mathcal{D}_i$ of cardinality $n+1-2i$.
+\end{definition}
+
+\begin{theorem}(Kleitman, 1970)
+	$E, (x_i)_1^n$ as before. Then $\mathcal{P}(n)$ has a symmetric partition into scattered sets.
+\end{theorem}
+
+\begin{theorem}(Kleitman, 1970)
+	If $\mathcal{A} \in \mathcal{P}(n)$ s.t. $\norm{x_A-x_B} < 1$ then $\abs{\mathcal{A}} \leq {n \choose {\lfloor\frac{n}{2}\rfloor}}$
+\end{theorem}
+
+\section{The Kruskal-Katona Theorem}
+We know: if $\mathcal{A} \subset X^{(r)}$ then $\partial \mathcal{A}$ (the \textbf{lower shadow} of $\mathcal{A}$), defined by $$\partial \mathcal{A} = \{B \in X^{(r-1)} \,|\, B \subset A \text{ for some } A \in \mathcal{A}\}$$ satisfies
+\begin{align*}
+\abs{\partial \mathcal{A}} &\geq \abs{\mathcal{A}} \frac{{n \choose r-1}}{{n \choose r}} \\
+&= \abs{\mathcal{A}}\frac{r}{n-r+1}
+\end{align*}
+with equality $\iff \mathcal{A}$ is $\emptyset$ or $X^{(r)}$.
+
+What about in between? What is $\mathcal{B} \in X^{(r)}$ s.t. $\abs{\mathcal{B}} = \abs{\mathcal{A}}$ and $\abs{\partial\mathcal{B}} \leq \abs{\partial\mathcal{A}}$?
+
+$\exists \mathcal{B}_1, \mathcal{B}_2, \dots \in X^{(r)}$ s.t. $\abs{\mathcal{B}_m} = m$ and $\abs{\partial \mathcal{B}_m} \leq \abs{\partial \mathcal{A}} \ \forall \mathcal{A} \subset X^{(r)}$ where $\abs{\mathcal{A}} = m$.
+
+Incredibly luckily, we have a sequence of nested extremal sets. Equivalently, $\exists$ total order on $X^{(r)}$ s.t. the first $m$ sets form $\mathcal{B}_m$.
 \end{document}
