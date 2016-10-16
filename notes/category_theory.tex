@@ -11,6 +11,7 @@
 \usepackage{tikz-cd}
 \usepackage{enumitem}
 \newtheorem*{definition}{Definition}
+\newtheorem*{remark}{Remark}
 \newtheorem{lemma}{Lemma}
 \renewcommand{\baselinestretch}{1.3}
 \newcommand*\conj[1]{\overline{#1}}
@@ -103,4 +104,45 @@ For example, being a groupoid is a categorical property, but being a group is no
 	\end{center}
 	commute.
 \end{definition}
+
+\begin{lemma}
+	Let $F: \mathcal{C} \to \mathcal{D}$ be a functor. Then $F$ is part of an equivalence $\mathcal{C} \simeq \mathcal{D} \iff$ F is full, faithful and \textbf{essentially surjective}, i.e. for every $B \in \ob \mathcal{D}$, there exists $A \in \ob \mathcal{C}$ s.t. $FA \cong B$.
+\end{lemma}
+
+\begin{definition}
+	\begin{enumerate}[label=\alph*.]
+		\item A \textbf{skeleton} of a category $\mathcal{C}$ is a full subcategory $\mathcal{C}'$ containing exactly one object from each isomorphism class of objects of $\mathcal{C}$.
+		\item We say $\mathcal{C}$ is \textbf{skeletal} if it's a skeleton of itself. Equivalently, any isomorphism $f$ in $\mathcal{C}$ satisfies $\dom f = \cod f$.
+	\end{enumerate}
+\end{definition}
+
+For example, $\text{\textbf{Mat}}_K$ is skeletal. The full subgategory of standard vector spaces $K^n$ is a skeleton of $\text{\textbf{fd Mod}}_K$.
+
+\begin{remark}
+	The following statements are each equivalent to the Axiom of Choice:
+	\begin{enumerate}
+		\item Every small category has a skeleton
+		\item Any small category is equivalent to each of its skeletons
+		\item Any two skeletons of a given small category are isomorphic
+	\end{enumerate}
+\end{remark}
+
+\begin{definition}
+	Let $f: A \to B$ be a morphism in a category $\mathcal{C}$.
+	\begin{enumerate}[label=\alph*.]
+		\item $f$ is a \textbf{monomorphism} if, given $g,h:D \rightrightarrows A$, the equation $fg = fh$ implies $g=h$. We write $A \rightarrowtail B$ if $f$ is monic.
+		\item Dually, $f$ is an \textbf{epimorphism} if, given $k,l: B \rightrightarrows C$, $kf = lf$ implies $k=l$. We write $A \twoheadrightarrow B$ if $f$ is epic.
+		\item $\mathcal{C}$ is a \textbf{balanced} category if every $f \in \mor \mathcal{C}$ which is both monic and epic is an isomorphism.
+	\end{enumerate}
+\end{definition}
+
+\section{The Yoneda Lemma}
+\begin{definition}
+	A category $\mathcal{C}$ is \textbf{locally small} if, for any two objects $A, B$ of $\mathcal{C}$, the morphism $A \to B$ are parametrised by a set $\mathcal{C}(A, B)$.
+\end{definition}
+
+Given local smallness, $B \mapsto \mathcal{C}(A,B)$ becomes a functor $\mathcal{C}(A, \cdot): \mathcal{C} \to \text{\textbf{Set}}$: if $g: B \to B'$, the mapping $f \mapsto gf : \mathcal{C}(A, B) \to \mathcal{C}(A, B')$ is functorial since $h(gf) = (hg)f$ for any $h: B' \to B''$.
+
+Similarly, $A \mapsto \mathcal{C}(A, B)$ becomes a functor $\mathcal{C}^{op} \to \text{\textbf{Set}}$.
+	
 \end{document}
