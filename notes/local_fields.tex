@@ -22,6 +22,8 @@
 \newcommand*\ob[1]{\textnormal{ob}\,#1}
 \newcommand*\mor[1]{\textnormal{mor}\,#1}
 \newcommand*\abs[1]{\left|#1\right|}
+\newcommand*\norm[1]{\abs{\abs{#1}}}
+\DeclareMathOperator{\Aut}{Aut}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -220,4 +222,38 @@ Let $K$ be a valued field.
 \begin{corollary}
 	$F \in \mathcal{O}[x]$ monic, $K$ complete. If $F \mod \mathfrak{m}$ has a simple root $\bar{\alpha} \in k$, then $F$ has a (unique) simple root $\alpha \in \mathcal{O}$ lifting $\bar{\alpha}$.
 \end{corollary}
+
+Useful fact: let $K$ be a valued field, $x, y \in K$. $\abs{x} > \abs{y} \implies \abs{x+y} = \abs{x}$. More generally, if we have a convergent series $\sum_{i=0}^\infty x_i$ and the non-zero $\abs{x_i}$ are distinct, then $\abs{x} = \max \abs{x_i}$.
+
+\begin{theorem}
+	Let $K$ be a complete valued field and let $L/K$ be a finite extension. Then the absolute value $\abs{\cdot}$ on $K$ has a unique extension to an absolute value $\abs{\cdot}_L$ on $L$, given by $$\abs{\alpha}_L = \sqrt[n]{\abs{N_{L/K}(\alpha)}},\ n=[L:K]$$ and $L$ is complete w.r.t. $\abs{\cdot}_L$. 
+\end{theorem}
+
+\begin{corollary}
+	Let $K$ be a complete valued field. If $M/K$ is an algebraic extension of $K$, then $\abs{\cdot}$ extends uniquely to an absolute value on $M$.
+\end{corollary}
+
+\begin{corollary}
+	In the setting of Theorem 16, if $\sigma \in \Aut(L/K)$ then $\abs{\sigma(\alpha)}_L = \abs{\alpha}_L\ \forall \alpha \in L$
+\end{corollary}
+
+\begin{definition}
+	Let $K$ be a valued field and $V$ a vector space over $K$. A \textbf{norm} on $V$ is a function $\norm{\cdot}: V \to \mathbb{R}_{\geq 0}$ such that
+	\begin{enumerate}[label=\roman*.]
+		\item $\norm{x} = 0 \iff x = 0$
+		\item $\norm{\lambda x} = \abs{\lambda}\norm{x}\ \forall \lambda \in K, x \in V$
+		\item $\norm{x+y} \leq \max(\norm{x}, \norm{y})\ \forall x,y, \in V$
+	\end{enumerate}
+	Two norms $\norm{\cdot}, \norm{\cdot}'$ are \textbf{equivalent} if they induce the same topology on V $\iff \exists C,D > 0$ s.t. $C\norm{x} \leq \norm{x}' \leq D\norm{x}\ \forall x \in V$.
+\end{definition}
+
+\begin{prop}
+	Let $K$ be a complete valued field and $V$ a finite dimensional $K$-vector sapce. Let $x_1, \dots, x_n$ be a basis of $V$, then if $x = \sum a_i x_i \in V$, $$\norm{x}_{\max} = \max_i \abs{a_i}$$ defines a norm on $V$, and $V$ is complete w.r.t $\norm{\cdot}_{\max}$.
+	
+	Moreover, if $\norm{\cdot}$ is any norm on $V$, then $\norm{\cdot}$ is equivalent to $\norm{\cdot}_{\max}$ and hence $V$ is complete w.r.t $\norm{\cdot}$.
+\end{prop}
+	
+\begin{lemma}
+	Let $K$ be a valued field. Then $\mathcal{O}_K$ is integrally closed in $K$.
+\end{lemma}
 \end{document}
