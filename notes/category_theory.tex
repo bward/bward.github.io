@@ -4,21 +4,25 @@
 \date{Michaelmas 2016\\University of Cambridge}
 \usepackage{mathtools}
 \usepackage{amsthm}
+\usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{textcomp}
 \usepackage{enumerate}
 \usepackage{graphicx}
 \usepackage{tikz-cd}
 \usepackage{enumitem}
-\newtheorem*{definition}{Definition}
-\newtheorem*{remark}{Remark}
-\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{corollary}[definition]{Corollary}
+\numberwithin{definition}{section}
 \renewcommand{\baselinestretch}{1.3}
 \newcommand*\conj[1]{\overline{#1}}
 \newcommand*\dom[1]{\textnormal{dom}\,#1}
 \newcommand*\cod[1]{\textnormal{cod}\,#1}
 \newcommand*\ob[1]{\textnormal{ob}\,#1}
 \newcommand*\mor[1]{\textnormal{mor}\,#1}
+\DeclareMathOperator{\Set}{\textbf{Set}}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -141,8 +145,55 @@ For example, $\text{\textbf{Mat}}_K$ is skeletal. The full subgategory of standa
 	A category $\mathcal{C}$ is \textbf{locally small} if, for any two objects $A, B$ of $\mathcal{C}$, the morphism $A \to B$ are parametrised by a set $\mathcal{C}(A, B)$.
 \end{definition}
 
-Given local smallness, $B \mapsto \mathcal{C}(A,B)$ becomes a functor $\mathcal{C}(A, \cdot): \mathcal{C} \to \text{\textbf{Set}}$: if $g: B \to B'$, the mapping $f \mapsto gf : \mathcal{C}(A, B) \to \mathcal{C}(A, B')$ is functorial since $h(gf) = (hg)f$ for any $h: B' \to B''$.
+Given local smallness, $B \mapsto \mathcal{C}(A,B)$ becomes a functor $\mathcal{C}(A, -): \mathcal{C} \to \Set$: if $g: B \to B'$, the mapping $f \mapsto gf : \mathcal{C}(A, B) \to \mathcal{C}(A, B')$ is functorial since $h(gf) = (hg)f$ for any $h: B' \to B''$.
 
-Similarly, $A \mapsto \mathcal{C}(A, B)$ becomes a functor $\mathcal{C}^{op} \to \text{\textbf{Set}}$.
+Similarly, $A \mapsto \mathcal{C}(A, B)$ becomes a functor $\mathcal{C}^{op} \to \Set$.
+
+\begin{lemma}[Yoneda]
+	Let $\mathcal{C}$ be a locally small category, $A \in \ob \mathcal{C}$ and $F: \mathcal{C} \to \Set$. Then
+	\begin{enumerate}[label=\roman*.]
+		\item There is a bijection between natural transformations $\mathcal{C}(A, -) \to F$ and elements of $FA$.
+		\item Moreover, this bijection is natural in both $A$ and $F$.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Bijection: given $\alpha : \mathcal{C}(A, -) \to F$, define $\Phi(\alpha) = \alpha_A(1_A) \in FA$.
 	
+	Given $x \in FA$, define $\Psi(x): \mathcal{C}(A, -) \to F$ by $$\Psi(x)_B(A \overset{f}{\to} B) = (Ff)(x) \in FB$$ $\Psi(x)$ is natural: given $g: B \to C$, we have
+	\begin{align*}
+	\Psi(x)_C(\mathcal{C}(A, g)(f)) &= \Psi(x)_C(gf) \\
+	&= F(gf)(x) \\
+	&= (Fg)(Ff)(x) \\
+	&= (Fg)\Psi(x)_B(f)
+	\end{align*}
+	
+	$\Phi\Psi(x) = x$ since $F(1_A)(x) = x$, and $\Psi\Phi(\alpha) = \alpha$ since, for any $f: A \to B$,
+	\begin{align*}
+	\Psi\Phi(\alpha)_B(f) &= Ff(\Phi(\alpha)) \\
+	&= Ff(\alpha_A(1_A)) \\
+	&= \alpha_B(\mathcal{C}(A,f)(1_A)) \\
+	&= \alpha_B(f)
+	\end{align*}
+\end{proof}
+
+\begin{corollary}
+	The mapping $A \to \mathcal{C}(A, -)$ is a full and faithful functor $\mathcal{C}^{op} \to [\mathcal{C}, \Set]$.
+\end{corollary}
+\begin{proof}
+	Given two objects $A,B$, 2.2(i) gives us a bijection from $\mathcal{C}(B,A)$ to the collection of natural transformations $\mathcal{C}(A, -) \to \mathcal{C}(B, -)$ (by taking $F: C \mapsto \mathcal{C}(B, C)$). We need to show this is functorial, but given $f \in \mathcal{C}(B, A)$, $\Psi(F)_A$ sends $1_A$ to $\mathcal{C}(B, f)(1_A) = f$, so it's the natural transformation $g \mapsto gf$.
+	
+	Hence, given $e: C \to B$, $\Psi(fe)(g) = g(fe) = (gf)(e) = \Psi(e)\Psi(f)g$
+\end{proof}
+
+We call this functor the \textbf{Yoneda embedding}. Hence any locally small category $\mathcal{C}$ is equivalent to a full subcategory of $[\mathcal{C}^{op}, \Set]$.
+
+\begin{definition}
+	A functor $\mathcal{C} \to \Set$ is \textbf{representable} if it's isomorphic to $\mathcal{C}(A, -)$ for some $A$.
+	
+	A \textbf{representation} of $F: \mathcal{C} \to \Set$ is a pair $(A, x)$ where $A \in \ob \mathcal{C}$, $x \in FA$ and $\Psi(x): \mathcal{C}(A, -) \to F$ is an isomorphism. We also call $x$ a \textbf{universal element} of $F$.
+\end{definition}
+
+\begin{corollary}['Representations are unique up to unique isomorphism']
+	If $(A, x)$ and $(B, y)$ are both representations of $F: \mathcal{C} \to \Set$, then there's a unique isomorphism $f: A \to B$ s.t $Ff(x)=y$.
+\end{corollary}
 \end{document}
