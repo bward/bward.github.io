@@ -207,4 +207,66 @@ $C_{ij}: \mathcal{A} \mapsto C_{ij}(\mathcal{A})$ keeps $\mathcal{A}_\emptyset \
 \begin{lemma}
 	For $\mathcal{A} \subset X^{(r)}$, $\partial C_{ij}(\mathcal{A}) \subseteq C_{ij}(\partial \mathcal{A})$. In particular, the cardinality decreases.
 \end{lemma}
+\begin{proof}
+	Let $B \in \partial C_{ij}(\mathcal{A})$ and let $A \in \mathcal{A}$ s.t. $B \subset C_{i,j,\mathcal{A}}(A)$.
+	\begin{enumerate}[label=\roman*.]
+		\item Suppose $B$ meets $\{i,j\}$ in 0 or 2 elements. Then $B \subset A$ so $B \in \partial A$ and $B \in C_{ij}(\partial \mathcal{A})$
+		\item Suppose $i \in B$, $j \not\in B$. Then either $B$ or $(B \backslash \{i\}) \cup \{j\}$ belongs to $\partial \mathcal{A}$, so $B \in C_{ij}(\partial \mathcal{A})$.
+		\item Suppose $j \in B$, $i \not\in B$. Then both $B$ and $(B \backslash \{j\}) \cup \{i\}$ belong to $\partial\mathcal{A}$, so both belong to $C_{ij}(\partial\mathcal{A})$.
+	\end{enumerate}
+\end{proof}
+\begin{definition}
+	Call $\mathcal{A} \subset X^{(r)}$ \textbf{left-compressed} if $C_{ij}(\mathcal{A}) = \mathcal{A}\ \forall i < j$.
+\end{definition}
+
+\begin{lemma}
+	Let $\mathcal{A} \subset X^{(r)}$. Then $\exists$ a left-compressed family $\mathcal{B} \subset X^{r}$ s.t. $\abs{\mathcal{B}}=\abs{\mathcal{A}}$ and $\abs{\partial\mathcal{B}} \leq \abs{\partial\mathcal{A}}$.
+\end{lemma}
+\begin{proof}
+	Define $\mathcal{A}_0 = \mathcal{A}, \mathcal{A}_1, \dots$ as follows: having reached $\mathcal{A}_k$, if $\mathcal{A}_k$ is not left-compressed, pick $i < j$ s.t. $C_{ij}(\mathcal{A}_k) \neq \mathcal{A}_k$, and set $\mathcal{A}_{k+1} = C_{ij}(\mathcal{A}_k)$
+	
+	This sequence has to end because $$\sum_{A \in \mathcal{A}_{k+1}} \sum_{a \in A} a < \sum_{A \in \mathcal{A}_{k}} \sum_{a \in A} a$$ let $\mathcal{A}_l$ be the last term: this will do for $\mathcal{B}$.
+\end{proof}
+
+\begin{theorem}[Kruskal-Katona, 1963 and 1968]
+	Let $\mathcal{A} \subset X^{(r)}$, $m = \abs{\mathcal{A}}$. Then
+	\begin{align*}
+		\abs{\partial\mathcal{A}} &\geq \abs{\partial\mathcal{B}_m^{(r)}} \\
+		&= \abs{\partial\mathcal{B}^{(r)}(m_r, m_{r-1}, \dots, m_s)} \\
+			&= b^{(r-1)}(m_r, \dots, m_s)
+	\end{align*}
+\end{theorem}
+\begin{proof}
+	Induction on $r$ and then $m$ (or on $r+m$). $r=1 \checkmark \ m=1 \checkmark$
+	
+	Induction step: we may assume that $\mathcal{A}$ is left-compressed. Set $Y = X \backslash \{1\}$. Then $\mathcal{A} = (\mathcal{A}_1 + \{1\}) \cup \mathcal{A}_0$, where $\mathcal{A}_1 \subset Y^{(r-1)}$, $\mathcal{A}_0 \subset Y^{(r)}$.
+	
+	$m=\abs{\mathcal{A}} = \abs{\mathcal{A}_0} + \abs{\mathcal{A}_1}$, $\partial \mathcal{A}_0 \subset \mathcal{A}_1$, $\partial(\mathcal{A}_1 + \{1\}) = \mathcal{A}_1 \cup (\partial\mathcal{A}_1 + \{1\})$.
+	
+	In particular, $\abs{\partial\mathcal{A}} = \abs{\mathcal{A}_1} + \abs{\partial\mathcal{A}_1}$.
+	
+	For $\mathcal{A} = \mathcal{B}^{(r)}(m_r, \dots, m_s)$, $$\abs{\mathcal{A}_1} = b^{(r-1)}(m_r-1,\dots,m_s-1)$$ $$\abs{\mathcal{A}_0} = b^{(r)}(m_r-1,\dots,m_s-1)$$
+	
+	Suppose $\abs{\mathcal{A}_0} > b^{(r)}(m_r-1,\dots,m_s-1)$. Then by the induction hypothesis, $\abs{\partial\mathcal{A}_0} \geq b^{(r-1)}(m_r-1,\dots,m_s-1)$. Hence $\abs{\mathcal{A}_1} \geq b^{(r-1)}(m_r-1, \dots, m_s-1)$ and so $\abs{\partial \mathcal{A}} \geq b^{(r-1)}(m_r, \dots, m_s)$.
+	
+	But if $\abs{\mathcal{A}_0} \leq b^{(r)}(m_r-1, \dots, m_s-1)$, $\abs{\mathcal{A}_1}$ is again $\geq b^{(r-1)}(m_r-1,\dots,m_s-1)$. Done as before.
+\end{proof}
+
+Soft version:
+\begin{theorem}[Lov\'asz, 1979]
+	If $\mathcal{A} \subset X^{(r)}$ satisfies $\abs{\mathcal{A}} = {X \choose r}$ then $\abs{\partial\mathcal{A}} \geq {X \choose r-1}$.
+\end{theorem}
+\begin{proof}
+	Induction on $r$ and $m = \abs{\mathcal{A}}$. As before, $\mathcal{A}_0, \mathcal{A}_1$. Note that $\mathcal{A}_1 \geq {X-1 \choose r-1}$ since otherwise $\mathcal{A}_0 > {X-1 \choose r}$. But then $\abs{\partial\mathcal{A}_0} \geq {X-1 \choose r-1}$, contradicting the fact that $\partial\mathcal{A}_0 \subset \mathcal{A}_1$.
+	
+	But if $\abs{\mathcal{A}_1} \geq {X-1 \choose r-1}$ then $$\abs{\mathcal{A}_1} + \abs{\partial\mathcal{A}_1} \geq {X-1 \choose r-1} + {X-1 \choose r-2} = {X \choose r-1}$$
+\end{proof}
+
+\begin{definition}
+	Define the \textbf{uniform probability measure} on $X^{(r)}$, $\abs{X}=n$ as $\mathbb{P}_{n,r}(A) = \frac{1}{{n \choose r}}$, and for $\mathcal{A} \subset X^{(r)}$, $\mathbb{P}_{n-r}(\mathcal{A}) = \frac{\abs{\mathcal{A}}}{{n \choose r}}$.
+\end{definition}
+
+\begin{definition}
+	$\mathcal{A} \subset \mathcal{P}(n)$ is \textbf{monotone decreasing} if $A \subset B \in \mathcal{A} \implies A \in \mathcal{A}$.
+\end{definition}
 \end{document}
