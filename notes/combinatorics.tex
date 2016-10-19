@@ -142,6 +142,7 @@ Let $E$ be a normed space, let $x_1, \dots, x_n \in E$, $\norm{x_i} \geq 1 \ \fo
 \end{theorem}
 
 \section{The Kruskal-Katona Theorem}
+\setcounter{theorem}{0}
 We know: if $\mathcal{A} \subset X^{(r)}$ then $\partial \mathcal{A}$ (the \textbf{lower shadow} of $\mathcal{A}$), defined by $$\partial \mathcal{A} = \{B \in X^{(r-1)} \,|\, B \subset A \text{ for some } A \in \mathcal{A}\}$$ satisfies
 \begin{align*}
 \abs{\partial \mathcal{A}} &\geq \abs{\mathcal{A}} \frac{{n \choose r-1}}{{n \choose r}} \\
@@ -154,4 +155,56 @@ What about in between? What is $\mathcal{B} \in X^{(r)}$ s.t. $\abs{\mathcal{B}}
 $\exists \mathcal{B}_1, \mathcal{B}_2, \dots \in X^{(r)}$ s.t. $\abs{\mathcal{B}_m} = m$ and $\abs{\partial \mathcal{B}_m} \leq \abs{\partial \mathcal{A}} \ \forall \mathcal{A} \subset X^{(r)}$ where $\abs{\mathcal{A}} = m$.
 
 Incredibly luckily, we have a sequence of nested extremal sets. Equivalently, $\exists$ total order on $X^{(r)}$ s.t. the first $m$ sets form $\mathcal{B}_m$.
+
+\begin{definition}
+	Define the \textbf{colex} total order on $X^{(r)}$ by $A<B$ if $\max(A \Delta B) \in B$.
+\end{definition}
+
+Aim: given $m$ and $r$, would like to find $\mathcal{B} \subset X^{(r)}$, $\abs{\mathcal{B}} = m$ s.t. $\abs{\partial\mathcal{B}} \leq \abs{\partial\mathcal{A}}\ \forall \mathcal{A} \subset X^{(r)}$, $\abs{\mathcal{A}} = m$.
+
+Define $\mathcal{B}^{(r)}(m_r, \dots, m_s),\, m_r > m_{r-1} > \dots > m_s \geq s$ as follows:
+\begin{align*}
+\mathcal{B}^{(r)} = [m_r]^{(r)} &\cup ([m_{r-1}]^{(r-1)} + \{m_{r} + 1\}) \\
+								&\cup ([m_{r-2}]^{(r-2)} + \{m_{r-1} +1, m_r + 1\}) \\
+								&\cup \dots \\
+								&\cup ([m_{s}]^{(s)} + \{m_{s+1} +1, m_{s+2} + 1, \dots, m_r + 1\}) \\
+\end{align*}
+
+Set $b^{(r)}(m_r, \dots, m_s) = \abs{\mathcal{B}^{(r)}(m_r, \dots, m_s)} = \sum_{j=s}^r {m_j \choose j}$.
+
+$$\partial\mathcal{B}^{(r)}(m_r, \dots, m_s) = \mathcal{B}^{(r-1)}(m_r, \dots, m_s)$$
+
+This has cardinality $b^{(r-1)}(m_r, \dots, m_s) = \sum_{j=s}^r {m_j \choose j-1}$.
+
+\begin{lemma}
+	For $l, r \in \mathbb{N}$ $\exists!\ m_r > \dots > m_s$  s.t. $l = \sum_{j=s}^r {m_j \choose j}$; the initial segment of $X^{(r)}$ in colex, consisting of $l$ sets, is $\mathcal{B}^{(r)}(m_r, \dots, m_s)$.
+\end{lemma}
+
+\begin{definition}
+	Let $i \neq j \in X$, $A \in \mathcal{P}(X)$. Define the \textbf{ij-compression} $$A_{ij} = C_{ij}(A) = \begin{cases}
+	(A\backslash \{j\}) \cup \{i\} & \text{if } j \in A,\, i \not\in A \\
+	A & \text{otherwise}
+	\end{cases}$$
+	Given $\mathcal{A} \subset \mathcal{P}(n), A \in \mathcal{A}$ $$C_{i,j,\mathcal{A}}(A) = \begin{cases}
+	A_{ij} & \text{if } A_{ij} \not\in \mathcal{A} \\
+	A & \text{otherwise}
+	\end{cases}$$
+	Also,
+	\begin{align*}
+	C_{ij}(\mathcal{A}) &= \{C_{i,j,\mathcal{A}} \,|\, A \in \mathcal{A} \} \\
+	&= \{C_{ij}(A) \,|\, A \in \mathcal{A}\} \cup \{A \in \mathcal{A} \,|\, C_{ij}(A) \in \mathcal{A}\}
+	\end{align*}
+	For $\mathcal{A} \in X^{(r)}$,
+	\begin{align*}
+	\mathcal{A}_{ij} &= \{A \in \mathcal{A} \,|\, \{i,j\} \subset A \} \\
+	\mathcal{A}_i &= \{A \in \mathcal{A} \,|\, i \in A,\, j \not\in A \} \\
+	\mathcal{A}_\emptyset &= \{A \in \mathcal{A} \,|\, A \cap \{i, j\} = \emptyset \} \\
+	\mathcal{A}_j &= \{A \in \mathcal{A} \,|\, i \not\in A,\, j \in A \} \\
+	\end{align*}
+\end{definition}
+$C_{ij}: \mathcal{A} \mapsto C_{ij}(\mathcal{A})$ keeps $\mathcal{A}_\emptyset \cup \mathcal{A}_i \cup \mathcal{A}_{ij}$ fixed, and maps $\mathcal{A}_j$ into sets like those in $\mathcal{A}_i$.
+
+\begin{lemma}
+	For $\mathcal{A} \subset X^{(r)}$, $\partial C_{ij}(\mathcal{A}) \subseteq C_{ij}(\partial \mathcal{A})$. In particular, the cardinality decreases.
+\end{lemma}
 \end{document}
