@@ -14,9 +14,11 @@
 \newtheorem*{definition}{Definition}
 \newtheorem{lemma}{Lemma}
 \newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{corollary}[lemma]{Corollary}
 \newcommand*\conj[1]{\overline{#1}}
 \newcommand*\abs[1]{\left|#1\right|}
 \newcommand*\norm[1]{\abs{\abs{#1}}}
+\DeclareMathOperator{\im}{Im}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -160,4 +162,73 @@ So for an appropriate constant $C$, we are done if $$\log\log N \geq \frac{C}{\a
 	
 	Take logs: $d\log 2 + \frac{2}{d}\log N + \log d$, so $d = \sqrt{\log N}$ is a pretty good choice. So we get $$\frac{N}{2^{\sqrt{\log N}}e^{2 \sqrt{\log N}}\sqrt{\log N}} \geq \frac{N}{e^{c \sqrt{ \log N}}}$$
 \end{proof}
+
+\section{Bohr Sets and Boglyubov's Method}
+\setcounter{lemma}{0}
+\begin{definition}[Bohr set]
+	Let $K\subset \mathbb{Z}_N$ and let $\epsilon > 0$. The \textbf{Bohr set} $B(K, \epsilon)$ is defined to be $$\{x \in \mathbb{Z}_N \,|\, \abs{1-\omega^{rx}} \leq \epsilon\ \forall r \in K \}$$
+\end{definition}
+
+\begin{definition}[Sumset]
+	Let $A$ be a subset of an abelian group $G$. The \textbf{sumset} $A+A$ is $\{x+y \,|\, x, y \in A \}$. The \textbf{difference set} $A-A$ is $\{x-y \,|\, x, y \in A \}$. More generally, $\pm A_1 \pm A_2 \pm \dots \pm A_k = \{\pm x_1 \pm \dots \pm x_k \,|\, x_i \in A_i\}$. We write $rA$ for $A+A+\dots+A$ ($r$ times).
+\end{definition}
+
+\begin{lemma}[Boglyubov's method]
+	Let $A \in \mathbb{Z}_N$ be a subset of density $\alpha$. Then $2A-2A$ contains a Bohr set $B(K, \sqrt{2})$ with $\abs{K} \leq \alpha^{-2}$.
+\end{lemma}
+\begin{proof}
+	Let $K = \left\{r: \abs{\hat{A}(r)} \geq \alpha^{\frac{3}{2}} \right\}$. Observe that $x \in 2A-2A \iff A * A * (-A) * (-A)(x) \neq 0$ (i.e. $\mathbb{E}_{a+b-c-d=x}A(a)A(b)A(c)A(d) \neq 0$).
+	
+	But
+	\begin{align*}
+	A*A*(-A)*(-A)(x) &= \sum_r \widehat{A*A*(-A)*(-A)(r)\omega^{rx}} \text{ (inversion)} \\
+	&= \sum_r \abs{\hat{A}(r)}^4 \omega^{rx} \text{ (convolution)} \\
+	&= \alpha^4 + \sum_{r \in K, r \neq 0} \abs{\hat{A}(r)}^4 \omega^{rx} + \sum_{r \not\in K} \abs{\hat{A}(r)}^4 \omega^{rx}
+	\end{align*}
+	
+	for each $x \in B(K, \sqrt{2})$ and each $r \in K$, $\Re(\omega^{rx}) \geq 0$. So if $x \in B(K, \sqrt{2})$, then the second term has real part $\geq 0$.
+	
+	Also,
+	\begin{align*}
+		\abs{\sum_{r \not\in K} \abs{\hat{A}(r)}^4 \omega^{rx}} &\leq \sum_{r \not\in K} \abs{\hat{A}(r)}^4 \\
+		&\leq \max_{r \not\in K}\abs{\hat{A}(r)}^2 \sum_{r \not\in K} \abs{\hat{A}(r)}^2\\
+		&< \alpha^3 \cdot \alpha = \alpha^4
+	\end{align*}
+	
+	It follows that the sum is not 0. So $B(Km \sqrt{2})$ does the job. Note also that $\alpha^3 \abs{K} \leq \sum_r\abs{\hat{A}(r)}^2 = \alpha$, so $\abs{K} \leq \alpha^{-2}$, as claimed.
+\end{proof}
+
+\begin{lemma}
+	Writing $B[K, \delta]$ for $\{x \in \mathbb{Z}_N \,|\, \forall r \in K,\, rx \in [-\delta N, \delta N] \mod N \}$, we have that $B[K, \delta]$ has density at least $\delta^k$, where $k = \abs{K}$.
+\end{lemma}
+
+\begin{proof}
+	Let $K=\{r_1,\dots,r_k\}$ and assume (wlog) that $0 \not\in K$. Define $\phi: \mathbb{Z}_N \to \mathbb{Z}_N^k$ by $\phi: x \mapsto (r_1x,\dots,r_kx)$.
+	
+	Pick a random translate $\boldsymbol{u} + [\delta N]^k$ of $[\delta N]^k$. On average, this contains at least $\delta^k N$ points of $\im \phi$.
+	
+	It follows that there is some translate $\boldsymbol{u} + [\delta N]^k$ that contains at least $\delta^k N$ points of $\im \phi$. But if $\phi(x), \phi(y) \in \boldsymbol{u} + [\delta N]^k$, then $\phi(x-y) = \phi(x)-\phi(y) \in [-\delta N, \delta N]^k$.
+	
+	$\implies x-y \in B[K, \delta]$. There are at least $\delta^k N$ distinct such $x-y$.
+\end{proof}
+
+\begin{corollary}
+	The Bohr set $B[K, \delta]$ contains an AP (mod $N$) of length at least $\delta N ^{\frac{1}{\abs{K}}}$
+\end{corollary}
+\begin{proof}
+	By Lemma 2, $\abs{B[K, \theta]} \geq \theta^{\abs{K}}N$, so if $\theta > N^{-\frac{1}{\abs{K}}}$ then $\abs{B[K, \theta]} > 1$. By compactness there is some non-zero $x \in B[K, N^{-\frac{1}{\abs{K}}}]$. Then for any $m$ we have that $mx \in B[K, \abs{m}N^{-\frac{1}{\abs{K}}}]$, so $mx \in B[K, \delta]$ whenever $\abs{m} \leq \delta N^{\frac{1}{\abs{K}}}$, which proves the result.
+\end{proof}
+
+\begin{definition}
+	Let $A$ and $B$ be subsets of abelian groups. A map $\phi:A \to B$ is a \textbf{Freiman homomorphism of order k} if
+	\begin{align*}
+		a_1 + a_2 + \dots + a_k &= a_{k+1} + \dots + a_{2k} \text{ (all $a_i \in A$)} \\
+		\implies \phi(a_1) + \phi(a_2) + \dots + \phi(a_k) &= \phi(a_{k+1}) + \dots + \phi(a_{2k})
+	\end{align*}
+	
+	It is a \textbf{Freiman isomorphism of order k} if it is a bijection and its inverse is also a Freiman homomorphism of order k (that is, the implication can be reversed).
+\end{definition}
+
+The case $k=2$ is particularly important. It says $$x+y = z+w \implies \phi(x)+ \phi(y) = \phi(z) = \phi(w)$$ or equivalently $$x-y=z-w \implies \phi(x)-\phi(y) = \phi(z)-\phi(w)$$
+Freiman homomorphisms preserve 'additive structure'. Note in particular that Freiman isomorphisms preserve arithmetic progressions.
 \end{document}
