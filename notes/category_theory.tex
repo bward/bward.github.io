@@ -59,7 +59,8 @@
 \end{definition}
 
 \begin{definition}[Natural transformation]
-	Let $\mathcal{C}$ and $\mathcal{D}$ be two categories and $F, G: \mathcal{C} \rightrightarrows \mathcal{D}$ two functors. A \textbf{natural transformation} $\alpha:F\to G$ assigns to each $A \in \ob{\mathcal{C}}$ a morphism $\alpha_A:FA\to GA$ in $\mathcal{D}$, such that
+	Let $\mathcal{C}$ and $\mathcal{D}$ be two categories and $F, G: \mathcal{C} \rightrightarrows \mathcal{D}$ two functors.
+	A \textbf{natural transformation} $\alpha:F\to G$ assigns to each $A \in \ob{\mathcal{C}}$ a morphism $\alpha_A:FA\to GA$ in $\mathcal{D}$, such that
 	\begin{center}
 		\begin{tikzcd}
 			FA \arrow[r, "Ff"] \arrow[d, "\alpha_A"] & FB \arrow[d, "\alpha_B"]\\
@@ -91,7 +92,9 @@ We can compose natural transformations: given $\alpha: F \to G$ and $\beta: G \t
 For example, \textbf{Gp} is a full subcategory of the category \textbf{Mon} of monoids, but \textbf{Mon} is a non-full subcategory of the category \textbf{Sgp} of semigroups.
 
 \begin{definition}[Equivalence of categories]
-	Let $\mathcal{C}$ and $\mathcal{D}$ be categories. An \textbf{equivalence} between $\mathcal{C}$ and $\mathcal{D}$ is a pair of functors $F: \mathcal{C} \to \mathcal{D}$, $G: \mathcal{D} \to \mathcal{C}$ together with natural isomorphisms $\alpha: 1_\mathcal{C} \to GF$, $\beta: FG \to 1_\mathcal{D}$. We write $\mathcal{C} \simeq \mathcal{D}$ to mean that $\mathcal{C}$ and $\mathcal{D}$ are equivalent.
+	Let $\mathcal{C}$ and $\mathcal{D}$ be categories.
+	An \textbf{equivalence} between $\mathcal{C}$ and $\mathcal{D}$ is a pair of functors $F: \mathcal{C} \to \mathcal{D}$, $G: \mathcal{D} \to \mathcal{C}$ together with natural isomorphisms $\alpha: 1_\mathcal{C} \to GF$, $\beta: FG \to 1_\mathcal{D}$.
+	We write $\mathcal{C} \simeq \mathcal{D}$ to mean that $\mathcal{C}$ and $\mathcal{D}$ are equivalent.
 	
 	We say a property $P$ of categories is \textbf{categorical} if whenever $\mathcal{C}$ has $P$ and $\mathcal{C}\simeq\mathcal{D}$ then $\mathcal{D}$ has $P$.
 \end{definition}
@@ -99,7 +102,9 @@ For example, \textbf{Gp} is a full subcategory of the category \textbf{Mon} of m
 For example, being a groupoid is a categorical property, but being a group is not.
 
 \begin{definition}[Slice category]
-	Given an object $B$ of a category $\mathcal{C}$, define the \textbf{slice category} $\mathcal{C}/B$ to have morphisms $A \overset{f}{\to} B$ as objects, and morphisms $(A \overset{f}{\to} B) \to (A' \overset{f'}{\to} B)$ are morphisms $h: A \to A'$ making
+	Given an object $B$ of a category $\mathcal{C}$,
+	define the \textbf{slice category} $\mathcal{C}/B$ to have morphisms $A \overset{f}{\to} B$ as objects,
+	and morphisms $(A \overset{f}{\to} B) \to (A' \overset{f'}{\to} B)$ are morphisms $h: A \to A'$ making
 	\begin{center}
 		\begin{tikzcd}[column sep=tiny]
 				A \arrow[rr, "h"] \arrow[rd, "f"] & & A'\arrow[ld, "f'"]\\
@@ -110,7 +115,9 @@ For example, being a groupoid is a categorical property, but being a group is no
 \end{definition}
 
 \begin{lemma}
-	Let $F: \mathcal{C} \to \mathcal{D}$ be a functor. Then $F$ is part of an equivalence $\mathcal{C} \simeq \mathcal{D} \iff$ F is full, faithful and \textbf{essentially surjective}, i.e. for every $B \in \ob \mathcal{D}$, there exists $A \in \ob \mathcal{C}$ s.t. $FA \cong B$.
+	Let $F: \mathcal{C} \to \mathcal{D}$ be a functor.
+	Then $F$ is part of an equivalence $\mathcal{C} \simeq \mathcal{D} \iff$ F is full, faithful and \textbf{essentially surjective},
+	i.e. for every $B \in \ob \mathcal{D}$, there exists $A \in \ob \mathcal{C}$ s.t. $FA \cong B$.
 \end{lemma}
 
 \begin{definition}
@@ -145,7 +152,8 @@ For example, $\text{\textbf{Mat}}_K$ is skeletal. The full subgategory of standa
 	A category $\mathcal{C}$ is \textbf{locally small} if, for any two objects $A, B$ of $\mathcal{C}$, the morphism $A \to B$ are parametrised by a set $\mathcal{C}(A, B)$.
 \end{definition}
 
-Given local smallness, $B \mapsto \mathcal{C}(A,B)$ becomes a functor $\mathcal{C}(A, -): \mathcal{C} \to \Set$: if $g: B \to B'$, the mapping $f \mapsto gf : \mathcal{C}(A, B) \to \mathcal{C}(A, B')$ is functorial since $h(gf) = (hg)f$ for any $h: B' \to B''$.
+Given local smallness, $B \mapsto \mathcal{C}(A,B)$ becomes a functor $\mathcal{C}(A, -): \mathcal{C} \to \Set$: if $g: B \to B'$,
+the mapping $f \mapsto gf : \mathcal{C}(A, B) \to \mathcal{C}(A, B')$ is functorial since $h(gf) = (hg)f$ for any $h: B' \to B''$.
 
 Similarly, $A \mapsto \mathcal{C}(A, B)$ becomes a functor $\mathcal{C}^{op} \to \Set$.
 
@@ -180,7 +188,8 @@ Similarly, $A \mapsto \mathcal{C}(A, B)$ becomes a functor $\mathcal{C}^{op} \to
 	The mapping $A \to \mathcal{C}(A, -)$ is a full and faithful functor $\mathcal{C}^{op} \to [\mathcal{C}, \Set]$.
 \end{corollary}
 \begin{proof}
-	Given two objects $A,B$, 2.2(i) gives us a bijection from $\mathcal{C}(B,A)$ to the collection of natural transformations $\mathcal{C}(A, -) \to \mathcal{C}(B, -)$ (by taking $F: C \mapsto \mathcal{C}(B, C)$). We need to show this is functorial, but given $f \in \mathcal{C}(B, A)$, $\Psi(F)_A$ sends $1_A$ to $\mathcal{C}(B, f)(1_A) = f$, so it's the natural transformation $g \mapsto gf$.
+	Given two objects $A,B$, 2.2(i) gives us a bijection from $\mathcal{C}(B,A)$ to the collection of natural transformations $\mathcal{C}(A, -) \to \mathcal{C}(B, -)$ (by taking $F: C \mapsto \mathcal{C}(B, C)$).
+	We need to show this is functorial, but given $f \in \mathcal{C}(B, A)$, $\Psi(F)_A$ sends $1_A$ to $\mathcal{C}(B, f)(1_A) = f$, so it's the natural transformation $g \mapsto gf$.
 	
 	Hence, given $e: C \to B$, $\Psi(fe)(g) = g(fe) = (gf)(e) = \Psi(e)\Psi(f)g$
 \end{proof}
@@ -190,10 +199,65 @@ We call this functor the \textbf{Yoneda embedding}. Hence any locally small cate
 \begin{definition}
 	A functor $\mathcal{C} \to \Set$ is \textbf{representable} if it's isomorphic to $\mathcal{C}(A, -)$ for some $A$.
 	
-	A \textbf{representation} of $F: \mathcal{C} \to \Set$ is a pair $(A, x)$ where $A \in \ob \mathcal{C}$, $x \in FA$ and $\Psi(x): \mathcal{C}(A, -) \to F$ is an isomorphism. We also call $x$ a \textbf{universal element} of $F$.
+	A \textbf{representation} of $F: \mathcal{C} \to \Set$ is a pair $(A, x)$ where $A \in \ob \mathcal{C}$, $x \in FA$ and $\Psi(x): \mathcal{C}(A, -) \to F$ is an isomorphism.
+	We also call $x$ a \textbf{universal element} of $F$.
 \end{definition}
 
 \begin{corollary}['Representations are unique up to unique isomorphism']
 	If $(A, x)$ and $(B, y)$ are both representations of $F: \mathcal{C} \to \Set$, then there's a unique isomorphism $f: A \to B$ s.t $Ff(x)=y$.
 \end{corollary}
+
+\begin{definition}[Product and coproduct]
+	Given two objects $A, B$ of a locally small category $\mathcal{C}$, we define their \textbf{product} to be a representation of the functor
+	$$\mathcal{C}(-,A) \times \mathcal{C}(-, B): \mathcal{C}^{op} \to \Set$$
+	i.e. an object $A \times B$ equipped with morphisms $\pi_1 : A \times B \to A$, $\pi_2: A \times B \to B$
+	s.t. given any pair $(f:C \to A, g: C \to B)$, there exists a unique $h: C \to A \times B$
+	s.t. $\pi_1h=f$ and $\pi_2h=g$.
+	
+	More generally, we can define the product $\prod_{i \in I} A_i$ of a family $\{A_i \,|\, i \in I\}$ of objects,
+	or the product of the empty family, i.e. a \textbf{terminal object} 1 s.t. for every $A$ there's a unique $A \to 1$.
+	
+	Dualizing, we get the notion of \textbf{coproduct} or \textbf{sum}.
+\end{definition}
+
+\begin{definition}[Equaliser and coequaliser]
+	Given a parallel pair $f, g: A \rightrightarrows B$ in a locally small category $\mathcal{C}$,
+	the assignment $C \mapsto FC = \{h: C \to A \,|\, fh=gh\}$ is a subfunctor $F$ of $\mathcal{C}(-, A)$.
+	A representation of $F$ is called an \textbf{equaliser} of $(f, g)$.
+	
+	In elementary terms, it's an object $E$ equipped with $e: E \to A$ s.t. $fe=ge$,
+	s.t. any $h$ with $fh = gh$ factors uniquely as $h=ek$
+	
+	Dually, we have the notion of \textbf{coequaliser},
+	i.e. a morphism $q:B \to Q$ satisfying $qf=qg$, and universal among such.
+\end{definition}
+
+\begin{definition}
+	\begin{enumerate}[label=\alph*.]
+		\item We say a monomorphism is \textbf{regular} if it occurs as an equaliser (dually, regular epimorphism).
+		\item We say $f: A \to B$ is a \textbf{split monomorphism} if there exists $g: B \to A$ with $gf = 1_A$.
+	\end{enumerate}
+\end{definition}
+
+Every split monomorphism is regular:
+if $gf = 1_A$, $f$ is an equaliser of $(1_B, fg)$ [see sheet 1, q2].
+
+\begin{definition}
+	Let $\mathcal{C}$ be a (locally small) category, $\mathcal{G}$ a collection of objects of $\mathcal{C}$.
+	\begin{enumerate}[label=\alph*.]
+		\item Say $\mathcal{G}$ is a \textbf{separating family} if the functors $\mathcal{C}(G, -),\, G \in \mathcal{G}$ are jointly faithful,
+		i.e. if given $f,g : A \rightrightarrows B$ with $f \neq g$,
+		there exists $G \in \mathcal{G}$ and $h: G \to A$ with $fh \neq gh$.
+		\item Say $\mathcal{G}$ is a \textbf{detecting family} if the $\mathcal{C}(G, -),\, G \in \mathcal{G}$ jointly reflect isomorphisms,
+		i.e. if given $f: A \to B$ s.t. every $g: G \to B$ with $G \in \mathcal{G}$ factors uniquely through $f$,
+		$f$ is an isomorphism.
+	\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+	\begin{enumerate}[label=\roman*.]
+		\item If $\mathcal{C}$ is balanced, then any separating family is detecting
+		\item If $\mathcal{C}$ has equalisers, then every detecting family is separating
+	\end{enumerate}
+\end{lemma}
 \end{document}
