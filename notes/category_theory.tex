@@ -260,4 +260,51 @@ if $gf = 1_A$, $f$ is an equaliser of $(1_B, fg)$ [see sheet 1, q2].
 		\item If $\mathcal{C}$ has equalisers, then every detecting family is separating
 	\end{enumerate}
 \end{lemma}
+
+\begin{definition}
+	An object $P$ is \textbf{projective} if $\mathcal{C}(P, -)$ preserves epimorphisms, i.e. if given
+	\begin{center}
+		\begin{tikzcd}
+			& P \arrow[d, "f"] \\
+			A \arrow[r, twoheadrightarrow, "e"] & B
+		\end{tikzcd}
+	\end{center}
+	there exists $g: P \to A$ with $eg = f$.
+	
+	Dually, $P$ is \textbf{injective} in $\mathcal{C}$ if it's projective in $\mathcal{C}^{op}$.
+	
+	If $P$ satisfies this property $\forall e$ in some class $\mathcal{E}$ of epimorphisms,
+	we call it $\mathcal{E}$-projective.
+\end{definition}
+
+\begin{corollary}
+	Representable functors are (pointwise) projective in $[\mathcal{C}, \Set]$
+\end{corollary}
+\begin{proof}
+	Given
+	\begin{center}
+		\begin{tikzcd}
+			& \mathcal{C}(A, -) \arrow[d, "\beta"] \\
+			F \arrow[r, twoheadrightarrow, "\alpha"] & G
+		\end{tikzcd}
+	\end{center}
+	$\beta$ corresponds to some $y \in GA$. 
+	$\alpha_A$ is surjective, so $\exists x \in FA$ with $\alpha_A(x)=y$.
+	$x$ corresponds to $\gamma: \mathcal{C}(A, -) \to F$ with $\alpha\gamma = \beta$.
+\end{proof}
+
+\section{Adjunctions}
+\begin{definition}[D.M. Khan, 1958]
+	Let $\mathcal{C}$ and $\mathcal{D}$ be categories and $F: \mathcal{C} \to \mathcal{D}$, $G: \mathcal{D} \to \mathcal{C}$ be two functors.
+	An \textbf{adjunction} between $F$ and $G$ is a bijection between morphisms $FA \to B$ in $\mathcal{D}$ and morphisms $A \to GB$ in $\mathcal{C}$, 
+	which is natural in $A$ and $B$.
+
+	(If $\mathcal{C}$ and $\mathcal{D}$ are locally small,
+	this says that $(A, B) \to \mathcal{D}(FA, B)$ and $(A, B) \to \mathcal{C}(A, GB)$
+	are naturally isomorphic functors $\mathcal{C}^{op} \times \mathcal{D} \to \Set$).
+	
+	We say $F$ is \textbf{left adjoint} to $G$,
+	or $G$ is \textbf{right adjoint} to $F$,
+	and write $F \dashv G$.
+\end{definition}
 \end{document}
