@@ -31,11 +31,14 @@
 \section{Introduction}
 Let $X, Y, \dots$ be sets
 \begin{definition}
-	We call $\mathcal{A}\subset \mathcal{P}(X)$ a \textbf{set system} or \textbf{family of sets}. $\mathcal{A}$ is naturally identified with a bipartite graph $G_\mathcal{A}(U,W)$ with $U=\mathcal{A}$, $W=\bigcup_{A\in\mathcal{A}}A$ or $W=X$. Indeed, $Ax\in E(G_\mathcal{A}) \iff x \in A$.
+	We call $\mathcal{A}\subset \mathcal{P}(X)$ a \textbf{set system} or \textbf{family of sets}.
+	$\mathcal{A}$ is naturally identified with a bipartite graph $G_\mathcal{A}(U,W)$ with $U=\mathcal{A}$, $W=\bigcup_{A\in\mathcal{A}}A$ or $W=X$.
+	Indeed, $Ax\in E(G_\mathcal{A}) \iff x \in A$.
 \end{definition}
 
 \begin{definition}
-	Given $\mathcal{A}\in\mathcal{P}(X)$, a \textbf{set of distinct representatives} (SDR) is an injection $f:\mathcal{A}\to X$ s.t. $f(A)\in A$ $\forall A \in \mathcal{A}$. In its bipartite graph, an SDR corresponds to a complete matching $U \to W$.
+	Given $\mathcal{A}\in\mathcal{P}(X)$, a \textbf{set of distinct representatives} (SDR) is an injection $f:\mathcal{A}\to X$ s.t. $f(A)\in A$ $\forall A \in \mathcal{A}$.
+	In its bipartite graph, an SDR corresponds to a complete matching $U \to W$.
 \end{definition}
 
 \begin{theorem}[Hall, 1935]
@@ -111,7 +114,8 @@ If $\mathcal{A} \subset \mathcal{P}(n)$ is $k$-Sperner then $\abs{\mathcal{A}}$ 
 \end{corollary}
 
 \begin{theorem}[Erd\H{o}s, 1945]
-	Let $x_1, \dots, x_n \in \mathbb{R}$, $x_i \geq 1$. Then the number of sums $\sum_1^n \pm x_i$ in an open interval $J$ of length $2k$ is at most the sum of the $k$ largest binomial coefficients.
+	Let $x_1, \dots, x_n \in \mathbb{R}$, $x_i \geq 1$.
+	Then the number of sums $\sum_1^n \pm x_i$ in an open interval $J$ of length $2k$ is at most the sum of the $k$ largest binomial coefficients.
 \end{theorem}
 
 \begin{definition}
@@ -122,7 +126,9 @@ If $\mathcal{A} \subset \mathcal{P}(n)$ is $k$-Sperner then $\abs{\mathcal{A}}$ 
 	$\mathcal{P}(n)$ has a decomposition into symmetric chains.
 \end{theorem}
 
-Take such a partition $\mathcal{P}(n) = \bigcup_{i=1}^k \mathcal{C}_i$, $j = {n \choose {\lfloor\frac{n}{2}\rfloor}}$. There is one chain of length $n+1$, $n-1$ chains of length $n-1$, etc: there are ${n \choose i} - {n \choose {i-1}}$ chains of length $n+1-2i$.
+Take such a partition $\mathcal{P}(n) = \bigcup_{i=1}^k \mathcal{C}_i$, $j = {n \choose {\lfloor\frac{n}{2}\rfloor}}$.
+There is one chain of length $n+1$, $n-1$ chains of length $n-1$, etc:
+there are ${n \choose i} - {n \choose {i-1}}$ chains of length $n+1-2i$.
 
 Let $E$ be a normed space, let $x_1, \dots, x_n \in E$, $\norm{x_i} \geq 1 \ \forall i$, for $A \in \mathcal{P}(n)$ let $x_A = \sum{i \in A} x_i$.
 \begin{conjecture}[Erd\H{o}s, 1945]
@@ -130,7 +136,9 @@ Let $E$ be a normed space, let $x_1, \dots, x_n \in E$, $\norm{x_i} \geq 1 \ \fo
 \end{conjecture}
 
 \begin{definition}
-	Call $\mathcal{D} \in \mathcal{P}(n)$ \textbf{scattered} if $\norm{x_A - x_B} \geq 1 \ \forall A,B \in \mathcal{D}$. Call a partition $\mathcal{P}(n) = \bigcup_{i=1}^s \mathcal{D}_i$ \textbf{symmetric} if there are precisely ${n \choose i} - {n \choose i-1}$ sets $\mathcal{D}_i$ of cardinality $n+1-2i$.
+	Call $\mathcal{D} \in \mathcal{P}(n)$ \textbf{scattered} if $\norm{x_A - x_B} \geq 1 \ \forall A,B \in \mathcal{D}$.
+	Call a partition $\mathcal{P}(n) = \bigcup_{i=1}^s \mathcal{D}_i$ \textbf{symmetric}
+	if there are precisely ${n \choose i} - {n \choose i-1}$ sets $\mathcal{D}_i$ of cardinality $n+1-2i$.
 \end{definition}
 
 \begin{theorem}(Kleitman, 1970)
@@ -143,18 +151,21 @@ Let $E$ be a normed space, let $x_1, \dots, x_n \in E$, $\norm{x_i} \geq 1 \ \fo
 
 \section{The Kruskal-Katona Theorem}
 \setcounter{theorem}{0}
-We know: if $\mathcal{A} \subset X^{(r)}$ then $\partial \mathcal{A}$ (the \textbf{lower shadow} of $\mathcal{A}$), defined by $$\partial \mathcal{A} = \{B \in X^{(r-1)} \,|\, B \subset A \text{ for some } A \in \mathcal{A}\}$$ satisfies
+We know: if $\mathcal{A} \subset X^{(r)}$ then $\partial \mathcal{A}$ (the \textbf{lower shadow} of $\mathcal{A}$),
+defined by $$\partial \mathcal{A} = \{B \in X^{(r-1)} \,|\, B \subset A \text{ for some } A \in \mathcal{A}\}$$ satisfies
 \begin{align*}
 \abs{\partial \mathcal{A}} &\geq \abs{\mathcal{A}} \frac{{n \choose r-1}}{{n \choose r}} \\
 &= \abs{\mathcal{A}}\frac{r}{n-r+1}
 \end{align*}
 with equality $\iff \mathcal{A}$ is $\emptyset$ or $X^{(r)}$.
 
-What about in between? What is $\mathcal{B} \in X^{(r)}$ s.t. $\abs{\mathcal{B}} = \abs{\mathcal{A}}$ and $\abs{\partial\mathcal{B}} \leq \abs{\partial\mathcal{A}}$?
+What about in between?
+What is $\mathcal{B} \in X^{(r)}$ s.t. $\abs{\mathcal{B}} = \abs{\mathcal{A}}$ and $\abs{\partial\mathcal{B}} \leq \abs{\partial\mathcal{A}}$?
 
 $\exists \mathcal{B}_1, \mathcal{B}_2, \dots \in X^{(r)}$ s.t. $\abs{\mathcal{B}_m} = m$ and $\abs{\partial \mathcal{B}_m} \leq \abs{\partial \mathcal{A}} \ \forall \mathcal{A} \subset X^{(r)}$ where $\abs{\mathcal{A}} = m$.
 
-Incredibly luckily, we have a sequence of nested extremal sets. Equivalently, $\exists$ total order on $X^{(r)}$ s.t. the first $m$ sets form $\mathcal{B}_m$.
+Incredibly luckily, we have a sequence of nested extremal sets.
+Equivalently, $\exists$ total order on $X^{(r)}$ s.t. the first $m$ sets form $\mathcal{B}_m$.
 
 \begin{definition}
 	Define the \textbf{colex} total order on $X^{(r)}$ by $A<B$ if $\max(A \Delta B) \in B$.
@@ -210,9 +221,16 @@ $C_{ij}: \mathcal{A} \mapsto C_{ij}(\mathcal{A})$ keeps $\mathcal{A}_\emptyset \
 \begin{proof}
 	Let $B \in \partial C_{ij}(\mathcal{A})$ and let $A \in \mathcal{A}$ s.t. $B \subset C_{i,j,\mathcal{A}}(A)$.
 	\begin{enumerate}[label=\roman*.]
-		\item Suppose $B$ meets $\{i,j\}$ in 0 or 2 elements. Then $B \subset A$ so $B \in \partial A$ and $B \in C_{ij}(\partial \mathcal{A})$
-		\item Suppose $i \in B$, $j \not\in B$. Then either $B$ or $(B \backslash \{i\}) \cup \{j\}$ belongs to $\partial \mathcal{A}$, so $B \in C_{ij}(\partial \mathcal{A})$.
-		\item Suppose $j \in B$, $i \not\in B$. Then both $B$ and $(B \backslash \{j\}) \cup \{i\}$ belong to $\partial\mathcal{A}$, so both belong to $C_{ij}(\partial\mathcal{A})$.
+		\item Suppose $B$ meets $\{i,j\}$ in 0 or 2 elements.
+		Then $B \subset A$ so $B \in \partial A$ and $B \in C_{ij}(\partial \mathcal{A})$
+		
+		\item Suppose $i \in B$, $j \not\in B$.
+		Then either $B$ or $(B \backslash \{i\}) \cup \{j\}$ belongs to $\partial \mathcal{A}$,
+		so $B \in C_{ij}(\partial \mathcal{A})$.
+		
+		\item Suppose $j \in B$, $i \not\in B$.
+		Then both $B$ and $(B \backslash \{j\}) \cup \{i\}$ belong to $\partial\mathcal{A}$,
+		so both belong to $C_{ij}(\partial\mathcal{A})$.
 	\end{enumerate}
 \end{proof}
 \begin{definition}
@@ -223,9 +241,14 @@ $C_{ij}: \mathcal{A} \mapsto C_{ij}(\mathcal{A})$ keeps $\mathcal{A}_\emptyset \
 	Let $\mathcal{A} \subset X^{(r)}$. Then $\exists$ a left-compressed family $\mathcal{B} \subset X^{r}$ s.t. $\abs{\mathcal{B}}=\abs{\mathcal{A}}$ and $\abs{\partial\mathcal{B}} \leq \abs{\partial\mathcal{A}}$.
 \end{lemma}
 \begin{proof}
-	Define $\mathcal{A}_0 = \mathcal{A}, \mathcal{A}_1, \dots$ as follows: having reached $\mathcal{A}_k$, if $\mathcal{A}_k$ is not left-compressed, pick $i < j$ s.t. $C_{ij}(\mathcal{A}_k) \neq \mathcal{A}_k$, and set $\mathcal{A}_{k+1} = C_{ij}(\mathcal{A}_k)$
+	Define $\mathcal{A}_0 = \mathcal{A}, \mathcal{A}_1, \dots$ as follows:
+	having reached $\mathcal{A}_k$,
+	if $\mathcal{A}_k$ is not left-compressed,
+	pick $i < j$ s.t. $C_{ij}(\mathcal{A}_k) \neq \mathcal{A}_k$,
+	and set $\mathcal{A}_{k+1} = C_{ij}(\mathcal{A}_k)$
 	
-	This sequence has to end because $$\sum_{A \in \mathcal{A}_{k+1}} \sum_{a \in A} a < \sum_{A \in \mathcal{A}_{k}} \sum_{a \in A} a$$ let $\mathcal{A}_l$ be the last term: this will do for $\mathcal{B}$.
+	This sequence has to end because $$\sum_{A \in \mathcal{A}_{k+1}} \sum_{a \in A} a < \sum_{A \in \mathcal{A}_{k}} \sum_{a \in A} a$$
+	let $\mathcal{A}_l$ be the last term: this will do for $\mathcal{B}$.
 \end{proof}
 
 \begin{theorem}[Kruskal-Katona, 1963 and 1968]
@@ -239,17 +262,29 @@ $C_{ij}: \mathcal{A} \mapsto C_{ij}(\mathcal{A})$ keeps $\mathcal{A}_\emptyset \
 \begin{proof}
 	Induction on $r$ and then $m$ (or on $r+m$). $r=1 \checkmark \ m=1 \checkmark$
 	
-	Induction step: we may assume that $\mathcal{A}$ is left-compressed. Set $Y = X \backslash \{1\}$. Then $\mathcal{A} = (\mathcal{A}_1 + \{1\}) \cup \mathcal{A}_0$, where $\mathcal{A}_1 \subset Y^{(r-1)}$, $\mathcal{A}_0 \subset Y^{(r)}$.
+	Induction step: we may assume that $\mathcal{A}$ is left-compressed.
+	Set $Y = X \backslash \{1\}$.
+	Then $\mathcal{A} = (\mathcal{A}_1 + \{1\}) \cup \mathcal{A}_0$,
+	where $\mathcal{A}_1 \subset Y^{(r-1)}$, $\mathcal{A}_0 \subset Y^{(r)}$.
 	
-	$m=\abs{\mathcal{A}} = \abs{\mathcal{A}_0} + \abs{\mathcal{A}_1}$, $\partial \mathcal{A}_0 \subset \mathcal{A}_1$, $\partial(\mathcal{A}_1 + \{1\}) = \mathcal{A}_1 \cup (\partial\mathcal{A}_1 + \{1\})$.
+	$m=\abs{\mathcal{A}} = \abs{\mathcal{A}_0} + \abs{\mathcal{A}_1}$, 
+	$\partial \mathcal{A}_0 \subset \mathcal{A}_1$,
+	$\partial(\mathcal{A}_1 + \{1\}) = \mathcal{A}_1 \cup (\partial\mathcal{A}_1 + \{1\})$.
 	
-	In particular, $\abs{\partial\mathcal{A}} = \abs{\mathcal{A}_1} + \abs{\partial\mathcal{A}_1}$.
+	In particular,
+	$\abs{\partial\mathcal{A}} = \abs{\mathcal{A}_1} + \abs{\partial\mathcal{A}_1}$.
 	
 	For $\mathcal{A} = \mathcal{B}^{(r)}(m_r, \dots, m_s)$, $$\abs{\mathcal{A}_1} = b^{(r-1)}(m_r-1,\dots,m_s-1)$$ $$\abs{\mathcal{A}_0} = b^{(r)}(m_r-1,\dots,m_s-1)$$
 	
-	Suppose $\abs{\mathcal{A}_0} > b^{(r)}(m_r-1,\dots,m_s-1)$. Then by the induction hypothesis, $\abs{\partial\mathcal{A}_0} \geq b^{(r-1)}(m_r-1,\dots,m_s-1)$. Hence $\abs{\mathcal{A}_1} \geq b^{(r-1)}(m_r-1, \dots, m_s-1)$ and so $\abs{\partial \mathcal{A}} \geq b^{(r-1)}(m_r, \dots, m_s)$.
+	Suppose $\abs{\mathcal{A}_0} > b^{(r)}(m_r-1,\dots,m_s-1)$.
+	Then by the induction hypothesis,
+	$\abs{\partial\mathcal{A}_0} \geq b^{(r-1)}(m_r-1,\dots,m_s-1)$.
+	Hence $\abs{\mathcal{A}_1} \geq b^{(r-1)}(m_r-1, \dots, m_s-1)$
+	and so $\abs{\partial \mathcal{A}} \geq b^{(r-1)}(m_r, \dots, m_s)$.
 	
-	But if $\abs{\mathcal{A}_0} \leq b^{(r)}(m_r-1, \dots, m_s-1)$, $\abs{\mathcal{A}_1}$ is again $\geq b^{(r-1)}(m_r-1,\dots,m_s-1)$. Done as before.
+	But if $\abs{\mathcal{A}_0} \leq b^{(r)}(m_r-1, \dots, m_s-1)$,
+	$\abs{\mathcal{A}_1}$ is again $\geq b^{(r-1)}(m_r-1,\dots,m_s-1)$.
+	Done as before.
 \end{proof}
 
 Soft version:
@@ -257,16 +292,161 @@ Soft version:
 	If $\mathcal{A} \subset X^{(r)}$ satisfies $\abs{\mathcal{A}} = {X \choose r}$ then $\abs{\partial\mathcal{A}} \geq {X \choose r-1}$.
 \end{theorem}
 \begin{proof}
-	Induction on $r$ and $m = \abs{\mathcal{A}}$. As before, $\mathcal{A}_0, \mathcal{A}_1$. Note that $\mathcal{A}_1 \geq {X-1 \choose r-1}$ since otherwise $\mathcal{A}_0 > {X-1 \choose r}$. But then $\abs{\partial\mathcal{A}_0} \geq {X-1 \choose r-1}$, contradicting the fact that $\partial\mathcal{A}_0 \subset \mathcal{A}_1$.
+	Induction on $r$ and $m = \abs{\mathcal{A}}$. As before, $\mathcal{A}_0, \mathcal{A}_1$.
+	Note that $\mathcal{A}_1 \geq {X-1 \choose r-1}$ since otherwise $\mathcal{A}_0 > {X-1 \choose r}$.
+	But then $\abs{\partial\mathcal{A}_0} \geq {X-1 \choose r-1}$,
+	contradicting the fact that $\partial\mathcal{A}_0 \subset \mathcal{A}_1$.
 	
 	But if $\abs{\mathcal{A}_1} \geq {X-1 \choose r-1}$ then $$\abs{\mathcal{A}_1} + \abs{\partial\mathcal{A}_1} \geq {X-1 \choose r-1} + {X-1 \choose r-2} = {X \choose r-1}$$
 \end{proof}
 
 \begin{definition}
-	Define the \textbf{uniform probability measure} on $X^{(r)}$, $\abs{X}=n$ as $\mathbb{P}_{n,r}(A) = \frac{1}{{n \choose r}}$, and for $\mathcal{A} \subset X^{(r)}$, $\mathbb{P}_{n-r}(\mathcal{A}) = \frac{\abs{\mathcal{A}}}{{n \choose r}}$.
+	Define the \textbf{uniform probability measure} on $X^{(r)}$, $\abs{X}=n$ as $\mathbb{P}_{n,r}(A) = \frac{1}{{n \choose r}}$, and for $\mathcal{A} \subset X^{(r)}$, $\mathbb{P}_{n,r}(\mathcal{A}) = \frac{\abs{\mathcal{A}}}{{n \choose r}}$.
 \end{definition}
 
 \begin{definition}
 	$\mathcal{A} \subset \mathcal{P}(n)$ is \textbf{monotone decreasing} if $A \subset B \in \mathcal{A} \implies A \in \mathcal{A}$.
 \end{definition}
+
+\begin{theorem}
+	If $1 \leq s < r \leq n$, $\mathcal{A} \subset \mathcal{P}(n)$ decreasing,
+	then $\mathbb{P}_s(\mathcal{A})^r \geq \mathbb{P}_r(\mathcal{A})^s$.
+	
+	[$\mathbb{P}_k(\mathcal{A}) = \mathbb{P}_k(\mathcal{A}_k)$, $\mathcal{A}_k = \mathcal{A} \cap X^{(k)}$]
+\end{theorem}
+\begin{proof}
+	$\mathbb{P}_k(\mathcal{A}) = \frac{\abs{\mathcal{A}_k}}{{n \choose k}}$,
+	if $\abs{\mathcal{A}_r}={X \choose r}$ then we know $\abs{\mathcal{A}_s} \geq {X \choose s}$.
+	Hence, the inequality holds if
+	$$\prod_{i=0}^{s-1} \left(\frac{X-i}{n-i}\right)^r \geq \prod_{i=0}^{r-1} \left(\frac{X-i}{n-i}\right)^s$$
+	since $\frac{{X \choose r}}{{n \choose r}} = \prod_{i=0}^{r-1}\frac{X-i}{n-i}$.
+	
+	But this is
+	$$\prod_{i=0}^{s-1} \left(\frac{X-i}{n-i}\right)^{r-s} \geq \prod_{i=s}^{r-1} \left(\frac{X-i}{n-i}\right)^s$$
+	
+	Every factor on the left is larger than every factor on the right:
+	$$\frac{X-i}{n-i} > \frac{X-j}{n-j}$$
+	for $i \leq s-1$, $j \geq s$.
+\end{proof}
+
+\begin{definition}[Erd\H{o}s and R\'enyi, 1960]
+	Given an increasing family ('property of sets') $\mathcal{A}(n) \subset \mathcal{P}(n)$,
+	a function $k^*(n)$ is a \textbf{threshold function} for $\mathcal{A}(n)$
+	if $\mathbb{P}_{k(n)}(\mathcal{A}(n)) \to 0$ if $\frac{k}{k^*} \to 0$,
+	and $\mathbb{P}_{k(n)}(\mathcal{A}(n)) \to 1$ if $\frac{k}{k^*} \to 1$.
+\end{definition}
+
+Erd\H{o}s and R\'enyi: for many monotone increasing graph properties, $\exists$ a threshold.
+
+\begin{corollary}
+	Let $\mathcal{A} \subset \mathcal{P}(n)$, $k_1 < k < k_2$
+	\begin{enumerate}[label=\roman*.]
+		\item If $\mathcal{A}$ is decreasing,
+		$\mathbb{P}_{k_2}(\mathcal{A})^{k/k_2} \leq \mathcal{P}_k(\mathcal{A}) \leq \mathcal{P}_{k_1}(\mathcal{A})^{k/k_1}$
+		\item If $\mathcal{A}$ is increasing,
+		$(1-\mathbb{P}_{k_2}(\mathcal{A}))^{k/k_2} \leq 1-\mathcal{P}_k(\mathcal{A}) \leq (1-\mathcal{P}_{k_1}(\mathcal{A}))^{k/k_1}$
+	\end{enumerate}
+\end{corollary}
+\begin{proof}
+	\begin{enumerate}[label=\roman*.]
+		\item This is precisely Theorem 6
+		\item Set $\mathcal{A}^c = \mathcal{P}(n)\backslash\mathcal{A}$.
+		Then $\mathcal{A}^c$ is decreasing and
+		$$\mathbb{P}_k(\mathcal{A}^c) = 1 - \mathbb{P}_k(\mathcal{A})$$
+		Apply (i) to $\mathcal{A}^c$.
+	\end{enumerate}
+\end{proof}
+
+\begin{theorem}
+	Every monotone increasing function has a threshold.
+\end{theorem}
+\begin{proof}
+	We may assume $\mathcal{A}$ is non-trivial.
+	Set $k^*(n) = \max \left\{k \,|\, \mathbb{P}_k(\mathcal{A}) \leq \frac{1}{2}\right\}$.
+	
+	Then, for $k < k^*$,
+	$$\mathbb{P}_k(\mathcal{A}) \leq 1-(1-\mathbb{P}_{k*}(\mathcal{A}))^{k/k^*} \leq 1-2^{-k/k^*}$$
+	
+	For $k > k^*+1$,
+	$$\mathbb{P}_k(\mathcal{A}) \geq 1-(1-\mathbb{P}_{k*}(\mathcal{A}))^{k/(k^*+1)} \geq 1-2^{-k/(k^*+1)}$$
+\end{proof}
+
+This is essentially best possible, but only for lop-sided systems $\mathcal{A}$.
+
+\begin{definition}
+	$\mathcal{A} \subset \mathcal{P}(n)$ is \textbf{symmetric} if
+	$\forall x,y, \in X$ $\exists$ a permutation $\pi$ of $X$ mapping $x$ onto $y$,
+	keeping $\mathcal{A}$ invariant.
+\end{definition}
+
+\begin{definition}
+	Another measure on $\mathcal{P}(n)$: the \textbf{binomial measure}.
+	Let $0<p<1$.
+	$$\mathbb{P}_{n,p}(A) = \mathbb{P}_p(A) = p^{\abs{A}}(1-p)^{n-\abs{A}}$$
+\end{definition}
+
+$\mathbb{P}_{n, p}$ is very similar to $\mathbb{P}_{n,k}$ for $k \sim pn$.
+
+\begin{theorem}[Friedgut and Kaloi, 1996]
+	There is an absolute constant $c_0 > 0$ s.t. if $\mathcal{A} \subset \mathcal{P}(n)$ is a symmetric increasing family and $\mathbb{P}_p(\mathcal{A}) > \epsilon > 0$
+	then $\mathbb{P}_{p'}(\mathcal{A}) > 1 - \epsilon$
+	provided $p' \geq p + c_0 \frac{\log{1/\epsilon}}{\log{n}}$
+\end{theorem}
+
+\section{Intersecting Families}
+\setcounter{theorem}{0}
+\begin{definition}
+	$\mathcal{A} \subset \mathcal{P}(n)$ is \textbf{intersecting} if $A \cap B \neq \emptyset\ \forall A, B \in \mathcal{A}$.
+\end{definition}
+
+Suppose $\mathcal{A} \subset X^{(r)}$.
+If $r > \frac{n}{2}$, $\mathcal{A}$ is intersecting.
+If $r = \frac{n}{2}$, we can take families of size $\frac{1}{2}{n \choose r}$.
+$r < \frac{n}{2}$?
+
+Let $$X_x^{(r)} = \{A \in X^{(r)} \,|\, x \in A\}$$ for any $x \in X$.
+
+\begin{theorem}[Erd\H{o}s, Ko and Rado 1961]
+	Let $n > 2r \geq 4$ and let $\mathcal{A} \subset X^{(r)}$ be an intersecting family.
+	Then $\abs{\mathcal{A}} \leq {n-1 \choose r-1}$ with equality $\iff \mathcal{A} = X_x^{(r)}$.
+\end{theorem}
+\begin{proof}
+	We may assume $\abs{\mathcal{A}} \geq {n-1 \choose r-1}$.
+	Take $\mathcal{B} = \{X\backslash A \,|\, A \in \mathcal{A}\} \subset X^{(n-r)}$.
+	For $A \in \mathcal{A}$ and $B \in \mathcal{B}$ we have $A \not\subset B$.
+	
+	Let $\mathcal{C} = \partial \dots \partial \mathcal{B}$ (shadow $n-r$ times).
+	Then $\mathcal{C} \subset X^{(r)}$ and $\mathcal{C} \cap \mathcal{A} = \emptyset$,
+	$\therefore \abs{\mathcal{A}} + \abs{\mathcal{C}} \leq {n \choose r}$.
+	
+	By Kruskal-Katona, since $\abs{B} \geq {n-1 \choose r-1} = {n-1 \choose n-r}$,
+	have $\abs{\mathcal{C}} \geq {n-1 \choose r}$.
+	
+	Hence $\abs{\mathcal{A}} \leq {n \choose r} - {n -1 \choose r} = {n-1 \choose r-1}$.
+\end{proof}
+
+\begin{definition}
+	We call $\mathcal{A}$ \textbf{l-intersecting} if $\abs{A \cap B} \geq l\ \forall A, B \in \mathcal{A}$.
+\end{definition}
+
+Let $$\mathcal{F}_0 = \{A \in X^{(r)} \,|\, A \supset [l] \}$$
+
+\begin{lemma}
+	Let $2 \leq l < r$ and $n \geq \frac{4}{3}lr^3$.
+	Let $\mathcal{A} \subset X^{(r)}$ be $l$-intersecting,
+	\textbf{not} fixed by an $l$-set (i.e. $\mathcal{A} \not\subset \mathcal{F}' \cong \mathcal{F}_0$).
+	Then
+	$$\abs{\mathcal{A}} \leq (r-l){n-l-1 \choose r-l-1} + \sum_{t=1}^{t_0} {l \choose t}{r-l \choose t}^2{n-l-2t \choose r-l-t}$$
+	where $t_0 = \min\{l, r-l\}$.
+\end{lemma}
+\begin{proof}
+	We may assume $\mathcal{A}$ is maximal $l$-intersecting.
+	So $\exists A_1, A_2 \in \mathcal{A}$ s.t. $A_1 \cap A_2 = B$, $\abs{B} = l$.
+	
+	Let $\mathcal{A}_t = \{A \in \mathcal{A} \,|\, \abs{B \backslash A} = t \}$.
+	
+	$\abs{\mathcal{A}_0} \leq (r-l){n-l-1 \choose r-l-1}$
+	
+	$\abs{\mathcal{A}_t} \leq {l \choose t}{r-l \choose t}^2{n-l-2t \choose r-l-t}$
+\end{proof}
 \end{document}
