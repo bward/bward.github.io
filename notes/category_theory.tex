@@ -15,6 +15,7 @@
 \newtheorem{remark}[definition]{Remark}
 \newtheorem{lemma}[definition]{Lemma}
 \newtheorem{corollary}[definition]{Corollary}
+\newtheorem{theorem}[definition]{Theorem}
 \numberwithin{definition}{section}
 \renewcommand{\baselinestretch}{1.3}
 \newcommand*\conj[1]{\overline{#1}}
@@ -307,4 +308,127 @@ if $gf = 1_A$, $f$ is an equaliser of $(1_B, fg)$ [see sheet 1, q2].
 	or $G$ is \textbf{right adjoint} to $F$,
 	and write $F \dashv G$.
 \end{definition}
+
+\begin{theorem}
+	Let $G: \mathcal{D} \to \mathcal{C}$ be a functor.
+	Given $A \in \ob \mathcal{C}$,
+	let $(A \downarrow G)$ be the category whose objects are pairs $(B, f)$
+	with $B \in \ob \mathcal{D}$,
+	$f: A \to GB$ and whose morphisms $(B, f) \to (B', f')$
+	are morphisms $g: B \to B'$ in $\mathcal{D}$ such that
+	\begin{center}
+		\begin{tikzcd}
+			A \arrow[r, "f"] \arrow[rd, "f'"] & GB \arrow[d, "Gg"] \\
+			& GB'
+		\end{tikzcd}
+	\end{center}
+	commutes.
+	Then specifying a left adjoint for $G$ is equivalent to specifying an initial object of $(A \downarrow G)$ for each $A$.
+\end{theorem}
+
+\begin{proof}
+	First suppose $G$ has a left adjoint $F$.
+	Let $\eta_A: A \to GFA$ be the morphism corresponding to $1_{FA}:FA \to FA$.
+	The pair $(FA, \eta_A)$ is an object of $(A \downarrow G)$.
+	We'll show it's initial.
+	
+	Given $g: FA \to B$,
+	the composite
+	\begin{tikzcd}A \arrow[r, "\eta_A"]& GFA \arrow[r, "Gg"]& GB\end{tikzcd}
+	must correspond to
+	\begin{tikzcd}FA \arrow[r, "1"] & FA \arrow[r, "g"] & B\end{tikzcd}
+	under the adjunction.
+	
+	So, for any object $(B, f)$ of $(A \downarrow G)$,
+	the unique morphism $(FA, \eta_A) \to (B, f)$ in $(A \downarrow G)$ is the morphism $FA \to B$ corresponding to $f$.
+	
+	Conversely, suppose we're given an initial object $(FA, \eta_A)$ of $(A \downarrow G)$ for each $G$.
+	Given $f: A \to A'$,
+	the composite
+	\begin{tikzcd}A \arrow[r, "f"] & A' \arrow[r, "\eta_{A'}"] & GFA'\end{tikzcd}
+	is an object of $(A \downarrow G)$,
+	so there's a unique morphism $Ff: FA \to FA'$ making
+	\begin{center}
+		\begin{tikzcd}
+			A \arrow[r, "\eta_A"] \arrow[d, "f"] & GFA \arrow[d, "GFf"] \\
+			A' \arrow[r, "\eta_{a'}"] & GFA'
+		\end{tikzcd}
+	\end{center}
+	commute.
+	
+	$f \mapsto Ff$ is functorial:
+	given $f': A' \to A''$,
+	then $(Ff')(Ff)$ and $F(f'f)$ are both morphisms $(FA, \eta_A) \to (FA'', \eta_{A''}f'f)$ in $(A \downarrow G)$,
+	so they're equal.
+	
+	Finally, given $f: A \to GB$,
+	the morphism $g: FA \to B$ corresponding to it is the unique morphism $(FA, \eta_A) \to (B, f)$ in $(A \downarrow G)$.
+	
+	The naturality of this bijection is given by naturality of $\eta$,
+	and naturality in $B$ is immediate.
+\end{proof}
+
+\begin{corollary}
+	If $F,\, F'$ are both left-adjoint to $G$,
+	then there's a canonical natural isomorphism $F \to F'$.
+\end{corollary}
+\begin{proof}
+	For each $A$,
+	$(FA, \eta_A)$ and $(F'A, \eta'_A)$ are both initial in $(A \downarrow G)$,
+	so there's a unique isomorphism $\alpha_A: (FA, \eta_A) \to (F'A, \eta'_A)$.
+	
+	$\alpha$ is natural: given $f: A \to A'$,
+	$\alpha_{A'}f$ and $(Ff)\alpha_A$ are both morphisms $(FA, \eta_A) \to (F'A', \eta'_{A'}f)$ in $(A \downarrow G)$.
+	So they're equal.
+\end{proof}
+
+\begin{lemma}
+	Given
+	\begin{tikzcd}
+		\mathcal{C} \arrow[r, "F", shift left] & \mathcal{D} \arrow[r, "H", shift left] \arrow[l, "G", shift left] & \mathcal{E} \arrow[l, "K", shift left]
+	\end{tikzcd},
+	if $F \dashv G$ and $H \dashv K$ then $HF \dashv GK$.
+\end{lemma}
+\begin{proof}
+	We have bijections
+	$$\mathcal{E}(HFA, C) \cong \mathcal{D}(FA, KC) \cong \mathcal{C}(A, GKC)$$
+	which are natural in $A$ and $C$.
+\end{proof}
+
+\begin{corollary}
+	Given a commutative square
+	\begin{tikzcd}
+		\mathcal{C} \arrow[r, "F"]  \arrow[d, "G"] & \mathcal{D} \arrow[d, "H"] \\
+		\mathcal{E} \arrow[r, "K"] & \mathcal{F}
+	\end{tikzcd}
+	of categories and functors,
+	suppose all the functors in the diagram have left adjoints.
+	Then the diagram
+	\begin{tikzcd}
+		\mathcal{F} \arrow[r] \arrow[d] & \mathcal{E} \arrow[d] \\
+		\mathcal{D} \arrow[r] & \mathcal{C}
+	\end{tikzcd}
+	of left adjoints commutes up to natural isomorphism.
+\end{corollary}
+
+Given $F \dashv G$,
+we have a natural transformation $\eta: 1_\mathcal{C} \to GF$
+defined as in 3.2. We call $\eta$ the \textbf{unit} of the adjunction.
+
+Dually, we have $\epsilon: FG \to 1_\mathcal{D}$, the \textbf{counit}.
+$\epsilon_B: FGB \to B$ corresponds to $1_{GB}: GB \to GB$.
+
+\begin{theorem}
+	Suppose we're given $F: \mathcal{C} \to \mathcal{D}$ and $G: \mathcal{D} \to \mathcal{C}$.
+	Specifying an adjunction $F \dashv G$ is equivalent to specifying natural transformations
+	$\eta: 1_\mathcal{C} \to GF$ and $\epsilon: FG \to 1_\mathcal{D}$ such that
+	\begin{center}
+	\begin{tikzcd}
+		F \arrow[r, "F\eta"] \arrow[rd, "1_F"] & FGF \arrow[d, "\epsilon_F"] & \text{and} & G \arrow[r, "\eta_G"] \arrow[rd, "1_G"]  & GFG \arrow[d, "G\epsilon"] \\
+		                                       &  F                          &            &                                          &  G
+	\end{tikzcd}
+	\end{center}
+	commute.
+	(We say $\eta$ and $\epsilon$ satisfy the \textbf{triangular identities}).
+\end{theorem}
 \end{document}
