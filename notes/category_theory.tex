@@ -431,4 +431,182 @@ $\epsilon_B: FGB \to B$ corresponds to $1_{GB}: GB \to GB$.
 	commute.
 	(We say $\eta$ and $\epsilon$ satisfy the \textbf{triangular identities}).
 \end{theorem}
+\begin{proof}
+	Given $F \dashv G$, we define $\eta$ and $\epsilon$ as already described.
+	Since $\epsilon_{FA}: FGFA \to FA$ corresponds to $1_{GFA}$,
+	the composite $\epsilon_{FA}(F\eta_A)$ corresponds to
+	\begin{tikzcd}A \arrow[r, "\eta_A"] & GFA \arrow[r, "1_{GFA}"] & GFA \end{tikzcd},
+	so it must be $1_{FA}$.
+	
+	Similarly for the other identity.
+	
+	Conversely, given $\eta$ and $\epsilon$ satisfying the $\triangle^r$ identities,
+	we map $f: A \to GB$ to the composite
+	\begin{tikzcd}FA \arrow[r, "Ff"] & FGB \arrow[r, "\epsilon_B"] & B\end{tikzcd}
+	and $g: FA \to B$ to the composite
+	\begin{tikzcd}A \arrow[r, "\eta_A"] & GFA \arrow[r, "Gg"] & GB\end{tikzcd}.
+	
+	We have
+	\begin{align*}
+	\Phi(\begin{tikzcd}[ampersand replacement=\&] A \arrow[r, "f"]\& GB\end{tikzcd}) &=
+		\begin{tikzcd}[ampersand replacement=\&]FA \arrow[r, "Ff"] \& FGB \arrow[r, "\epsilon_B"] \& B\end{tikzcd} \\
+	\Psi(\begin{tikzcd}[ampersand replacement=\&] FA \arrow[r, "g"]\& B\end{tikzcd}) &=
+		\begin{tikzcd}[ampersand replacement=\&]A \arrow[r, "\eta_A"] \& GFA \arrow[r, "Gg"] \& GB\end{tikzcd}
+	\end{align*}
+	
+	So
+	\begin{align*}
+		\Psi\Phi(f) & =
+			\begin{tikzcd}[ampersand replacement=\&] A \arrow[r, "\eta_A"] \& GFA \arrow[r, "GFf"] \& GFGB \arrow[r, "G\epsilon_B"] \& GB\end{tikzcd} \\
+			&= \begin{tikzcd}[ampersand replacement=\&] A \arrow[r, "f"] \& GB \arrow[r, "\eta_{GB}"] \& GFGB \arrow[r, "G\epsilon_B"] \& GB\end{tikzcd} \\
+			&= f
+	\end{align*}
+	
+	And dually $\Phi\Psi(g) = g$.
+	
+	Naturality of $\Phi$ in $A$ is immediate from its definition,
+	and naturality in $B$ follows from that of $\epsilon$.
+\end{proof}
+
+\begin{lemma}
+	Suppose given
+	\begin{tikzcd}
+		\mathcal{C} \arrow[r, "F", shift left] & \mathcal{D} \arrow[l, "G", shift left]
+	\end{tikzcd}
+	and natural isomorphisms $\alpha: 1_\mathcal{C} \to GF$,
+	$\beta: FG \to 1_\mathcal{D}$.
+	Then there exist natural isomorphisms $\alpha',\,\beta'$ 
+	which additionally satisfy the triangular identities.
+	In particular ($F \dashv G$).
+\end{lemma}
+\begin{proof}
+	We define $\alpha' = \alpha$ and take $\beta'$ to be the composite
+	\begin{center}
+		\begin{tikzcd}
+			FG \arrow[r, "\beta_{FG}^{-1}"] & FGFG \arrow[r, "F_{\alpha_G}^{-1}"] & FG \arrow[r, "\beta"] & 1_\mathcal{D}
+		\end{tikzcd}
+	\end{center}
+	Note that, since
+	\begin{tikzcd}
+		FGFG \arrow[r, "FG\beta"] \arrow[d, "\beta_{FG}"] & FG \arrow[d, "\beta"] \\
+		FG \arrow[r, "\beta"] & 1_\mathcal{D}
+	\end{tikzcd}
+	commutes and $\beta$ is monic,
+	we have $FG\beta = \beta_FG$.
+	
+	Similarly, $GF\alpha = \alpha_{GF}: GF \to GFGF$.
+	
+	Now
+	\begin{align*}
+		\beta_F' \circ F_{\alpha'} &=
+			\begin{tikzcd}[ampersand replacement=\&]F \arrow[r, "F\alpha"]\& FGF \arrow[r, "\beta_{FGF}^{-1}"]\& FGFGF \arrow[r, "F\alpha_{GF}^{-1}"]\& FGF \arrow[r, "\beta_F"] \& F\end{tikzcd} \\
+		&= \begin{tikzcd}[ampersand replacement=\&]F \arrow[r, "\beta_F^{-1}"]\& FGF \arrow[r, "FGF\alpha"]\& FGFGF \arrow[r, "FGF\alpha^{-1}"]\& FGF \arrow[r, "\beta_F"] \& F\end{tikzcd} \\
+		&= 1_F
+	\end{align*}
+	and
+	\begin{align*}
+	G\beta' \circ \alpha'_G &=
+	\begin{tikzcd}[ampersand replacement=\&]G \arrow[r, "\alpha_G"]\& GFG \arrow[r, "GFG\beta^{-1}"]\& GFGFG \arrow[r, "GF^{-1}_{\alpha_G}"]\& GFG \arrow[r, "G\beta"] \& G\end{tikzcd} \\
+	&= \begin{tikzcd}[ampersand replacement=\&]G \arrow[r, "G\beta^{-1}"]\& GFG \arrow[r, "\alpha_{GFG}"]\& GFGFG \arrow[r, "\alpha_{GFG}^{-1}"]\& GFG \arrow[r, "\beta_F"] \& G\end{tikzcd} \\
+	&= 1_G
+	\end{align*}
+\end{proof}
+
+\begin{lemma}
+	Suppose
+	\begin{tikzcd}
+		\mathcal{C} \arrow[r, "F", shift left] & \mathcal{D} \arrow[l, "G", shift left]
+	\end{tikzcd},
+	($F \dashv G$) is an adjunction with counit $\epsilon$.
+	Then
+	\begin{enumerate}[label=\roman*.]
+		\item $\epsilon$ is (pointwise) epic $\iff$ $G$ is faithful
+		\item $\epsilon$ is an isomorphism $\iff$ $G$ is full and faithful
+	\end{enumerate} 
+\end{lemma}
+\begin{proof}
+	\begin{enumerate}[label=\roman*.]
+		\item Given $g: B \to B'$,
+		the morphism $Gg: GB \to GB'$ corresponds to
+		\begin{center}
+			\begin{tikzcd} FGB \arrow[r, "\epsilon_B"] & B \arrow[r, "g"] & B' \end{tikzcd}
+		\end{center}
+		So, for fixed $B$,
+		composition with $\epsilon_B$ is injective on morphisms $B \to B'$
+		$\iff$ $(g \mapsto Gg)$ is injective on morphisms $B \to B'$.
+		
+		Hence $G$ is faithful $\iff \epsilon_B$ is epic $\forall B$.
+		
+		\item Similarly, $\epsilon_B$ is 0 $\forall B$
+		$\implies G$ is bijective on morphisms with given domain and codomain,
+		i.e. $G$ is full and faithful.
+		
+		Conversely, if $G$ is full and faithful,
+		$1_{FGB}$ factors uniquely as \newline
+		\begin{tikzcd}FGB \arrow[r, "\epsilon_B"] & B \arrow[r, "g"] & FGB\end{tikzcd},
+		so $\epsilon_B$ is split monic.
+		But it's epic by (i), hence an isomorphism.
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}
+	\begin{enumerate}[label=\roman*.]
+		\item A \textbf{reflection} is an adjunction satisfying the conditions of 3.8(ii).
+		\item A \textbf{reflective} subcategory of $\mathcal{C}$ is a full subcategory $\mathcal{C}'$
+		for which the inclusion $\mathcal{C}' \hookrightarrow \mathcal{C}$ has a left adjoint.
+	\end{enumerate}
+	
+	Dually, \textbf{coreflection} and \textbf{coreflective} subcategory.
+\end{definition}
+
+\section{Limits}
+\begin{definition}
+	\begin{enumerate}[label=\alph*.]
+		\item Let $J$ be a category (almost always small, often finite).
+		A \textbf{diagram of shape J} in a category $\mathcal{C}$ is a functor $D: J \to \mathcal{C}$.
+		
+		E.g. if $J$ is the finite category
+		\begin{tikzcd}
+			\cdot \arrow[r] \arrow[d] \arrow[rd] & \cdot \arrow[d]\\
+			\cdot \arrow[r] & \cdot
+		\end{tikzcd}
+		, a diagram of shape $J$ is a commutative square.
+		If $J$ is the category
+		\begin{tikzcd}
+			\cdot \arrow[r] \arrow[d] \arrow[rd, shift left] \arrow[rd, shift right] & \cdot \arrow[d]\\
+			\cdot \arrow[r] & \cdot
+		\end{tikzcd}
+		, a diagram of shape $J$ is a not-necessarily-commutative square.
+		
+		The objects $D(j),\,j \in \ob J$ are called \textbf{vertices} of $D$,
+		and the morphisms $D(\alpha),\, \alpha \in \mor J$ are called \textbf{edges} of $D$.
+		
+		\item Let $D: J \to \mathcal{C}$ be a diagram in $\mathcal{C}$.
+		A \textbf{cone over D} is a pair $(A,\, (\lambda_j \,|\, j \in \ob J))$ where $\lambda_j: A \to D(j)\ \forall j$,
+		and
+		\begin{tikzcd}[column sep=tiny]
+			& A \arrow[ld, "\lambda_j"] \arrow[rd, "\lambda_{j'}"] & \\
+			D(j) \arrow[rr, "D(\alpha)"]&& D(j')
+		\end{tikzcd}
+		commutes for each $\alpha: j \to j'$ in $J$.
+		
+		$A$ is called the \textbf{apex} of the cone,
+		and the $\lambda_j$ are its \textbf{legs}.
+		
+		Equivalently, $\lambda$ is a natural transformation $\triangle A \to D$,
+		where $\triangle A$ is the \textbf{constant diagram} with all vertices A and all edges $1_A$.
+		
+		A \textbf{morphism}
+		$f: (A, (\lambda_j)) \to (B, (\mu_j))$ of cones over $D$ is a morphism $f: A \to B$ s.t.
+		\begin{tikzcd}[column sep=tiny]
+		A \arrow[rr, "f"] \arrow[rd, "\lambda_j"] && B \arrow[ld, "\mu_j"]\\
+		& D(j) &
+		\end{tikzcd}
+		commutes for each $j$.
+		We have a category \textbf{Cone}($D$) of cones over $D$.
+		
+		Note that $A \mapsto \triangle A$ is a functor $\mathcal{C} \to [J, \mathcal{C}]$ and
+		\textbf{Cone}(D) is in fact the category $(\triangle \downarrow D)$.
+	\end{enumerate}
+\end{definition}
 \end{document}
