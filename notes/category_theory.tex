@@ -607,6 +607,110 @@ $\epsilon_B: FGB \to B$ corresponds to $1_{GB}: GB \to GB$.
 		
 		Note that $A \mapsto \triangle A$ is a functor $\mathcal{C} \to [J, \mathcal{C}]$ and
 		\textbf{Cone}(D) is in fact the category $(\triangle \downarrow D)$.
+		
+		A cocone over $D: J \to \mathcal{C}$ is a cone over $D: J^{op} \to \mathcal{C}^{op}$.
+		We write \textbf{Cocone}$(D)$ for the category of cocones over D.
+	\end{enumerate}
+\end{definition}
+\begin{definition}
+	\begin{enumerate}[label=\roman*.]
+		\item A \textbf{limit} (resp. \textbf{colimit}) for a diagram $D: J \to \mathcal{C}$ is a terminal object of \textbf{Cone}(D) (respectively an initial object of \textbf{Cocone}(D)).
+		\item We say $\mathcal{C}$ has limits (resp. colimits) of shape $J$ if $\triangle: \mathcal{C} \to [J, \mathcal{C}]$ has a right (resp. left) adjoint.
+		
+		(This is equivalent to making a choice of limit (resp. colimit) for every diagram of shape J).
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Pullback]
+	Let $J$ be
+	\begin{tikzcd}& \cdot \arrow[d] \\ \cdot \arrow[r] & \cdot\end{tikzcd}.
+	A diagram of shape J looks like 
+	\begin{tikzcd}& A \arrow[d, "f"] \\ B \arrow[r, "g"] & C\end{tikzcd}.
+	A cone over it consists of
+	\begin{tikzcd}D \arrow[r, "h"] \arrow[rd, "l"] \arrow[d, "k"] & A \\ C & B\end{tikzcd}
+	satisfying $fh=l=gk$.
+	Equivalently, it's a pair
+	\begin{tikzcd}D \arrow[r, "h"] \arrow[d, "k"] & A \\ C &\end{tikzcd}
+	completing the diagram to a commutative square.
+	
+	A universal such pair is called a \textbf{pullback} (or \textbf{fibre product});
+	in $\Set$ it can be defined as $\{(a,b) \in A \times B \,|\, f(a)=g(b)\}$.
+	A colimit of shape $J^{op}$ is called a \textbf{pushout}.
+\end{definition}
+
+\begin{theorem}
+	Let $\mathcal{C}$ be a category.
+	\begin{enumerate}[label=\roman*.]
+		\item If $\mathcal{C}$ has equalisers and all finite (resp. all small) products,
+		then $\mathcal{C}$ has all finite (resp. all small) limits.
+		\item If $\mathcal{C}$ has pullbacks and a terminal object, 
+		then $\mathcal{C}$ has all finite limits.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}[label=\roman*.]
+	\item 
+	Given $D: J \to \mathcal{C}$, first form the products
+	\begin{center}
+	\begin{tabular}{ccc}
+	$P = \prod_{j \in \ob J} D(j)$ & and & $Q = \prod_{\alpha \in \mor J} D(\cod \alpha)$
+	\end{tabular}
+	\end{center}
+	
+	Define
+	\begin{tikzcd}P \ar[r, "f", shift left] \ar[r, "g" below, shift right] & Q\end{tikzcd}
+	by $\pi_\alpha f = \pi_{\cod \alpha}: P \to D(\cod \alpha)$ and
+	$\pi_\alpha g = D(\alpha) \circ \pi_{\dom \alpha}: P \to D(\dom \alpha) \to D(\cod \alpha)$,
+	and let $e:E \to P$ be the equaliser of $(f, g)$.
+	
+	Claim $(E, (\pi_je \,|\, j \in \ob J))$ is a limit cone for $D$.
+	It is a cone since, for any $\alpha: j \to j'$,
+	$D(\alpha)\pi_je = \pi_\alpha ge = \pi_\alpha fe = \pi_{j'} e$.
+	
+	Given any cone $(C, (\lambda_j \,|\, j \in \ob J))$,
+	the $\lambda_j$ define a unique $\lambda: C \to P$,
+	and $f\lambda = g\lambda$ since $\pi_\alpha f\lambda = \pi_\alpha g \lambda \ \forall \alpha$.
+	So $\lambda$ factors uniquely through $e$.
+	
+	\item
+	Let 1 be a terminal object of $\mathcal{C}$.
+	For any pair of objects $(A, B)$ the pullback of
+	\begin{tikzcd}& A \ar[d]\\ B \ar[r]& 1\end{tikzcd}
+	has the universal property of a product $A \times B$,
+	so $\mathcal{C}$ has binary products.
+	Then we can define any finite product $\prod_{i=1}^n A_i$ as $(((A_1 \times A_2)\times A_3) \times \dots) \times A_n$.
+	
+	So we need to show $\mathcal{C}$ has equalisers.
+	Given \begin{tikzcd}A \ar[r, "f", shift left] \ar[r, "g" below, shift right] & B\end{tikzcd},
+	consider the pullback of
+	\begin{tikzcd}
+		& B \ar[d, "{(1_A, f)}"] \\
+		A \ar[r, "{(1_A, g)}"] & A \times B
+	\end{tikzcd}.
+	
+	It consists of
+	\begin{tikzcd}P \ar[r, "h"] \ar[d, "k"]& B \\ A\end{tikzcd}
+	satisfying $1_Ah=1_Ak$ and $fh = gk$,
+	and universal among such.
+	
+	But this forces $h=k$, and $h$ has the universal property of an equaliser for $(f, g)$.
+	So by (i), $\mathcal{C}$ has all finite limits.
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}
+	Let $F: \mathcal{C} \to \mathcal{D}$ be a functor.
+	\begin{enumerate}[label=\alph*.]
+		\item We say $F$ \textbf{preserves} limits of shape $J$ if,
+		given $D: J \to \mathcal{C}$ and a limit cone $(L, (\lambda_j: j \in \ob J))$ for $D$,
+		the cone $(FL, (F\lambda_j : j \in \ob J))$ is a limit for $FD: J \to \mathcal{D}$.
+		\item We say $F$ \textbf{reflects} limits of shape $J$ if,
+		given $D: J \to \mathcal{C}$ and a cone $(L, (\lambda_j))$ such that $(FL, (F\lambda_j))$ is a limit for $FD$,
+		then $(L, (\lambda_j))$ is a limit for $D$.
+		\item We say $F$ \textbf{creates} limits of shape $J$ if,
+		given $D: J \to \mathcal{C}$ and a limit $(M, (\mu_j))$ for $FD$,
+		there exists a cone $(L, \lambda_j)$ over $D$ whose image is isomorphic to $(M, (\mu_j))$,
+		and any such cone is a limit for $D$.
 	\end{enumerate}
 \end{definition}
 \end{document}
