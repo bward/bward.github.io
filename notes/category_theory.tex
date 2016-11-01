@@ -713,4 +713,136 @@ $\epsilon_B: FGB \to B$ corresponds to $1_{GB}: GB \to GB$.
 		and any such cone is a limit for $D$.
 	\end{enumerate}
 \end{definition}
+
+\begin{lemma}
+	Suppose $\mathcal{D}$ has limits of shape $J$.
+	Then $[\mathcal{C}, \mathcal{D}]$ has limits of shape $J$,
+	and they're constructed pointwise
+	(i.e. the forgetful functor $[\mathcal{C}, \mathcal{D}] \to \mathcal{D}^{\ob \mathcal{C}}$ creates them).
+\end{lemma}
+\begin{proof}
+	Consider a functor $D: J \times \mathcal{C} \to \mathcal{D}$.
+	For each $A \in \ob \mathcal{C}$,
+	let $(LA, (\lambda_{j,A}: LA \to D(j, A) \,|\, j \in \ob J))$
+	be a limit for the diagram $D(-, A): J \to \mathcal{D}$.
+	
+	Given any $f:A \to B$ in $\mathcal{C}$, the composites
+	\begin{center}
+	\begin{tikzcd}LA \ar{r}{\lambda_{j,A}} & D(j, A) \ar{r}{D(j,f)} & D(j, B)\end{tikzcd}
+	\end{center}
+	form a cone over $D(-, B)$,
+	so they induce a unique $Lf: LA \to LB$ such that
+	\begin{center}
+		\begin{tikzcd}
+			LA \ar{r}{Lf} \ar{d}{\lambda_{j, A}} & LB \ar{d}{\lambda_{j,B}}\\
+			D(j,A) \ar{r}{D(j,f)} & D(j,B)
+		\end{tikzcd}
+	\end{center}
+	commutes for all $j$.
+	Uniqueness assures $L(gf)=L(g)L(f)$,
+	so $L$ is a functor $\mathcal{C} \to \mathcal{D}$,
+	and the $\lambda_{j,-}$ are natural transformations $L \to D(j, -)$.
+	
+	Suppose we're given any cone over $D$ in $[\mathcal{C}, \mathcal{D}]$ with apex $M$ and legs $\mu_j: M \to D(j, -)$.
+	Then $(MA, (\mu_{j,A}: MA \to D(j, A) \,|\, j \in \ob J))$
+	is a cone over $D(-, A)$ in $\mathcal{D}$,
+	so we get a unique $\nu_A: MA \to LA$ s.t. $\lambda_{j,A}\nu_A = \mu_{j, A}$ for all $j$.
+	
+	Uniqueness tells us that
+	\begin{center}
+		\begin{tikzcd}
+			MA \ar{r}{Mf} \ar{d}{\nu_A} & MB \ar{d}{\nu_B} \\
+			LA \ar{r}{Lf} & LB
+		\end{tikzcd}
+	\end{center}
+	commutes for all $f \in \mor \mathcal{C}$,
+	so $\nu: M \to L$ in $[\mathcal{C}, \mathcal{D}]$,
+	so it's the unique factorisation of the $\mu_{j,-}$ through the $\lambda_{j,-}$.
+\end{proof}
+
+\begin{lemma}
+	A morphism $f: A \to B$ is monic $\iff$
+	\begin{center}
+	\begin{tikzcd}
+		A \ar{r}{1_A} \ar{d}{1_A} & A \ar{d}{f}\\
+		A \ar{r}{f} & B
+	\end{tikzcd}
+	\end{center}
+	is a pullback.
+\end{lemma}
+\begin{proof}
+	$f$ is monic $\iff$ any cone (g,h) over $(f, f)$ has $g=h$
+	$\iff (g, h)$ factors uniquely through $(1_A, 1_A)$.
+\end{proof}
+
+Hence, provided $\mathcal{D}$ has pullbacks,
+a morphism $\alpha: F \to G$ in $[\mathcal{C}, \mathcal{D}]$
+is monic $\iff \alpha_A: FA \to GA$ is monic for each $A$.
+
+\begin{theorem}
+	If $G: \mathcal{D} \to \mathcal{C}$ has a left adjoint,
+	then $G$ preserves all limits which exist in $\mathcal{D}$.
+\end{theorem}
+\begin{proof}
+	Suppose $\mathcal{C}$ and $\mathcal{D}$ both have limits of shape J and let $(F \dashv G)$.
+	The diagram
+	\begin{center}
+		\begin{tikzcd}
+			\mathcal{C} \ar{r}{F} \ar{d}{\triangle} & \mathcal{D} \ar{d}{\triangle} \\
+			{[J, \mathcal{C}]} \ar{r}{{[J, F]}} & {[J, \mathcal{D}]}
+		\end{tikzcd}
+	\end{center}
+	commutes and $[J, F]$ has a right adjoint $[J, G]$.
+	So by 3.5 the diagram of right adjoints
+	\begin{center}
+		\begin{tikzcd}
+			{[J, \mathcal{D}]} \ar{r}{{[J, G]}} \ar{d}{\lim_J} & {[J, \mathcal{C}]} \ar{d}{\lim_J} \\
+			\mathcal{D} \ar{r}{G} & \mathcal{C}
+		\end{tikzcd}
+	\end{center}
+	commutes up to isomorphism,
+	i.e. $G$ preserves limits of shape $J$.
+\end{proof}
+\begin{proof}
+	Let $D:J \to \mathcal{D}$ be a diagram with limit $(L, (\lambda_j \,|\, j \in \ob J))$.
+	Given a cone $(A, (\mu_j: A \to GD(j) \,|\, j \in \ob J))$ in $\mathcal{C}$,
+	we get a cone $(FA, (\bar{\mu_j} : FA \to D(j) \,|\, j \in \ob J))$ in $\mathcal{D}$,
+	and hence a unique $\bar{\nu}:FA \to L$ such that $\lambda_j\bar{\nu} = \bar{\mu_j}$ for all $j$.
+	
+	Then $\nu: A \to GL$ is the unique morphism such that $(G\lambda_j)\nu = \mu_j \forall j$.
+\end{proof}
+
+The `primeval' Adjoint Functor Theorem says that if $\mathcal{D}$ has and $G: \mathcal{D} \to \mathcal{C}$ preserves all limits,
+then $G$ has a left adjoint.
+
+This depends on two ideas:
+\begin{lemma}
+	$\mathcal{C}$ has an initial object $\iff 1_\mathcal{C}: \mathcal{C} \to \mathcal{C}$ has a limit.
+\end{lemma}
+\begin{proof}
+	Suppose $\mathcal{C}$ has an initial object 0.
+	The morphisms $(0 \to A \,|\, A \in \ob \mathcal{C})$ form a cone over $1_\mathcal{C}$.
+	If we had another, say $(L, (\lambda_A \,|\, A \in \ob \mathcal{C}))$,
+	then $\lambda_0: L \to 0$ would make
+	\begin{center}
+		\begin{tikzcd}[column sep=tiny]
+			L \ar{rr}{\lambda_0} \ar{rd}{\lambda_A} && 0 \ar{ld} \\
+			& A &
+		\end{tikzcd}
+	\end{center}
+	commute for all $A$, and it's the only morphism which does.
+	
+	Conversely, suppose $(I, (\lambda_A: I \to A \,|\, A \in \ob \mathcal{C}))$ is a limit for $1_\mathcal{C}$.
+	
+	If $f: I \to A$, then
+	\begin{center}
+		\begin{tikzcd}[column sep=tiny]
+			I \ar{rr}{\lambda_I} \ar{rd}{\lambda_A} && I \ar{ld}{f}\\
+			& A &
+		\end{tikzcd}
+	\end{center}
+	commutes. In particular, $\lambda_A \lambda_I = \lambda_A$ for all $A$,
+	so $\lambda_I = 1_I$ since both are factorisations of the limit cone through itself.
+	So $f = \lambda_A$, and hence $I$ is initial.
+\end{proof}
 \end{document}
