@@ -11,6 +11,7 @@
 \usepackage{tikz-cd}
 \usepackage{enumitem}
 \newtheorem{definition}{Definition}
+\newtheorem*{definitionnn}{Definition}
 \newtheorem{lemma}[definition]{Lemma}
 \newtheorem{theorem}[definition]{Theorem}
 \newtheorem{prop}[definition]{Proposition}
@@ -47,7 +48,7 @@
 \begin{definition}[Equivalence of absolute values]
 	Let $K$ be a field and let $\abs{\cdot}$, $\abs{\cdot}^{'}$ be absolute values on K. We say that $\abs{\cdot}$ and $\abs{\cdot}^{'}$ are \textbf{equivalent} if the associated metrics induce the same topology.
 \end{definition}
-
+\setcounter{definition}{5}
 \begin{definition}[Non-archimedean absolute value]
 	An absolute value $\abs{\cdot}$ on a field $K$ is called \textbf{non-archimedean} if $\abs{x+y}\leq\max(\abs{x},\abs{y})$ (the \textbf{strong triangle inequality}).
 	
@@ -186,9 +187,7 @@ Let $K$ be a valued field.
 	\item $k = k_K = \mathcal{O}/\mathfrak{m}$ is the \textbf{residue field}
 \end{itemize}
 
-\begin{definition}
-	If $K$ is a valued field and $F(x)=a_0 + a_1 x + \dots + a_n x^n \in K[x]$ is a polynomial, we say that F is \textbf{primitive} if $\max_i \abs{a_i} = 1$ ($\implies F \in \mathcal{O}[x]$).
-\end{definition}
+If $K$ is a valued field and $F(x)=a_0 + a_1 x + \dots + a_n x^n \in K[x]$ is a polynomial, we say that F is \textbf{primitive} if $\max_i \abs{a_i} = 1$ ($\implies F \in \mathcal{O}[x]$).
 
 \begin{theorem}[Hensel's Lemma]
 	Assume that $K$ is complete and that $F \in K[x]$ is primitive. Put $f = F \mod \mathfrak{m} \in k[x]$. If $\exists$ factorisation $f(x)=g(x)h(x)$ with $(g,h)=1$, then $\exists$ factorisation $F(x)=G(x)H(x)$ in $\mathcal{O}[x]$ with $g \equiv G$, $h \equiv H \mod \mathfrak{m}$ and $\deg g$ = $\deg G$.
@@ -266,26 +265,26 @@ Useful fact: let $K$ be a valued field, $x, y \in K$. $\abs{x} > \abs{y} \implie
 \end{corollary}
 
 \subsection{Newton Polygons}
-\begin{definition}
+\begin{definitionnn}
 	$S \subset \mathbb{R}^2$ is \textbf{lower convex} if
 	\begin{enumerate}[label=\roman*.]
 		\item $(x, y) \in S \implies (x, z) \in S\ \forall z \geq y$
 		\item $S$ is convex
 	\end{enumerate}
-\end{definition}
+\end{definitionnn}
 
 Given any $T \subset \mathbb{R}^2$, there exists a minimal lower convex $LCH(T) \supseteq T$ ($LCH(T) = \bigcap_{T\subset S', S' \text{lower convex}} S'$).
 
-\begin{definition}
+\begin{definitionnn}
 	Let $f(x) = a_0 + a_1 x + \dots + a_n x^n \in K[x]$ where $K$ is a valued field, $v$ a valuation on $K$.
 	
 	Define the \textbf{Newton polygon} of $f$ as $LCH\left(\left\{(i, v(a_i)) \,\middle|\, \begin{tabular}{c}$i=0,1,\dots,n$ \\ $a_i \neq 0$\end{tabular}\right\}\right)$.
-\end{definition}
+\end{definitionnn}
 
-\begin{definition}
+\begin{definitionnn}
 	The horizontal length of a line segment is called the \textbf{multiplicity}.
 	Line segments have a \textbf{slope}.
-\end{definition}
+\end{definitionnn}
 
 \begin{theorem}
 	Let $K$ be a complete valued field,
@@ -362,7 +361,7 @@ Let $K$ be a DVF. $\pi \in K$ is called a \textbf{uniformiser} if $v(\pi) > 0$ a
 		$$ x = \sum_{n \gg -\infty}^{\infty} a_n \pi^n$$
 		with $a_n \in S$ and $\abs{x} = \abs{pi}^{-\inf\{n \,|\, a_n \neq 0\}}$
 		\item The completion $\hat{K}$ of $K$ is a DVF, $\pi$ is a uniformiser and 
-		$$\mathcal{O}_K/\pi^n\mathcal{O}_K \overset{\sim}{\to} \mathcal{O}_{\hat{K}}/\pi^n\mathcal{O}_{\hat{K}}$$
+		$$\mathcal{O}_K/\pi^n\mathcal{O}_K \overset{\sim}{\longrightarrow} \mathcal{O}_{\hat{K}}/\pi^n\mathcal{O}_{\hat{K}}$$
 		via the natural map.
 	\end{enumerate}
 \end{prop}
@@ -524,4 +523,199 @@ Let $K$ be a DVF. $\pi \in K$ is called a \textbf{uniformiser} if $v(\pi) > 0$ a
 Fact: let $F$ be a field of characteristic $p$. Then $F$ is perfect $\iff$ every finite extension of $F$ is separable.
 
 $\mathbb{F}_q$ is perfect for every $q=p^n$.
+
+\subsection{*Wiff Vectors*}
+
+\begin{definition}
+	Let $A$ be a ring. $A$ is called a \textbf{strict p-ring} if $A$ is $p$-torsionfree,
+	$p$-adically complete and $A/pA$ is perfect.
+\end{definition}
+
+\begin{prop}
+	Let $X = \{x_i \,|\, i \in I\}$ be a set.
+	Let
+	\begin{align*}
+	B &= \mathbb{Z}[x_i^{p^{-\infty}} \,|\, i \in I]\\
+	&= \bigcup_{n=0}^\infty \mathbb{Z}[x_i^{p^{-n}} \,|\, i \in I]
+	\end{align*}
+	(Note that $\mathbb{Z}[x_i \,|\, i \in I] \subseteq \mathbb{Z}[x_i^{p^{-1}} \,|\, i \in I] \subseteq \dots$)
+	and let $A$ be the $p$-adic completion of $B$. Then $A$ is a strict $p$-ring,
+	and $A/pA \cong \mathbb{F}_p[x_i^{p^{-\infty}} \,|\, i \in I]$ (think of as `universal perfect rings').
+\end{prop}
+
+\begin{lemma}
+	Let $A$ and $B$ be strict $p$-rings and let $f: A/pA \to B/pB$ be a ring homomorphism.
+	Then $\exists!$ homomorphism $F:A \to B$ such that $f \equiv F \mod p$.
+	
+	$F$ is explicitly given by $F(\sum_{n=0}^\infty [a_n]p^n) = \sum_{n=0}^\infty [f(a_n)]p^n$.
+\end{lemma}
+
+\begin{theorem}
+	Let $R$ be a perfect ring.
+	Then $\exists!$ (up to isomorphism) strict $p$-ring $W(R)$ (called the \textbf{Wiff vectors} of R)
+	such that $W(R)/pW(R) \cong R$.
+	Moreover, if $R'$ is another perfect ring the reduction mod $p$ map gives a bijection
+	$$Hom_{\text{Ring}}(W(R), W(R')) \overset{\sim}{\longrightarrow} Hom_{\text{Ring}}(R, R')$$
+\end{theorem}
+
+\begin{prop}
+	A complete DVR $A$ of mixed characteristic with perfect residue field and such that $p$ is a uniformiser
+	is the same as a strict $p$-ring $A$ such that $A/pA$ is a field.
+\end{prop}
+
+\begin{definition}
+	Let $R$ be a mixed characteristic DVR with normalised valuation $v_R$.
+	The integer $v_R(p)$ where $p$ is the characteristic of the residue field of $R$
+	is called the \textbf{absolute ramification index} of $R$.
+\end{definition}
+
+\begin{corollary}
+	Let $R$ be a CDVR of mixed characteristic with absolute ramification index 1 and perfect residue field $k$.
+	Then $R \cong W(k)$.
+\end{corollary}
+\setcounter{definition}{52}
+\renewcommand{\thedefinition}{\arabic{definition}'}
+\begin{lemma}
+	Let $A$ be a strict $p$-ring and let $B$ be a $p$-adically complete ring.
+	If $f: A/pA \to B/pB$ is a ring homomorphism,
+	then $\exists!$ ring homomorphism $F:A \to B$ with $f \equiv F \mod p$.
+\end{lemma}
+\setcounter{definition}{57}
+\renewcommand{\thedefinition}{\arabic{definition}}
+
+\begin{theorem}
+	Let $R$ be a CDVR of mixed characteristic with perfect residue field $k$ and uniformiser $\pi$.
+	Then $R$ is finite over $W(k)$.
+\end{theorem}
+
+\begin{corollary}
+	Let $K$ be a mixed characteristic local field.
+	Then $K$ is a finite extension of $\mathbb{Q}_p$.
+\end{corollary}
+
+\section{Some p-adic Analysis}
+
+Recall the power series
+$$\exp(x) = \sum_{n=0}^\infty \frac{x^n}{x!}$$
+$$\log(1+x) = \sum_{n=1}^\infty (-1)^{n-1} \frac{x^n}{n}$$
+
+\begin{prop}
+	Let $K$ be a complete valued field with absolute value $\abs{\cdot}$,
+	and assume that $K \supseteq \mathbb{Q}_p$,
+	$\abs{\cdot}|_{\mathbb{Q}_p} = \abs{\cdot}_p$.
+	Then $\exp(x)$ converges for $\abs{x} < p^{-\frac{1}{p-1}}$ and $\log(1+x)$ converges for $\abs{x}<1$,
+	and they define continuous maps
+	$$\exp :\left\{x \in K \,|\, \abs{x} < p^{-\frac{1}{p-1}}\right\} \to \mathcal{O}_K$$
+	$$\log: \left\{x \in K \,|\, \abs{x} < 1 \right\} \to K$$
+\end{prop}
+\begin{proof}
+	$v=-\log_p\abs{\cdot}$, this extends $v_p$.
+	
+	log: $v(n) \leq \log_p n \implies$
+	$$v(\frac{x^n}{n}) \geq n \cdot v(x) - \log_p n \to \infty$$
+	if $v(x) > 0$.
+	
+	exp: $v(n!) = \frac{n-s_p(n)}{p-1}$.
+	Then
+	$$v(\frac{x^n}{n!}) \geq n\cdot v(x) - \frac{n}{p-1} = n(v(x)-\frac{1}{p-1}) \geq 0$$
+	and $\to \infty$ as $n \to \infty$ if $v(x) > \frac{1}{p-1}$.
+	
+	For continuity, we use uniform convergence as in the real case.
+\end{proof}
+
+\setcounter{definition}{52}
+\renewcommand{\thedefinition}{\arabic{definition}''}
+\begin{lemma}
+	Let $A$ be a strict $p$-ring,
+	$B$ a ring with element $x \in B$ such that $B$ is $x$-adically complete and $B/xB$ is perfect of characteristic $p$.
+	If $f: A/pA \to B/pB$ is a ring homomorphism,
+	then $\exists!$ ring homomorphism $F:A \to B$ with $f \equiv F \mod p$.
+\end{lemma}
+\setcounter{definition}{60}
+\renewcommand{\thedefinition}{\arabic{definition}}
+
+Let $n\geq 1$.
+$${x \choose n} = \frac{x(x-1)\dots(x-n+1)}{n!}$$
+is a polynomial in $x$, and so defines a continuous function $\mathbb{Z}_p \to \mathbb{Q}_p$,
+$x \mapsto {x \choose n}$.
+
+Since ${x \choose n} \in \mathbb{Z}$ if $x \in \mathbb{Z}_{\geq 0}$,
+by the density of $\mathbb{Z}_{\geq 0} \subset \mathbb{Z}_p$ we must have ${x \choose n} \in \mathbb{Z}_p \forall\ x \in \mathbb{Z}_p$.
+
+When $n=0$,
+set ${x \choose 0}=1 \forall\ x \in \mathbb{Z}_p$.
+
+\subsection{Mahler's Theorem}
+\begin{theorem}[Mahler]
+	Let $f: \mathbb{Z}_p \to \mathbb{Q}_p$ be a continuous function.
+	Then $\exists$ a unique sequence $(a_n)_{n\geq 0}$ with $a_n \in \mathbb{Q}_p$, $a_n \to 0$ such that
+	$$f(x) = \sum_{n=0}^{\infty} a_n {x \choose n}\ \forall x \in \mathbb{Z}_p$$
+	and $\sup_{x \in \mathbb{Z}_p}\abs{f(x)}_p = \max_{n=0,1,\dots}\abs{a_n}_p$.
+\end{theorem}
+
+Let $\mathcal{C}(\mathbb{Z}_p, \mathbb{Q}_p) = \{f: \mathbb{Z}_p \to \mathbb{Q}_p \text{ cts}\}$.
+This is a $\mathbb{Q}_p$-vector space.
+
+If $f \in \mathcal{C}(\mathbb{Z}_p, \mathbb{Q}_p)$, set $\norm{f} = \sup_{x \in \mathbb{Z}_p}\abs{f(x)}_p$.
+$\mathbb{Z}_p$ compact $\implies f$ is bounded,
+so the supremum exists and is attained.
+
+Let $c_0$ denote the set of sequences $(a_n)_{n=0}^\infty$ in $\mathbb{Q}_p$ such that $a_n \to 0$.
+This is a $\mathbb{Q}_p$-vector space, with a norm $\norm{(a_n)} = \max_{n=0,1,\dots}\abs{a_n}_p$,
+and $c_0$ is complete w.r.t $\norm{\cdot}$.
+
+Define $\triangle: \mathcal{C}(\mathbb{Z}_p, \mathbb{Q}_p) \to \mathcal{C}(\mathbb{Z}_p, \mathbb{Q}_p)$ by $\triangle f(x) = f(x+1) - f(x)$.
+By induction,
+$$\triangle^n f(x) = \sum_{i=0}^n (-1)^i {n \choose i} f(x+n-i)$$
+Note that $\triangle$ defines a linear operator on $\mathcal{C}(\mathbb{Z}_p, \mathbb{Q}_p)$, and
+$$\abs{\triangle f(x)}_p = \abs{f(x+1) - f(x)}_p \leq \norm{f} \implies \norm{\triangle f} \leq \norm{f} \text{ or } \norm{\triangle} \leq 1$$
+
+\begin{definition}
+	Let $f \in \mathcal{C}(\mathbb{Z}_p, \mathbb{Q}_p)$.
+	The \textbf{nth Mahler coefficient} $a_n(f) \in \mathbb{Q}_p$ is defined by
+	$$a_n(f) = \triangle^n f(0) = \sum_{i=0}^n (-1)^i {n \choose i} f(n-i)$$
+\end{definition}
+
+\begin{lemma}
+	Let $f \in \mathcal{C}(\mathbb{Z}_p, \mathbb{Q}_p)$.
+	Then $\exists k \geq 1$ such that $\norm{\triangle^{p^k}f} \leq \frac{1}{p}\norm{f}$.
+\end{lemma}
+\begin{proof}
+	If $f=0$ there's nothing to prove,
+	so wlog $\norm{f} = 1$ (by scaling).
+	Then we want to show that $\triangle^{p^k} f(x) \equiv 0 \mod p\ \forall x \in \mathbb{Z}_p$,
+	some $k \geq 1$.
+	$$\triangle^{p^k} f(x) = \sum_{i=0}^{p^k}(-1)^i {p^k \choose i}f(x+p^k-i) \equiv f(x+p^k) - f(x) \mod p$$
+	because ${p^k \choose i} \equiv 0 \mod p$ for $i=1,2,\dots,p^k-1$ and $(-1)^{p^k} \equiv -1 \mod p$.
+
+	Now $\mathbb{Z}_p$ compact $\implies f$ is uniformly continuous,
+	so $\exists k$ such that $\abs{x-y}_p \leq p^{-k} \implies \abs{f(x)-f(y)}_p \leq \frac{1}{p}\ \forall x,y \in \mathbb{Z}_p$.
+	Take this $k$, and we're done.
+\end{proof}
+
+\begin{prop}
+	The map $f \mapsto (a_n(f))_{n=0}^\infty$ defines an injective norm-decreasing linear map $\mathcal{C}(\mathbb{Z}_p,\mathbb{Q}_p) \to c_0$.
+\end{prop}
+\begin{proof}
+	First we prove that $a_n(f) \to 0$.
+	We have $\abs{a_n(f)}_p \leq \norm{\triangle^n f}$,
+	so it suffices to prove that $\norm{\triangle^n f} \to 0$.
+	Since $\norm{\triangle} \leq 1$,
+	$\norm{\triangle^n f}$ is monotonically decreasing,
+	so it suffices to find a subsequence $\to 0$.
+	
+	Apply Lemma 63 repeatedly to get $k_1, k_2, \dots$ such that
+	$$\norm{\triangle^{p^{k_1 + \dots + k_n}}f} \leq \frac{1}{p^n}\norm{f}$$
+	This gives the desired subsequence.
+	
+	Note that $\abs{a_n(f)}_p \leq \norm{\triangle^n f} \leq \norm{\triangle}$,
+	so $\norm{(a_n(f))_n} = \max_{n=0,1,\dots}\abs{a_n(f)}_p \leq \norm{f}$,
+	so the map is norm-decreasing. 
+	Linearity follows from the linearity of $\triangle$.
+	
+	Injectivity: assume $a_n(f)=0\ \forall n \geq 0$.
+	Then $a_0(f) = f(0) = 0$,
+	and by induction $f(n) = \triangle^n f(0) = a_n(f) = 0\ \forall n\geq 0$.
+	So $f=0$ by continuity since $\mathbb{Z}_{\geq 0} \subseteq \mathbb{Z}_p$ is dense.
+\end{proof}
 \end{document}
