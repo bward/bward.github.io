@@ -10,11 +10,11 @@
 \usepackage{graphicx}
 \usepackage{tikz-cd}
 \usepackage{enumitem}
-\newtheorem*{definition}{Definition}
-\newtheorem{lemma}{Lemma}
-\newtheorem{theorem}[lemma]{Theorem}
-\newtheorem{prop}[lemma]{Proposition}
-\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{prop}[definition]{Proposition}
+\newtheorem{corollary}[definition]{Corollary}
 \renewcommand{\baselinestretch}{1.3}
 \newcommand*\conj[1]{\overline{#1}}
 \newcommand*\dom[1]{\textnormal{dom}\,#1}
@@ -24,6 +24,8 @@
 \newcommand*\abs[1]{\left|#1\right|}
 \newcommand*\norm[1]{\abs{\abs{#1}}}
 \DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\characteristic}{char}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -117,7 +119,7 @@ Assumption: unless otherwise mentioned, all absolute values will be non-archimed
 	If $I=xR$ then we often call the $I$-adic topology the \textbf{x-adic topology}.
 \end{definition}
 
-\section{The p-adic Numbers}
+\subsection{The p-adic Numbers}
 Let $p$ be a prime number throughout.
 
 If $x \in \mathbb{Q} \backslash \{0\}$ then $\exists!$ representation $x=p^n \frac{a}{b}$, where $n \in \mathbb{Z}$, $a \in \mathbb{Z}$, $b \in \mathbb{Z}_{>0}$ and $(a,p)=(b,p)=(a,b)=1$.
@@ -164,7 +166,7 @@ Then $\abs{\cdot}_p$ is an absolute value.
 	Every $a \in \mathbb{Q}_p^\times$ has a unique expansion $$a = \sum_{i=n}{\infty}a_ip^i$$ $n \in \mathbb{Z}$, $n = -\log_p\abs{a}_p$, $a_n \neq 0$.
 \end{corollary}
 
-\section{Valued Fields}
+\subsection{Valued Fields}
 \begin{definition}
 	Let $K$ be a field. A \textbf{valuation} on K is a function $v : K \to \mathbb{R} \cup \{\infty\}$ s.t.
 	\begin{enumerate}[label=\roman*.]
@@ -256,4 +258,270 @@ Useful fact: let $K$ be a valued field, $x, y \in K$. $\abs{x} > \abs{y} \implie
 \begin{lemma}
 	Let $K$ be a valued field. Then $\mathcal{O}_K$ is integrally closed in $K$.
 \end{lemma}
+
+\begin{corollary}
+	Let $K$ be a complete valued field, $L/K$ finite.
+	Equip $L$ with $\abs{\cdot}_L$ extending $\abs{\cdot}$ on $K$.
+	Then $\mathcal{O}_L$ is the integral closure of $\mathcal{O}_K$ inside $L$.
+\end{corollary}
+
+\subsection{Newton Polygons}
+\begin{definition}
+	$S \subset \mathbb{R}^2$ is \textbf{lower convex} if
+	\begin{enumerate}[label=\roman*.]
+		\item $(x, y) \in S \implies (x, z) \in S\ \forall z \geq y$
+		\item $S$ is convex
+	\end{enumerate}
+\end{definition}
+
+Given any $T \subset \mathbb{R}^2$, there exists a minimal lower convex $LCH(T) \supseteq T$ ($LCH(T) = \bigcap_{T\subset S', S' \text{lower convex}} S'$).
+
+\begin{definition}
+	Let $f(x) = a_0 + a_1 x + \dots + a_n x^n \in K[x]$ where $K$ is a valued field, $v$ a valuation on $K$.
+	
+	Define the \textbf{Newton polygon} of $f$ as $LCH\left(\left\{(i, v(a_i)) \,\middle|\, \begin{tabular}{c}$i=0,1,\dots,n$ \\ $a_i \neq 0$\end{tabular}\right\}\right)$.
+\end{definition}
+
+\begin{definition}
+	The horizontal length of a line segment is called the \textbf{multiplicity}.
+	Line segments have a \textbf{slope}.
+\end{definition}
+
+\begin{theorem}
+	Let $K$ be a complete valued field,
+	$v$ a valuation on $K$,
+	$f(x)=a_0 + a_1 x + \dots + a_n x^n \in K[x]$.
+	Let $L$ be the splitting field of $f$ over $K$,
+	equipped with the unique extension $w$ of $v$.
+	
+	If $(r, v(a_r)) \to (s, v(a_s))$ is a line segment of the Newton polygon of $f$ with slope $-m \in \mathbb{R}$,
+	then f has precisely $s-r$ roots of valuation $m$.
+\end{theorem}
+\begin{proof}
+	Dividing by $a_n$ only shifts the NP vertically,
+	so wlog $a_n=1$.
+	
+	Number the roots of $f$ s.t.
+	\begin{center}
+	\begin{tabular}{ccccccc}
+		$v(\alpha_1)$ & $=$ & $\dots$ & $=$ & $v(\alpha_{s_1})$ & $=$ & $m_1$ \\
+		$v(\alpha_{s_1+1})$ & $=$ & $\dots$ & $=$ & $v(\alpha_{s_2})$ & $=$ & $m_2$ \\
+		$\vdots$ &  &  & & $\vdots$ & & $\vdots$ \\
+		$v(\alpha_{s_t+1})$ & $=$ & $\dots$ & $=$ & $v(\alpha_{s_1})$ & $=$ & $m_{t+1}$ \\
+	\end{tabular}
+	\end{center}
+	where $m_1 < m_2 < \dots < m_{t+1}$, and the $\alpha_i$ are the roots of $f$ with multiplicity.
+	
+	$v(a_n)=v(1)=0$
+	
+	$v(a_{n-1}) = v(\sum_i a_i) \geq \min_i v(\alpha_i) = m_1$
+	
+	$v(a_{n-2}) \geq \min_{i \neq j} v(\alpha_i \alpha_j) = 2m_1$
+	
+	$v(a_{n-s_1}) = v(\sum_{i_1, \dots i_{s_1} \text{distinct}} \alpha_{i_1}\dots\alpha_{i_{s_1}}) = s_1 m_1$
+	
+	$v(a_{n-s_1-1}) \geq \min v(\alpha_{i_1}\dots\alpha_{i_{s_1+1}}) = s_1m_1+m_2$
+	
+	$\vdots$
+	
+	$v(a_{n-s_2}) =\min v(\alpha_{i_1}\dots\alpha_{i_{s_2}}) = s_1m_1 + (s_2-s_1)m_2$
+	
+	etc. Drawing the lines between the points $(n, 0)$, $(n-s_1, s_1m_1)$, $\dots$ gives the NP of $f$.
+	
+	The first line segment has length $n-(n-s_1)=s_1$ and slope $\frac{0-s_1m_1}{n-(n-s_1)} = -m_1$. For $k\geq 2$, the $k$th line segment has length $(n-s_{k-1})-(n-s_k)=s_k-s_{k-1}$ and slope
+	$$\frac{(s_1m_1+\sum_{i=1}^{k-2}(s_{i+1}-s_i)m_{i+1}) - (s_1m_1+\sum_{i=1}^{k-1}(s_{i+1}-s_i)m_{i+1})}{(n-s_{k-1})-(n-s_k)}$$
+	$$= \frac{-(s_k-s_{k-1})m_k}{s_k - s_{k-1}} = -m_k$$
+
+\end{proof}
+
+\begin{corollary}
+	If $f$ is irreducible, then the NP has a single line segment.
+\end{corollary}
+\begin{proof}
+	we need to show that all roots have the same valuation. Let $\alpha, \beta$ be roots in the splitting field $L$. Then $\exists \sigma \in \Aut(L/K)$ s.t. $\sigma(\alpha) = \beta$. So $v(\alpha)=v(\sigma(\alpha))=v(\beta)$ by Corollary 30.
+\end{proof}
+
+\begin{definition}
+	Let $K$ be a valued field with valuation $v$. $K$ is a \textbf{discretely valued field} (DVF) if $v(K^\times)\subset \mathbb{R}$ is a discrete subgroup of $\mathbb{R}$ ($\iff v(K^\times)$ is infinite cyclic).
+\end{definition}
+
+\begin{definition}
+	A complete DVF with finite residue field is called a \textbf{local field}.
+\end{definition}
+
+Let $K$ be a DVF. $\pi \in K$ is called a \textbf{uniformiser} if $v(\pi) > 0$ and $v(\pi)$ generates $v(K^\times)$ ($\iff v(\pi)$ has minimal positive valuation).
+
+\begin{prop}
+	Let $K$ be a DVF, uniformiser $\pi$. Let $S \subset \mathcal{O}_K$ be a set of coset representatives of $\mathcal{O}_k/\mathfrak{m}_K = k_K$ containing 0. Then
+	\begin{enumerate}
+		\item The non-zero ideals of $\mathcal{O}_K$ are $\pi^n\mathcal{O}_K$, $n \geq 0$
+		\item $\mathcal{O}_K$ is a PID with unique prime $\pi$ (up to units), $\mathfrak{m}_K=\pi\mathcal{O}_K$
+		\item The topology on $\mathcal{O}_K$ induced by $\abs{\cdot}$ is the $\pi$-adic topology
+		\item If $K$ is complete, then $\mathcal{O}_K$ is $\pi$-adically complete
+		\item If $K$ is complete, then any $x \in K$ can be written uniquely as
+		$$ x = \sum_{n \gg -\infty}^{\infty} a_n \pi^n$$
+		with $a_n \in S$ and $\abs{x} = \abs{pi}^{-\inf\{n \,|\, a_n \neq 0\}}$
+		\item The completion $\hat{K}$ of $K$ is a DVF, $\pi$ is a uniformiser and 
+		$$\mathcal{O}_K/\pi^n\mathcal{O}_K \overset{\sim}{\to} \mathcal{O}_{\hat{K}}/\pi^n\mathcal{O}_{\hat{K}}$$
+		via the natural map.
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	The same as for $\mathbb{Q}_p$ and $\mathbb{Z}_p$ (use $\pi$ instead of $p$). 
+	Note that $\abs{\hat{K}} = \abs{K}$ by Ex 9, sheet 1 ($\implies \hat{K}$ is a DVF).
+\end{proof}
+
+\begin{prop}
+	Let $K$ be a DVF.
+	Then $K$ is a local field $\iff \mathcal{O}_K$ is compact 
+\end{prop}
+\begin{proof}
+	$\mathcal{O}_K$ compact $\implies \pi^{-n}\mathcal{O}_K$ is compact $\forall n \geq 0$ ($\pi$ uniformiser).
+	
+	$\mathcal{O}_K \cong \pi^{-n}\mathcal{O}_K \implies K = \bigcup_{n \geq 0}^{\infty} \pi^{-n} \mathcal{O}_K$ is complete.
+	
+	Also $\mathcal{O}_K \twoheadrightarrow k_K$ and this map is continuous when $k_K$ is given the discrete topology.
+	So $k_K$ is compact and discrete $\implies k_K$ finite.
+	
+	Conversely, we seek to prove that $K$ local $\implies$ $\mathcal{O}_K$ is sequentially compact ($\iff$ compact).
+	Note that $\mathcal{O}_K/\pi^n\mathcal{O}_K$ is finite $\forall n \geq 0$ (induction and $\pi^{n-1}\mathcal{O}_K/\pi^n\mathcal{O}_K \cong \mathcal{O}_K/\pi\mathcal{O}_K$).
+	
+	Let $(x_i)$ be a sequence in $\mathcal{O}_K$.
+	$\exists$ a subsequence $(x_{1i})$ which is constant modulo $\pi$.
+	Keep going: choose a subsequence $(x_{n+1,i})$ of $(x_{ni})$ s.t. $(x_{n+1, i})$ is constant mod $\pi^{n+1}$.
+	
+	Then $(x_{ii})_{i=1}^\infty$ converges: it's Cauchy since $\abs{x_{ii}-x_{jj}} \leq \abs{\pi}^j\ \forall j \leq i$, and $K$ is complete.
+\end{proof}
+
+\begin{definition}
+	A ring $R$ is called a \textbf{discrete valuation ring} (DVR) if it is a PID with a unique prime element (up to units).
+\end{definition}
+
+\begin{prop}
+	$R$ is a DVR $\iff R \cong \mathcal{O}_K$ for some DVF $K$.
+\end{prop}
+\begin{proof}
+	The reverse implication is contained in Proposition 42.
+	
+	Suppose $R$ is a DVR, $\pi$ prime.
+	$\forall x \in R \backslash \{0\}$,
+	$\exists! u \in R^\times,\, n \in \mathbb{Z}_{\geq 0}$ such that $x = \pi^n u$
+	by uniqueness of prime factorisation.
+	
+	Define $v(x) = \begin{cases}
+	n & \text{if } x \neq 0 \\
+	\infty & \text{if } x = 0
+	\end{cases}
+	\in \mathbb{Z}_{\geq 0} \cup \{\infty\}$.
+	
+	$v$ defines a discrete valuation of $R \implies v$ extends uniquely to $K = \Frac(R)$.
+	It remains to show that $R=\mathcal{O}_K$.
+	First, note that $K=R[\frac{1}{\pi}]$.
+	Any non-zero element looks like $\pi^nu,\,u\in R^\times,\, n \in \mathbb{Z}$,
+	so it is invertible.
+	
+	Then $v(\pi^nu)=n \in \mathbb{Z}_{\geq 0} \iff \pi^nu \in R$
+	
+	$\therefore R = \mathcal{O}_K$.
+\end{proof}
+
+\begin{definition}
+	Let $K$ be a valued field with residue field $k_K$.
+	$K$ has \textbf{equal characteristic} if $\characteristic K = \characteristic k_K$,
+	\textbf{mixed characteristic} otherwise ($\implies \characteristic K =0, \characteristic k_K > 0$).
+\end{definition}
+
+\begin{definition}
+	Let $R$ be a ring of characteristic $p$.
+	$R$ is \textbf{perfect} if the Frobenius map $x \mapsto x^p$ is an automorphism of $R$.
+\end{definition}
+
+\begin{theorem}
+	Let $K$ be a complete DVF of equal characteristic $p$ and assume that $k_K$ is perfect.
+	Then $K \cong k_K[[T]]$ (as DVFs).
+\end{theorem}
+
+\begin{corollary}
+	Let $K$ be a local field of equal characteristic $p$.
+	Have $k_K \cong \mathbb{F}_q$ for some $q$ a power of $p$,
+	and $K \cong \mathbb{F}_q((T))$.
+\end{corollary}
+
+\begin{definition}
+	Let $K$ be a DVF.
+	The \textbf{normalised valuation} $v_K$ on $K$ is the unique valuation on $K$ in the given equivalence class
+	s.t. $v_K(\pi) = 1$ for any uniformiser $\pi$.
+\end{definition}
+
+\begin{lemma}
+	Let $R$ be a ring and let $x \in R$.
+	Assume that $R$ is $x$-adically complete and that $R/xR$ is perfect of characteristic $p$.
+	
+	Then $\exists!$ map $[-]: R/xR \to R$ such that
+	\begin{align*}
+		[a] &\equiv a \mod x \\
+		[ab] &= [a][b]\ \forall a,b \in R/xR
+	\end{align*}
+	Moreover if $R$ has characteristic $p$, then $[-]$ is a ring homomorphism.
+\end{lemma}
+\begin{proof}
+	Let $a \in R/xR$.
+	$\exists!\ a^{p^{-n}} \in R/xR\ \forall n \geq 0$ since $R/xR$ is perfect.
+	Now lift arbitrarily: take $\alpha_n \in R$ such that $\alpha_n \equiv a^{p^{-n}} \mod x$.
+	
+	Put $\beta_n = \alpha_n^{p^n}$.
+	
+	Claim: $\lim_{n \to \infty} \beta_n$ exists and is independent of choices. Call this $[a]$.
+	
+	Note that if the limit exists no matter how the $\alpha_n$ are chosen,
+	then it is independent of the choices.
+	
+	Want to prove $\beta_{n+1} - \beta_n \to 0$ $x$-adically.
+	$$\beta_{n+1} - \beta_n = (\alpha_{n+1}^p)^{p^n}-(\alpha_{n})^{p^n}$$
+	$$\alpha_{n+1}^p \equiv (a^{p^{-n-1}})^p \equiv a^{p^{-n}} \equiv \alpha_n \mod x$$
+	The binomial theorem, $R/xR$ characteristic $p$ and induction $\implies$
+	$$(\alpha_{n+1}^p)^{p^n} \equiv \alpha_n^{p^n} \mod x^{n+1}$$
+	i.e. $\beta_{n+1} - \beta_n \equiv 0 \mod x^{n+1}$ so $\lim_{n \to \infty} \beta_n$ exists.
+	
+	Multiplicativity: if $b \in R/xR$, 
+	with $\gamma_n \in R$ lifting $b^{p^{-n}}\ \forall n \geq 0$,
+	then $\alpha_n\gamma_n$ lifts $(ab)^{p^{-n}} = a^{p^{-n}}b^{p^{-n}}$
+	$$\implies [ab] = \lim_{n\to\infty}\alpha_n^{p^n}\lim_{n\to\infty}\gamma_n^{p^n}=[a][b]$$
+	
+	$[a]\equiv a \mod x:$
+	$$\ \lim_{n\to\infty}\alpha_n^{p^n}\equiv\lim_{n\to\infty}(a^{p^{-n}})^{p^n}\equiv \lim_{n\to\infty} a \equiv a \mod x$$
+	
+	Uniqueness: let $\phi: R/xR \to R$ be another map with these properties.
+	$$[a] = \lim_{n \to \infty} \phi(a^{p^{-n}})^{p^n} = \lim_{n\to\infty}\phi(a) = \phi(a)$$
+	since $\phi(a^{p^{-n}}) \equiv a^{p^{-n}} \mod x$ and $\phi$ is multiplicative.
+	
+	Finally, if $R$ has characteristic $p$,
+	then $\alpha_n+\gamma_n$ lifts $a^{p^{-n}}+b^{p^{-n}}-(a+b)p^{-n}$, so
+	$$[a+b] = \lim_{n\to\infty}(\alpha_n+\gamma_n)^{p^n} = \lim_{n\to\infty}\alpha_n^{p^n}+\gamma_n^{p^n} = [a] + [b]$$
+	So $[-]$ is additive and multiplicative and (check!) $[1]=1$, so it's a homomorphism.
+\end{proof}
+
+\begin{definition}
+	$[-]:R/xR \to R$ is called the \textbf{Teichm\"uller map/lift}
+	and $[x]$ is called the \textbf{Teichm\"uller lift/representative} of $x$.
+\end{definition}
+\begin{proof}[Proof of Theorem 48]
+	$K$ is a complete DVF.
+	We want to prove that $\mathcal{O}_K \cong k_K[[T]]$.
+	
+	$\mathcal{O}_K \characteristic p \implies [-]:k_K \hookrightarrow \mathcal{O}_K$ is an injective ring homomorphism.
+	
+	Choose a uniformiser $\pi \in \mathcal{O}_K$. Then
+	$k_K = \mathcal{O}/\pi\mathcal{O}_K$, $\mathcal{O}_K$ $\pi$-adically complete.
+	Now define
+	\begin{align*}
+		k_K[[T]] &\to \mathcal{O}_K \\
+		\sum_{n=0}^\infty a_n T^n &\mapsto \sum_{n=0}^\infty [a_n] \pi^n
+	\end{align*}
+	It's a bijection by one of the basic properties of complete DVFs, check it's a homomorphism.
+\end{proof}
+
+Fact: let $F$ be a field of characteristic $p$. Then $F$ is perfect $\iff$ every finite extension of $F$ is separable.
+
+$\mathbb{F}_q$ is perfect for every $q=p^n$.
 \end{document}
