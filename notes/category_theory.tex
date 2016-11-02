@@ -24,6 +24,7 @@
 \newcommand*\ob[1]{\textnormal{ob}\,#1}
 \newcommand*\mor[1]{\textnormal{mor}\,#1}
 \DeclareMathOperator{\Set}{\textbf{Set}}
+\DeclareMathOperator{\Sub}{\textbf{Sub}}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -324,6 +325,7 @@ if $gf = 1_A$, $f$ is an equaliser of $(1_B, fg)$ [see sheet 1, q2].
 	\end{center}
 	commutes.
 	Then specifying a left adjoint for $G$ is equivalent to specifying an initial object of $(A \downarrow G)$ for each $A$.
+	\label{33}
 \end{theorem}
 
 \begin{proof}
@@ -782,6 +784,7 @@ is monic $\iff \alpha_A: FA \to GA$ is monic for each $A$.
 \begin{theorem}
 	If $G: \mathcal{D} \to \mathcal{C}$ has a left adjoint,
 	then $G$ preserves all limits which exist in $\mathcal{D}$.
+	\label{410}
 \end{theorem}
 \begin{proof}
 	Suppose $\mathcal{C}$ and $\mathcal{D}$ both have limits of shape J and let $(F \dashv G)$.
@@ -818,6 +821,7 @@ then $G$ has a left adjoint.
 This depends on two ideas:
 \begin{lemma}
 	$\mathcal{C}$ has an initial object $\iff 1_\mathcal{C}: \mathcal{C} \to \mathcal{C}$ has a limit.
+	\label{411}
 \end{lemma}
 \begin{proof}
 	Suppose $\mathcal{C}$ has an initial object 0.
@@ -845,4 +849,114 @@ This depends on two ideas:
 	so $\lambda_I = 1_I$ since both are factorisations of the limit cone through itself.
 	So $f = \lambda_A$, and hence $I$ is initial.
 \end{proof}
+
+\begin{lemma}
+	Suppose $\mathcal{D}$ has and $G: \mathcal{D} \to \mathcal{C}$ preserves limits of shape $J$.
+	Then, for each $A \in \ob \mathcal{C}$,
+	$(A \downarrow G)$ has limits of shape $J$ and the forgetful functor $(A \downarrow G) \to \mathcal{D}$ creates them.
+	\label{412}
+\end{lemma}
+\begin{proof}
+	Suppose given $D: J \to (A \downarrow G)$.
+	Write $D(j)$ as $(UD(j), f_j: A \to GUD(j))$ for each $j$.
+	Let $(L, (\lambda_j \,|\, j \in \ob J))$ be a limit for $UD$,
+	then $(GL, (G\lambda_j \,|\, j \in \ob J))$ is a limit for $GUD$.
+	But the $f_j$ form a cone over $GUD$ with apex $A$,
+	so there's a unique $h: A \to GL$ such that
+	\begin{center}
+		\begin{tikzcd}
+			A \ar{r}{h} \ar{rd}{f_j} & GL \ar{d}{G\lambda_j} \\
+			& GUD(j)
+		\end{tikzcd}
+	\end{center}
+	commutes for all $j$.
+	So there's a unique lifting of the cone over $D$ in $(A \downarrow G)$.
+	
+	Suppose we're given a cone $((B, g), (\mu_j \,|\, j \in \ob J))$ over $D$.
+	Then
+	\begin{center}
+		\begin{tikzcd}
+			A \ar{r}{g} \ar{rd}{h} & GB \ar{d}{G_k} \\
+			& GL
+		\end{tikzcd}
+	\end{center}
+	commutes since both ways round are factorisations of $(f_j \,|\, j \in \ob J)$ through the limit $GL$.
+\end{proof}
+
+Combining \ref{412} and \ref{411} with \ref{33},
+we've proved the primeval Adjoint Functor Theorem.
+However, this requries $\mathcal{D}$ to have limits for diagrams `as big as $\mathcal{D}$ itself',
+and the only such categories are preorders (c.f. Q6, sheet 2).
+
+In practice, the most we can hope for is that $\mathcal{D}$ has all small limits.
+We call such a $\mathcal{D}$ \textbf{complete}.
+
+\begin{theorem}[General Adjoint Functor Theorem]
+	Suppose that $\mathcal{D}$ is complete and locally small.
+	Then a functor $G: \mathcal{D} \to \mathcal{C}$ has a left adjoint if and only if
+	it preserves all small limits and satisfies the `solution set condition':
+	for any $A \in \ob \mathcal{C}$,
+	there is a set $\{f_i: A \to GB_i \,|\, i \in I\}$ of objects of $(A \downarrow G)$
+	such that any $h: A \to GC$ factors as
+	\begin{center}
+		\begin{tikzcd}
+			A \ar{r}{f_i} & GB_i \ar{r}{Gg} & Gc
+		\end{tikzcd}
+	\end{center}
+	for some $i \in I$ and $g: B_i \to C$.
+\end{theorem}
+\begin{proof}
+	If $G$ has a left adjoint,
+	then it preserves small limits by \ref{410},
+	and $\{\eta_A: A \to GFA \}$ is a singleton solution set at $A$.
+	
+	Conversely, each $(A \downarrow G)$ is complete by \ref{412},
+	and locally small since it admits a faithful functor to $\mathcal{D}$.
+	So we need to show:
+	if $\mathcal{A}$ is complete and locally small,
+	and has a weakly initial set of objects $\{S_i \,|\, i \in I\}$,
+	then $\mathcal{A}$ has an initial object.
+	
+	First form $P = \prod_{i \in I} S_i$: then $P$ is weakly initial.
+	
+	Now form the limit
+	\begin{tikzcd}I \ar{r}{a} & P\end{tikzcd}
+	of the diagram
+	\begin{tikzcd}P \ar[shift left]{r} \ar{r} \ar[shift right]{r} & P \end{tikzcd}
+	whose edges are all morphism $P \to P$ in $\mathcal{A}$.
+	
+	Claim $I$ is initial:
+	it's weakly initial since it admits a morphism to $P$.
+	
+	Suppose we had
+	\begin{tikzcd}I \ar[shift left]{r}{f} \ar[shift right]{r}[below]{g} & A \end{tikzcd}.
+	Let $b: E \to I$ be an equaliser for $(f, g)$:
+	then there exists $c: P \to E$.
+	
+	Now
+	\begin{tikzcd}P \ar{r}{c} & E \ar{r}{b} & I \ar{r}{a} & P\end{tikzcd}
+	is an edge of the diagram whose limit is $I$,
+	but so is $1_P$;
+	so $abca = 1_Pa = a$.
+	But $a$ is monic, so $bca = 1_I$.
+	So $b$ is (split) epic,
+	and $f=g$.
+	So all the $(A \downarrow G)$ have initial objects,
+	hence by \ref{33} $G$ has a left adjoint.
+\end{proof}
+
+The Special Adjoint Functor Theorem imposes additional conditions on $\mathcal{C}$ and $\mathcal{D}$
+which ensure that every functor $\mathcal{D} \to \mathcal{C}$ preserving small limits has a left adjoint.
+
+\begin{definition}
+	\begin{enumerate}[label=\alph*.]
+		\item A \textbf{subobject} of an object $A$ is a monomorphism $A' \rightarrowtail A$.
+		We write $\Sub_\mathcal{C}(A)$ for the full subcategory of $\mathcal{C}/A$ whose objects are subobjects of $A$:
+		note that this category is a preorder.
+		\item We say $\mathcal{C}$ is \textbf{well-powered} if each $\Sub_\mathcal{C}(A)$ is equivalent to a small category,
+		i.e. up to isomorphism each object has only a set of subobjects.
+		
+		Dually, $\mathcal{C}$ is \textbf{well-copowered} if $\mathcal{C}^{op}$ is well-powered.
+	\end{enumerate}
+\end{definition}
 \end{document}
