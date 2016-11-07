@@ -23,6 +23,7 @@
 \newcommand*\cod[1]{\textnormal{cod}\,#1}
 \newcommand*\ob[1]{\textnormal{ob}\,#1}
 \newcommand*\mor[1]{\textnormal{mor}\,#1}
+\newcommand*\circbox[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt} {#1}}}}
 \DeclareMathOperator{\Set}{\textbf{Set}}
 \DeclareMathOperator{\Sub}{\textbf{Sub}}
 \begin{document}
@@ -904,6 +905,7 @@ We call such a $\mathcal{D}$ \textbf{complete}.
 		\end{tikzcd}
 	\end{center}
 	for some $i \in I$ and $g: B_i \to C$.
+	\label{413}
 \end{theorem}
 \begin{proof}
 	If $G$ has a left adjoint,
@@ -959,4 +961,242 @@ which ensure that every functor $\mathcal{D} \to \mathcal{C}$ preserving small l
 		Dually, $\mathcal{C}$ is \textbf{well-copowered} if $\mathcal{C}^{op}$ is well-powered.
 	\end{enumerate}
 \end{definition}
+
+\begin{lemma}
+	Suppose given a pullback
+	\begin{center}
+		\begin{tikzcd}
+			P \ar{r}{k} \ar{d}{h} & A \ar[tail]{d}{f} \\
+			B \ar{r}{g} & C
+		\end{tikzcd}
+	\end{center}
+	with $f$ monic.
+	Then $h$ is monic.
+	\label{416}
+\end{lemma}
+\begin{proof}
+	Suppose
+	\begin{tikzcd}D \ar[shift left]{r}{x} \ar[shift right]{r}[below]{y} & P\end{tikzcd}
+	satisfy $hx = hy$.
+	Then $fkx = fky = ghx = ghy$ and $f$ is monic so $kx = ky$.
+	
+	Now $x=y$ since both are factorisations of the same cone through the pullback.
+\end{proof}
+
+\begin{theorem}[Special Adjoint Functor Theorem]
+	Suppose both $\mathcal{C}$ and $\mathcal{D}$ are locally small,
+	and $\mathcal{D}$ is complete, well-powered and has a separating set.
+	Then $G: \mathcal{D} \to \mathcal{C}$ has a left adjoint $\iff$ $G$ preserves all small limits.
+\end{theorem}
+\begin{proof}
+	The forward implication is \ref{410} again.
+	
+	Conversely, we first show that $(A \downarrow G)$ has the properties we've assumed for $\mathcal{D}$:
+	it's complete by \ref{412}, and locally small as in \ref{413}.
+	It's well-powered since subobjects of $(B, f)$ in $(A \downarrow G)$ are in bijection with subobjects $B' \rightarrowtail B$
+	such that $f$ factors through $GB' \rightarrowtail GB$.
+	
+	It has a coseparating set:
+	if $\{S_i \,|\, i \in I \}$ is a coseparating set for $\mathcal{D}$,
+	then $\{(S_i, f) \,|\, i \in I,\, f:A \to GS_i \}$ is a coseperating set for $(A \downarrow G)$,
+	since if
+	\begin{tikzcd}{(B, f)} \ar[shift left]{r}{g} \ar[shift right]{r}[below]{g'} & {(B', f')}\end{tikzcd}
+	satisfies $g \neq g'$,
+	there exists $h: B' \to S_i$ for some $i$ with $hg \neq hg'$,
+	and then $h$ is a morphism $(B', f') \to (S_i, (Gh)f')$ in $(A \downarrow G)$.
+	
+	Now we show that if $\mathcal{A}$ is complete, locally small and well-powered and has a coseperating set,
+	then it has an initial object.
+	
+	First form $P=\prod_{i \in I}S_i$,
+	where $\{ S_i \,|\, i \in I\}$ is a coseparating set.
+	
+	Consider the diagram
+	\begin{center}
+		\begin{tikzcd}[row sep=tiny]
+			P' \ar[tail]{rd}& \\
+			P'' \ar[tail]{r}& P\\
+			\vdots &\\
+			P^{(n)} \ar[tail]{ruu}&
+		\end{tikzcd}
+	\end{center}
+	whose edges are a representative set of subobjects of $P$.
+	
+	Form its limit
+	\begin{center}
+		\begin{tikzcd}[row sep=tiny]
+			& P' \\
+			I \ar{ur} \ar{r} \ar{rdd} & P'' \\
+			& \vdots \\
+			& P^{(n)}
+		\end{tikzcd}
+	\end{center}
+	by the argument of \ref{416} the legs $I \to P^{(-)}$ are monic,
+	so $I \rightarrowtail P$ is monic and it's the least subobject of $P$.
+	
+	Hence in particular $I$ has no proper subobjects,
+	so any two maps
+	\begin{tikzcd}I \ar[shift left]{r}{f} \ar[shift right]{r}[below]{g} & A\end{tikzcd}
+	must be equal, since their equaliser is an isomorphism.
+	
+	Now given $A \in \mathcal{A}$, form the product $Q = \prod_{i,f:A \to S_i}S_i$.
+	The canonical morphism $h: A \to Q$ defined by $\pi_{i,f}h=f$ is monic since the $S_i$ form a coseparating set.
+	
+	We also have $k: P \to Q$ defined by $\pi_{i, f}k = \pi_i$,
+	and we can form the pullback
+	\begin{center}
+		\begin{tikzcd}
+			I \ar{r} \ar[tail]{rd} & B \ar{r}{m} \ar[tail]{d}{l} & A \ar[tail]{d}{h} \\
+			& P \ar{r}{k} & Q
+		\end{tikzcd}
+	\end{center}
+	
+	By \ref{416} $l$ is monic and hence isomorphic to an edge of the diagram defining $I$,
+	so $I \rightarrowtail P$ factors through it.
+	So there exists a morphism $I \to A$, hence $I$ is initial.
+\end{proof}
+
+\section{Monads}
+Suppose given an adjunction
+\begin{tikzcd}\mathcal{C} \ar[shift left]{r}{F} & \mathcal{D} \ar[shift left]{l}{G}\end{tikzcd},
+$F \dashv G$.
+How much of this can we describe purely in terms of $\mathcal{C}$?
+
+We have the composite $T=GF: \mathcal{C} \to \mathcal{C}$,
+and the unit $\eta: 1_\mathcal{C} \to T$.
+We also have $G\epsilon_F : GFGF \to GF$,
+which we'll denote $\mu: TT \to T$.
+
+These satisfy the commutative diagrams
+\begin{center}
+	\begin{tikzcd}[row sep=tiny, column sep=tiny]
+		T \ar{rr}{T\eta} \ar{rrdd}{1_T} && TT \ar{dd}{\mu} && T \ar{ll}{\eta_T} \ar{lldd}{1_T} && \text{and} && TTT \ar{rr}{T\mu} \ar{dd}{\mu_T} && TT \ar{dd}{\mu} \\
+		\circbox{1} &  &&  &\circbox{2}&&&&& \circbox{3}\\
+		&& T && && && TT \ar{rr}{\mu} && T
+	\end{tikzcd}
+\end{center}
+from the $\triangle^r$ identities and naturality of $\epsilon$.
+
+\begin{definition}
+	A \textbf{monad} $\mathbb{T}=(T, \eta, \mu)$ on a category $\mathcal{C}$ consists of
+	a functor $T: \mathcal{C} \to \mathcal{C}$
+	and natural transformations $\eta: 1_\mathcal{C} \to T$,
+	$\mu: TT \to T$ satisfying the commutative diagrams \textnormal{\circbox{1}, \circbox{2} and \circbox{3}}.
+\end{definition}
+
+\begin{definition}
+	Let $\mathbb{T}$ be a monad on $\mathcal{C}$.
+	A \textbf{$\boldsymbol{\mathbb{T}}$-algebra} is a pair $(A, \alpha)$
+	where $A \in \ob \mathcal{C}$,
+	and $\alpha: TA \to A$ satisfies
+	\begin{center}
+		\begin{tikzcd}[row sep=tiny, column sep=tiny]
+			A \ar{rr}{\eta_A} \ar{rrdd}{1_A} && TA \ar{dd}{\alpha} && \text{and} && TTA \ar{rr}{T\alpha} \ar{dd}{\mu_A} && TA \ar{dd}{\alpha} \\
+			\textnormal{\circbox{4}} && && &&& \textnormal{\circbox{5}} \\
+			&& A &&&& TA \ar{rr}{\alpha}&& A
+		\end{tikzcd}
+	\end{center}
+	
+	A \textbf{homomorphism} $f: (A, \alpha) \to (B, \beta)$ of $\mathbb{T}$-algebras is a morphism $f: A \to B$ such that
+	\begin{center}
+		\begin{tikzcd}[row sep=tiny, column sep=tiny]
+			TA \ar{rr}{Tf} \ar{dd}{\alpha}&& TB \ar{dd}{\beta}\\
+			& \textnormal{\circbox{6}} \\
+			A \ar{rr}{f} && B
+		\end{tikzcd}
+	\end{center}
+	commutes.
+	We write $\mathcal{C}^\mathbb{T}$ for the category of $\mathbb{T}$-algebras.
+\end{definition}
+
+\begin{lemma}
+	The forgetful functor $G: \mathcal{C}^\mathbb{T} \to \mathcal{C}$ has a left adjoint $F$,
+	and the adjunction $(F \dashv G)$ induces the monad $\mathbb{T}$.
+\end{lemma}
+\begin{proof}
+	We define $FA = (TA, \mu_A)$ (which is an algebra by \circbox{2} and \circbox{3}),
+	and $F(A \overset{f}{\to} B) = Tf$ (which is a homomorphism by naturality of $\mu$).
+	
+	Clearly $GF = T$ and $\eta: 1_\mathcal{C} \to GF$.
+	
+	We define $\epsilon: FG \to 1_{\mathcal{C}^\mathbb{T}}$ by
+	$\epsilon_{(A, \alpha)} = \alpha: (TA, \mu_A) \to (A, \alpha)$
+	(which is a homomorphism by \circbox{5}).
+	
+	The triangular identities for $\eta$ and $\epsilon$ follow from \circbox{4} and \circbox{1},
+	so $(F \dashv G)$.
+	
+	Finally, $G_{\epsilon_{FA}} = \mu_A$ by the definitions of $FA$ and $\epsilon$,
+	so the adjunction incudes $\mathbb{T}$.
+\end{proof}
+
+Note that if
+\begin{tikzcd} \mathcal{C} \ar[shift left]{r}{F} & \mathcal{D} \ar[shift left]{l}{G} \end{tikzcd}
+induces $\mathbb{T}$,
+then so does
+\begin{tikzcd} \mathcal{C} \ar[shift left]{r}{F} & \mathcal{D}' \ar[shift left]{l}{G/\mathcal{D}'} \end{tikzcd}
+where $\mathcal{D}'$ is the full subcategory of objects of the form $FA$.
+So in seeking to construct $\mathcal{D}$, we may require $F$ to be bijective on objects.
+But then morphisms $FA \to FB$ in $\mathcal{D}$ correspond bijectively to morphisms $A \to GFB = TB$ in $\mathcal{C}$.
+
+\begin{definition}
+	Given a monad $\mathbb{T}$ on $\mathcal{C}$,
+	the \textbf{Kleisi category} $\mathcal{C}_\mathbb{T}$ is defined by:
+	$\ob \mathcal{C}_\mathbb{T} = \ob\mathcal{C}$,
+	morphisms $A \textcolor{red}{\to} B$ in $\mathcal{C}_\mathbb{T}$ are morphisms $A \to TB$ in $\mathcal{C}$,
+	the identity $A \textcolor{red}{\to} A$ is $A \overset{\eta_A}{\to} TA$,
+	and the composite of $A \textcolor{red}{\overset{f}{\to}} B \textcolor{red}{\overset{g}{\to}} C$ is 
+	$A \overset{f}{\to} TB \overset{Tg}{\to} TTC \overset{\mu_C}{\to} C$.
+	
+	We check
+	\begin{align*}
+	A \textcolor{red}{\overset{1_A}{\to}} A \textcolor{red}{\overset{f}{\to}} B &= A \overset{\eta_A}{\to} TA \overset{Tf}{\to} TTB \overset{\mu_B}{\to} B \\
+	&= A \overset{f}{\to} TA \overset{\eta_{TB}}{\to} TTB \overset{\mu_B}{\to} B \\
+	&= \textcolor{red}{f} \text{ by \textnormal{\circbox{2}}}
+	\end{align*}
+	\begin{align*}
+	A \textcolor{red}{\overset{f}{\to}} B \textcolor{red}{\overset{1_B}{\to}} B &= A \overset{f}{\to} TB \overset{T_{\eta_B}}{\to} TTB \overset{\mu_B}{\to} B \\
+	&= \textcolor{red}{f} \text{ by \textnormal{\circbox{1}}}
+	\end{align*}
+
+	Given $A\textcolor{red}{\overset{f}{\to}} B \textcolor{red}{\overset{g}{\to}} C \textcolor{red}{\overset{h}{\to}} D$,
+	\begin{align*}
+		\textcolor{red}{(hg)f} &= A \overset{f}{\to} TB \overset{Tg}{\to} TTC \overset{TTh}{\to} TTTD \overset{T\mu_D}{\to} TTD \overset{\mu_D}{\to} TD \\
+		&= A \overset{f}{\to} TB \overset{Tg}{\to} TTC \overset{TTh}{\to} TTTD \overset{\mu_{TD}}{\to} TTD \overset{\mu_D}{\to} TD \text{ by \textnormal{\circbox{3}}} \\
+		&= A \overset{f}{\to} TB \overset{Tg}{\to} TTC \overset{\mu_C}{\to} TC \overset{T_h}{\to} TTD \overset{\mu_D}{\to} TD \\
+		&= \textcolor{red}{h(gf)}
+	\end{align*}
+\end{definition}
+
+\begin{lemma}
+	There exists an adjunction
+	\begin{tikzcd}\mathcal{C} \ar[shift left]{r}{F} & \mathcal{C}_\mathbb{T} \ar[shift left]{l}{G}\end{tikzcd}
+	inducing $\mathbb{T}$.
+\end{lemma}
+\begin{proof}
+	We define $FA=A$ and $F(A \textcolor{red}{\overset{f}{\to}} B) = A \overset{f}{\to} B \overset{\eta_B}{\to} TB$.
+	This clearly preserves identities, and
+	\begin{align*}
+		\textcolor{red}{(Fg)(Ff)} &= A \overset{f}{\to} B \overset{\eta_B}{\to} TB \overset{Tg}{\to} TC \overset{T\eta_C}{\to} TTC \overset{\mu_C}{\to} TC \\
+		&= A \overset{f}{\to} B \overset{g}{\to} C \overset{\eta_C}{\to} TC \text{ by \circbox{1} and naturality of } \eta \\
+		&= \textcolor{red}{F(gf)}
+	\end{align*}
+	
+	We define $GA = TA$ and $G(A\textcolor{red}{\overset{f}{\to}} B) = TA \overset{Tf}{\to} TTB \overset{\mu_B}{\to} TB$.
+	G preserves identities by \circbox{1} and
+	\begin{align*}
+		G(A \textcolor{red}{\overset{f}{\to}} B \textcolor{red}{\overset{g}{\to}} C) &= TA \overset{Tf}{\to} TTB \overset{TTg}{\to} TTTC \overset{T\mu_C}{\to} TTC \overset{\mu_C}{\to} TC \\
+		&= TA \overset{Tf}{\to} TTB \overset{TTg}{\to} TTTC \overset{\mu_{TC}}{\to} TTC \overset{\mu_C}{\to} TC \text{ by \circbox{3}} \\
+		&= TA \overset{Tf}{\to} TTB \overset{\mu_B}{\to} TB \overset{Tg}{\to} TTC \overset{\mu_C}{\to} TC \text{ by naturality of } \mu \\
+		&= (Gg)(Gf)
+	\end{align*}
+	
+	Clearly $GFA = TA$ and
+	\begin{align*}
+	GF(A \overset{f}{\to} B) &= TA \overset{Tf}{\to} TB \overset{T\eta_B}{\to} TTB \overset{\mu_B}{\to} T B \\
+	&= Tf \text{ by \circbox{1}}
+	\end{align*}
+	so $GF = T$ and $\eta: 1_\mathcal{C} \to GF$.
+	
+\end{proof}
 \end{document}
