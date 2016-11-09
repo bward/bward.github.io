@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage{tikz-cd}
 \usepackage{enumitem}
+\usepackage{ stmaryrd }
 \newtheorem{definition}{Definition}
 \newtheorem*{definitionnn}{Definition}
 \newtheorem{lemma}[definition]{Lemma}
@@ -27,6 +28,9 @@
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Frac}{Frac}
 \DeclareMathOperator{\characteristic}{char}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Hom}{Hom}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -46,7 +50,8 @@
 \end{definition}
 
 \begin{definition}[Equivalence of absolute values]
-	Let $K$ be a field and let $\abs{\cdot}$, $\abs{\cdot}^{'}$ be absolute values on K. We say that $\abs{\cdot}$ and $\abs{\cdot}^{'}$ are \textbf{equivalent} if the associated metrics induce the same topology.
+	Let $K$ be a field and let $\abs{\cdot}$, $\abs{\cdot}^{'}$ be absolute values on K.
+	We say that $\abs{\cdot}$ and $\abs{\cdot}^{'}$ are \textbf{equivalent} if the associated metrics induce the same topology.
 \end{definition}
 \setcounter{definition}{5}
 \begin{definition}[Non-archimedean absolute value]
@@ -55,10 +60,13 @@
 	Metrics s.t. $d(x,z)\leq\max(d(x,y),d(y,z))$ are called \textbf{ultrametrics}.
 \end{definition}
 
-Assumption: unless otherwise mentioned, all absolute values will be non-archimedean. These metrics are weird!
+Assumption: unless otherwise mentioned, all absolute values will be non-archimedean.
+These metrics are weird!
 
 \begin{prop}
-	Let $K$ be a valued field. Then $\mathcal{O}=\{x \,|\, \abs{x}\leq 1\}$ is an open subring of $K$, called the \textbf{valuation ring} of K. $\forall r \in (0,1]$, $\{x \,|\, x < r\}$ and $\{x \,|\, x \leq r\}$ are open ideals of $\mathcal{O}$.
+	Let $K$ be a valued field.
+	Then $\mathcal{O}=\{x \,|\, \abs{x}\leq 1\}$ is an open subring of $K$, called the \textbf{valuation ring} of K.
+	$\forall r \in (0,1]$, $\{x \,|\, x < r\}$ and $\{x \,|\, x \leq r\}$ are open ideals of $\mathcal{O}$.
 	
 	Moreover, $\mathcal{O}^x = \{x \,|\, \abs{x}=1\}$.
 \end{prop}
@@ -66,26 +74,34 @@ Assumption: unless otherwise mentioned, all absolute values will be non-archimed
 \begin{prop}
 	Let $K$ be a valued field.
 	\begin{enumerate}[label=\roman*.]
-		\item Let $(x_n)$ be a sequence in $K$. If $x_n - x_{n+1} \to 0$ then $(x_n)$ is Cauchy
+		\item Let $(x_n)$ be a sequence in $K$.
+		If $x_n - x_{n+1} \to 0$ then $(x_n)$ is Cauchy
 	\end{enumerate}
 	Assume that $K$ is complete
 	\begin{enumerate}[label=\roman*.]
 		\setcounter{enumi}{1}
-		\item Let $(x_n)$ be a sequence in $K$. If $x_n - x_{n+1} \to 0$ then $(x_n)$ converges
-		\item Let $\sum_{n=0}^{\infty}y_n$ be a series in $K$. If $y_n\to0$, then $\sum_{n=0}^{\infty}y_n$ converges
+		\item Let $(x_n)$ be a sequence in $K$.
+		If $x_n - x_{n+1} \to 0$ then $(x_n)$ converges
+		\item Let $\sum_{n=0}^{\infty}y_n$ be a series in $K$.
+		If $y_n\to0$, then $\sum_{n=0}^{\infty}y_n$ converges
 	\end{enumerate}
 \end{prop}
 
 \begin{definition}
-	Let $R \subseteq S$ be rings. Then $s \in S$ is \textbf{integral over R} if $\exists$ monic $f(x) \in R[x]$ s.t. $f(s)=0$.
+	Let $R \subseteq S$ be rings.
+	Then $s \in S$ is \textbf{integral over R} if $\exists$ monic $f(x) \in R[x]$ s.t. $f(s)=0$.
 \end{definition}
 
 \begin{prop}
-	Let $R \subseteq S$ be rings. Then $s_1, \dots,s_n\in S$ are all integral over $R \iff R[s_1,\dots,s_n] \subseteq S$ is a finitely generated $R$-module.
+	Let $R \subseteq S$ be rings.
+	Then $s_1, \dots,s_n\in S$ are all integral over $R \iff R[s_1,\dots,s_n] \subseteq S$ is a finitely generated $R$-module.
 \end{prop}
 
 \begin{corollary}
-	let $R \subseteq S$ be rings. If $s_1, s_2 \in S$ are integral over $R$, then $s_1+s_2$ and $s_1s_2$ are integral over $R$. In particular, the set $\tilde{R}\subseteq S$ of all elements in $S$ integral over $R$ is a ring, called the \textbf{integral closure} of $R$ in $S$.
+	let $R \subseteq S$ be rings.
+	If $s_1, s_2 \in S$ are integral over $R$, then $s_1+s_2$ and $s_1s_2$ are integral over $R$.
+	In particular, the set $\tilde{R}\subseteq S$ of all elements in $S$ integral over $R$ is a ring,
+	called the \textbf{integral closure} of $R$ in $S$.
 \end{corollary}
 
 \begin{definition}
@@ -123,7 +139,9 @@ Assumption: unless otherwise mentioned, all absolute values will be non-archimed
 \subsection{The p-adic Numbers}
 Let $p$ be a prime number throughout.
 
-If $x \in \mathbb{Q} \backslash \{0\}$ then $\exists!$ representation $x=p^n \frac{a}{b}$, where $n \in \mathbb{Z}$, $a \in \mathbb{Z}$, $b \in \mathbb{Z}_{>0}$ and $(a,p)=(b,p)=(a,b)=1$.
+If $x \in \mathbb{Q} \backslash \{0\}$ then $\exists!$ representation $x=p^n \frac{a}{b}$,
+where $n \in \mathbb{Z}$, $a \in \mathbb{Z}$,
+$b \in \mathbb{Z}_{>0}$ and $(a,p)=(b,p)=(a,b)=1$.
 
 We define the \textbf{p-adic absolute value} on $\mathbb{Q}$ to be the function $\abs{\cdot}_p: \mathbb{Q} \to \mathbb{R}_{\geq 0}$ given by
 \begin{align*}
@@ -146,7 +164,8 @@ Then $\abs{\cdot}_p$ is an absolute value.
 \end{prop}
 
 \begin{prop}
-	The non-zero ideals of $\mathbb{Z}_p$ are $p_n\mathbb{Z}_p$ for $n \geq 0$. Moreover, $\mathbb{Z}/p^n\mathbb{Z} \cong \mathbb{Z}_p/p^n\mathbb{Z}_p$
+	The non-zero ideals of $\mathbb{Z}_p$ are $p_n\mathbb{Z}_p$ for $n \geq 0$.
+	Moreover, $\mathbb{Z}/p^n\mathbb{Z} \cong \mathbb{Z}_p/p^n\mathbb{Z}_p$
 \end{prop}
 
 \begin{corollary}
@@ -178,7 +197,10 @@ Then $\abs{\cdot}_p$ is an absolute value.
 	$\forall x, y \in K$.
 \end{definition}
 
-Here we use the conventions $r+\infty = \infty$, $r \leq \infty\ \forall r \in \mathbb{R} \cup \{\infty\}$. $v$ a valuation $\implies \text{ if } \abs{x} = c^{-v(x)},\, c \in \mathbb{R}_{>1}$, then $\abs{\cdot}$ is an absolute value. Conversely, if $\abs{\cdot}$ is an absolute value then $v(x)=-\log_c\abs{x}$.
+Here we use the conventions $r+\infty = \infty$, $r \leq \infty\ \forall r \in \mathbb{R} \cup \{\infty\}$.
+$v$ a valuation $\implies \text{ if } \abs{x} = c^{-v(x)},\, c \in \mathbb{R}_{>1}$,
+then $\abs{\cdot}$ is an absolute value.
+Conversely, if $\abs{\cdot}$ is an absolute value then $v(x)=-\log_c\abs{x}$.
 
 Let $K$ be a valued field.
 \begin{itemize}
@@ -187,14 +209,19 @@ Let $K$ be a valued field.
 	\item $k = k_K = \mathcal{O}/\mathfrak{m}$ is the \textbf{residue field}
 \end{itemize}
 
-If $K$ is a valued field and $F(x)=a_0 + a_1 x + \dots + a_n x^n \in K[x]$ is a polynomial, we say that F is \textbf{primitive} if $\max_i \abs{a_i} = 1$ ($\implies F \in \mathcal{O}[x]$).
+If $K$ is a valued field and $F(x)=a_0 + a_1 x + \dots + a_n x^n \in K[x]$ is a polynomial,
+we say that F is \textbf{primitive} if $\max_i \abs{a_i} = 1$ ($\implies F \in \mathcal{O}[x]$).
 
 \begin{theorem}[Hensel's Lemma]
-	Assume that $K$ is complete and that $F \in K[x]$ is primitive. Put $f = F \mod \mathfrak{m} \in k[x]$. If $\exists$ factorisation $f(x)=g(x)h(x)$ with $(g,h)=1$, then $\exists$ factorisation $F(x)=G(x)H(x)$ in $\mathcal{O}[x]$ with $g \equiv G$, $h \equiv H \mod \mathfrak{m}$ and $\deg g$ = $\deg G$.
+	Assume that $K$ is complete and that $F \in K[x]$ is primitive.
+	Put $f = F \mod \mathfrak{m} \in k[x]$.
+	If $\exists$ factorisation $f(x)=g(x)h(x)$ with $(g,h)=1$,
+	then $\exists$ factorisation $F(x)=G(x)H(x)$ in $\mathcal{O}[x]$ with $g \equiv G$, $h \equiv H \mod \mathfrak{m}$ and $\deg g$ = $\deg G$.
 \end{theorem}
 
 \begin{proof}
-	Put $d = \deg F$, $m = \deg g$, so $\deg h \leq d-m$. Pick lifts $G_0, H_0 \in \mathcal{O}[x]$ of $g, h$ with $\deg G_0 = \deg g$, $\deg H_0 \leq d-m$.
+	Put $d = \deg F$, $m = \deg g$, so $\deg h \leq d-m$.
+	Pick lifts $G_0, H_0 \in \mathcal{O}[x]$ of $g, h$ with $\deg G_0 = \deg g$, $\deg H_0 \leq d-m$.
 	
 	$(g, h) = 1 \implies \exists A, B \in \mathcal{O}[x]$ s.t. $AG_0 + BH_0 \equiv 1 \mod \mathfrak{m}$.
 	
@@ -211,27 +238,44 @@ If $K$ is a valued field and $F(x)=a_0 + a_1 x + \dots + a_n x^n \in K[x]$ is a 
 	
 	Induction on $n$: $n = 1\ \checkmark$
 	
-	Assume we have $G_{n-1}, H_{n-1}$, $G_n = G_{n-1}+\pi^nP_n, H_n = H_{n-1} + \pi^n Q_n$. Expanding $F-H_nG_n$, we want $$F-G_{n-1}H_{n-1} \equiv \pi^n(G_{n-1}Q_n + H_{n-1}P_n) \mod \pi^{n+1}$$ and divide by $\pi^n$ $$G_{n-1}Q_n + H_{n-1}P_n = \frac{1}{\pi^n}\left(F-G_{n-1}H_{n-1}\right) \mod \pi$$ Let $F_n := F-G_{n-1}H_{n-1}$. $AG_o + BH_0 \equiv 1 \mod \pi \implies F_n \equiv AG_0F_n + BH_0F_n \mod \pi$.
+	Assume we have $G_{n-1}, H_{n-1}$,
+	$G_n = G_{n-1}+\pi^nP_n, H_n = H_{n-1} + \pi^n Q_n$.
+	Expanding $F-H_nG_n$, we want $$F-G_{n-1}H_{n-1} \equiv \pi^n(G_{n-1}Q_n + H_{n-1}P_n) \mod \pi^{n+1}$$ and divide by $\pi^n$
+	$$G_{n-1}Q_n + H_{n-1}P_n = \frac{1}{\pi^n}\left(F-G_{n-1}H_{n-1}\right) \mod \pi$$
+	Let $F_n := F-G_{n-1}H_{n-1}$.
+	$AG_o + BH_0 \equiv 1 \mod \pi \implies F_n \equiv AG_0F_n + BH_0F_n \mod \pi$.
 	
 	Write $BF_n = QG_0 + P_n$ with $\deg P_n < \deg G_0$, $P_n \in \mathcal{O}[x]$ $$\implies G_0(AF_n + H_0Q) + H_0P_n \equiv F_n \mod \pi$$ Now omit all coefficients from $AF_n+H_0Q$ divisible by $\pi$ to get $Q_n$.
 \end{proof}
 
 \begin{corollary}
-	Let $F(x)=a_0 + a_1 x + \dots + a_n x^n \in K[x]$, $K$ complete, $a_0a_n \neq 0$. If $F$ is irreducible, then $\abs{a_i} \leq \max(\abs{a_0}, \abs{a_n})\ \forall i$.
+	Let $F(x)=a_0 + a_1 x + \dots + a_n x^n \in K[x]$, $K$ complete,
+	$a_0a_n \neq 0$. If $F$ is irreducible,
+	then $\abs{a_i} \leq \max(\abs{a_0}, \abs{a_n})\ \forall i$.
 \end{corollary}
 
 \begin{corollary}
-	$F \in \mathcal{O}[x]$ monic, $K$ complete. If $F \mod \mathfrak{m}$ has a simple root $\bar{\alpha} \in k$, then $F$ has a (unique) simple root $\alpha \in \mathcal{O}$ lifting $\bar{\alpha}$.
+	$F \in \mathcal{O}[x]$ monic, $K$ complete.
+	If $F \mod \mathfrak{m}$ has a simple root $\bar{\alpha} \in k$,
+	then $F$ has a (unique) simple root $\alpha \in \mathcal{O}$ lifting $\bar{\alpha}$.
 \end{corollary}
 
-Useful fact: let $K$ be a valued field, $x, y \in K$. $\abs{x} > \abs{y} \implies \abs{x+y} = \abs{x}$. More generally, if we have a convergent series $\sum_{i=0}^\infty x_i$ and the non-zero $\abs{x_i}$ are distinct, then $\abs{x} = \max \abs{x_i}$.
+Useful fact: let $K$ be a valued field, $x, y \in K$. $\abs{x} > \abs{y} \implies \abs{x+y} = \abs{x}$.
+More generally, if we have a convergent series $\sum_{i=0}^\infty x_i$ and the non-zero $\abs{x_i}$ are distinct,
+then $\abs{x} = \max \abs{x_i}$.
 
 \begin{theorem}
-	Let $K$ be a complete valued field and let $L/K$ be a finite extension. Then the absolute value $\abs{\cdot}$ on $K$ has a unique extension to an absolute value $\abs{\cdot}_L$ on $L$, given by $$\abs{\alpha}_L = \sqrt[n]{\abs{N_{L/K}(\alpha)}},\ n=[L:K]$$ and $L$ is complete w.r.t. $\abs{\cdot}_L$. 
+	Let $K$ be a complete valued field and let $L/K$ be a finite extension.
+	Then the absolute value $\abs{\cdot}$ on $K$ has a unique extension to an absolute value $\abs{\cdot}_L$ on $L$,
+	given by $$\abs{\alpha}_L = \sqrt[n]{\abs{N_{L/K}(\alpha)}},\ n=[L:K]$$
+	and $L$ is complete w.r.t. $\abs{\cdot}_L$. 
+	\label{29}
 \end{theorem}
 
 \begin{corollary}
-	Let $K$ be a complete valued field. If $M/K$ is an algebraic extension of $K$, then $\abs{\cdot}$ extends uniquely to an absolute value on $M$.
+	Let $K$ be a complete valued field. 
+	If $M/K$ is an algebraic extension of $K$,
+	then $\abs{\cdot}$ extends uniquely to an absolute value on $M$.
 \end{corollary}
 
 \begin{corollary}
@@ -245,13 +289,20 @@ Useful fact: let $K$ be a valued field, $x, y \in K$. $\abs{x} > \abs{y} \implie
 		\item $\norm{\lambda x} = \abs{\lambda}\norm{x}\ \forall \lambda \in K, x \in V$
 		\item $\norm{x+y} \leq \max(\norm{x}, \norm{y})\ \forall x,y, \in V$
 	\end{enumerate}
-	Two norms $\norm{\cdot}, \norm{\cdot}'$ are \textbf{equivalent} if they induce the same topology on V $\iff \exists C,D > 0$ s.t. $C\norm{x} \leq \norm{x}' \leq D\norm{x}\ \forall x \in V$.
+	Two norms $\norm{\cdot}, \norm{\cdot}'$ are \textbf{equivalent} if they induce the same topology on V
+	$\iff \exists C,D > 0$ s.t. $C\norm{x} \leq \norm{x}' \leq D\norm{x}\ \forall x \in V$.
 \end{definition}
 
 \begin{prop}
-	Let $K$ be a complete valued field and $V$ a finite dimensional $K$-vector sapce. Let $x_1, \dots, x_n$ be a basis of $V$, then if $x = \sum a_i x_i \in V$, $$\norm{x}_{\max} = \max_i \abs{a_i}$$ defines a norm on $V$, and $V$ is complete w.r.t $\norm{\cdot}_{\max}$.
+	Let $K$ be a complete valued field and $V$ a finite dimensional $K$-vector space.
+	Let $x_1, \dots, x_n$ be a basis of $V$, 
+	then if $x = \sum a_i x_i \in V$, 
+	$$\norm{x}_{\max} = \max_i \abs{a_i}$$ defines a norm on $V$, 
+	and $V$ is complete w.r.t $\norm{\cdot}_{\max}$.
 	
-	Moreover, if $\norm{\cdot}$ is any norm on $V$, then $\norm{\cdot}$ is equivalent to $\norm{\cdot}_{\max}$ and hence $V$ is complete w.r.t $\norm{\cdot}$.
+	Moreover, if $\norm{\cdot}$ is any norm on $V$, 
+	then $\norm{\cdot}$ is equivalent to $\norm{\cdot}_{\max}$ and hence $V$ is complete w.r.t $\norm{\cdot}$.
+	\label{33}
 \end{prop}
 	
 \begin{lemma}
@@ -717,5 +768,393 @@ $$\abs{\triangle f(x)}_p = \abs{f(x+1) - f(x)}_p \leq \norm{f} \implies \norm{\t
 	Then $a_0(f) = f(0) = 0$,
 	and by induction $f(n) = \triangle^n f(0) = a_n(f) = 0\ \forall n\geq 0$.
 	So $f=0$ by continuity since $\mathbb{Z}_{\geq 0} \subseteq \mathbb{Z}_p$ is dense.
+\end{proof}
+
+We will prove that the linear maps
+\begin{align*}
+f &\mapsto (a_n(f)) \\
+\mathcal{C}(\mathbb{Z}_p, \mathbb{Q}_p) &\rightleftarrows c_0 \\
+f_a(x)=\sum_{n=0}^\infty a_n {x \choose n} &\mapsfrom (a_n) = a
+\end{align*}
+are mutual inverses and norm-preserving.
+
+\begin{lemma}
+	We have
+	${x \choose n} + {x \choose n-1} = {x+1 \choose n}\ \forall n \in \mathbb{Z}_{\geq 1}$
+	and $x \in \mathbb{Z}_p$.
+	\label{65}
+\end{lemma}
+\begin{proof}[Proof 1]
+	True when $x \in \mathbb{Z}_{\geq n}$,
+	and then the lemma follows by the density of $\mathbb{Z}_{\geq n} \subset \mathbb{Z}_p$ and continuity.
+\end{proof}
+\begin{proof}[Proof 2]
+	True when $x \in \mathbb{Z}_{\geq n}$,
+	and both sides are polynomials which agree on an infinite set of points $\implies$ equal as elements of $\mathbb{Q}[x]$.
+	Now evaluate.
+\end{proof}
+
+Now let $a = (a_n)_{n=0}^\infty \in c_0$. 
+Define $f_a: \mathbb{Z}_p \to \mathbb{Q}_p$,
+$$f_a(x) = \sum_{n=0}^\infty a_n {x \choose n}$$
+This is a uniformly convergent series,
+so $f_a \in \mathcal{C}(\mathbb{Z}_p, \mathbb{Q}_p)$.
+
+\begin{prop}
+	$a \mapsto f_a$ defines a norm-decreasing linear map $c_0 \to \mathcal{C}(\mathbb{Z}_p, \mathbb{Q}_p)$.
+	Moreover, $a_n(f_a) = a_n\ \forall n \geq 0$.
+\end{prop}
+\begin{proof}
+	Linearity is clear.
+	
+	Norm decreasing:
+	\begin{align*}
+		\abs{f_a(x)}_p &= \abs{\sum_{n=0}^\infty a_n {x \choose n}} \\
+		&\leq \sup_n \abs{a_n}_p \abs{{x \choose n}}_p \\
+		&\leq \sup_n \abs{a_n}_p = \norm{a}\ \forall x \in \mathbb{Z}_p
+	\end{align*}
+	$\implies \norm{f_a} \leq \norm{a}$.
+	
+	Inverses: $\forall k \in \mathbb{Z}_{\geq 0}$ define $a^{(k)}=(a_k, a_{k+1}, a_{k+2}, \dots)$
+	\begin{align*}
+		\triangle f_a(x) &= f_a(x+1)-f_a(x) \\
+		&= \sum_{n=1}^\infty a_n\left({x+1 \choose n} - {x \choose n}\right) \\
+		&= \sum_{n=1}^\infty a_n {x \choose n-1} \text{ by Lemma \ref{65}} \\
+		&= \sum_{n=0}^\infty a_{n+1}{x \choose n} = f_{a^{(1)}}(x)
+	\end{align*}
+	Iterating, $\triangle^k f_a = f_{a^{(k)}} \implies$
+	$$a_n(f_a) = \triangle^n f_a(0) = f_{a^{(n)}}(0) = a_n$$
+\end{proof}
+
+Summing up:
+\begin{align*}
+	F(f) &= (a_n(f)) \\
+	V = \mathcal{C}(\mathbb{Z}_p, \mathbb{Q}_p) &\underset{G}{\overset{F}{\rightleftarrows}} c_0 = W \\
+	G(a) &= f_a
+\end{align*}
+We know: $F$ is injective and norm-decreasing,
+$FG = id_W$ and $G$ is norm-decreasing.
+
+\begin{lemma}
+	In this situation,
+	$GF = \id_V$ and $F$ and $G$ are norm-preserving.
+\end{lemma}
+\begin{proof}
+	Let $v \in V$.
+	Then $F(v-GFv) = Fv - Fv = 0 \implies v = GFv$ since $F$ is injective.
+	So $GF = \id_V$.
+	
+	Norm-preserving: $v \in V$,
+	have $\norm{Fv} \leq \norm{v}$,
+	but also $\norm{Fv} \geq \norm{GFv} = \norm{v}$,
+	so $F$ is norm preserving.
+	Same proof for $G$.
+\end{proof}
+
+This finishes the proof of Mahler's Theorem.
+
+\section{Ramification Theory for Local Fields}
+
+The characteristic of the residue field of any local field from now on will be $p$ (unless stated otherwise).
+
+\subsection{More on Finite Extensions}
+
+Recall: let $R$ be a PID and let $M$ be a f.g. $R$-module.
+Assume that $M$ is torsion free.
+Then $\exists! n \geq 0$ such that $M \cong R^n$.
+Moreover, if $N \subseteq M$ is a submodule,
+then $N$ is finitely generated and $N \cong R^m$, with $m \leq n$.
+
+\begin{prop}
+	Let $K$ be a local field,
+	$L/K$ finite of degree $n$.
+	Then $\mathcal{O}_L$ is a finite, free $\mathcal{O}_K$-module of rank $n$
+	(i.e. $\mathcal{O}_L \cong \mathcal{O}_K^n$ as $\mathcal{O}_K$-modules),
+	and $k_L/k_K$ is an extension of degree $\leq n$.
+	Moreover, $L$ is a local field.
+\end{prop}
+\begin{proof}
+	Choose a $K$-basis $\alpha_1, \dots, \alpha_n$ of $L$.
+	Let $\norm{\cdot}$ denote the maximum norm $\norm{\sum_{i=1}^n x_i \alpha_i} = \max_{i=1,\dots,n}\abs{x_i}$
+	on $L$ as in Proposition \ref{33}.
+	$\norm{\cdot}$ is equivalent to $\abs{\cdot}$ (the extended absolute value on $L$) as $K$-norms,
+	so $\exists r > s > 0$ such that
+	$$M = \{x \in L \,|\, \norm{x} \leq s \} \subseteq \mathcal{O}_L \subseteq N = \{x \in L \,|\, \norm{x} \leq r\}$$
+	
+	Increasing $r$ and decreasing $s$ as necessary wlog $r=\abs{a}$, $s=\abs{b}$ for some $a,b \in K^\times$. Then
+	$$M = \bigoplus_{i=1}^n \mathcal{O}_K b\alpha_i \subseteq \mathcal{O}_L \subseteq N = \bigoplus_{i=1}^n \mathcal{O}_K a \alpha_i$$
+	$\implies \mathcal{O}_L$ is f.g. and free of rank $n$ over $\mathcal{O}_K$.
+	
+	Since $\mathfrak{m}_K = \mathfrak{m}_L \cap \mathcal{O}_K$,
+	we have a natural injection
+	$$k_K = \mathcal{O}_K/\mathfrak{m}_K \hookrightarrow \mathcal{O}_L/\mathfrak{m}_L = k_L$$
+	
+	Since $\mathcal{O}_L$ is generated over $\mathcal{O}_K$ by $n$ elements,
+	$k_L$ is generated by $n$ elements over $k_K$,
+	i.e. $[k_L:k_K] \leq n$.
+	
+	$L$ a local field: $k_L/k_K$ is finite and $k_K$ finite $\implies k_L$ is a finite field.
+	$L$ is complete by Theorem \ref{29}.
+	
+	Let $v_K$ be the normalised valuation on $K$,
+	$w$ the extension of $v_K$ to $L$.
+	Then $w(\alpha) = \frac{1}{n} v_K (N_{L/K}(\alpha))$, so
+	$$w(L^\times) \subseteq \frac{1}{n}v(K^\times) = \frac{1}{n}\mathbb{Z}$$
+	$\implies$ it's discrete.
+\end{proof}
+
+\begin{definition}
+	Let $L/K$ be a finite extension of local fields.
+	The \textbf{inertia degree} of $L/K$ is
+	$$f_{L/K} = [k_L:k_K]$$
+	
+	Let $v_L$ be the normalised valuation on $L$ and $\pi_K$ a uniformiser of $K$.
+	The integer
+	$$e_{L/K} = v_L(\pi_K)$$
+	is called the \textbf{ramification index} of $L/K$.
+\end{definition}
+
+\begin{theorem}
+	Let $L/K$ be a finite extension of local fields.
+	Then $[L:K] = e_{L/K}f_{L/K}$ and $\exists \alpha \in \mathcal{O}_L$ such that $\mathcal{O}_L = \mathcal{O}_K[\alpha]$.
+\end{theorem}
+\begin{proof}
+	Write $e=e_{L/K}$, $f=f_{L/K}$.
+	
+	$k_L/k_K$ is separable,
+	so $\exists \bar{\alpha} \in k_L$ such that $k_L = k_K(\bar{\alpha})$.
+	Let $\bar{f}(x) \in k_K[x]$ be the minimal polynomial of $\bar{\alpha}$ over $k_K$,
+	and let $f \in \mathcal{O}_K[x]$ be a monic lift of $\bar{f}$ with $\deg f = \deg \bar{f}$.
+	
+	Claim: $\exists \alpha \in \mathcal{O}_L$ lifting $\bar{\alpha}$ and such that $v_L(f(\alpha)) = 1$ (always $\geq 1$).
+	
+	Let $\beta \in \mathcal{O}_L$ be any lift of $\bar{\alpha}$.
+	If $v(f(\beta)) = 1$, then set $\alpha = \beta$.
+	If not, set $\alpha = \beta + \pi_L$ ($\pi_L$ uniformiser of $L$).
+	
+	$f(\alpha) = f(\beta+ \pi_L) = f(\beta)+f'(\beta)\pi_L + b \pi_L^2$ for some $b \in \mathcal{O}_L$ (Taylor expanding around $\beta$).
+	
+	Since $v_L(f(\beta)) \geq 2$ and $v_L(f'(\beta)) = 0$,
+	we have $v_L(f(\alpha)) = 1$.
+	Put $\pi = f(\alpha)$ (uniformiser of $L$).
+	
+	We claim that $\alpha^i\pi^j$,
+	$i=0,\dots,f-1$, $j=0,\dots,e-1$ are an $\mathcal{O}_K$-basis of $\mathcal{O}_L$.
+	
+	Linear independence: assume $\sum_{i,j}a_{ij}\alpha^i\pi^j=0$ for some $a_{ij} \in K$, not all 0.
+	Put $s_j = \sum_{i=0}^{f-1}a_{ij}\alpha^i\ \forall j$.
+	$1, \alpha, \dots, \alpha^{f-1}$ are linearly independent over $K$ since there reductions are linearly independent over $k_K$.
+	So $\exists j$ such that $s_j \neq 0$.
+	
+	Claim: $e | v_L(s_j)$ if $s_j \neq 0$.
+	
+	Let $k$ be such that $\abs{a_{kj}}$ is maximal,
+	then $a_{kj}^{-1}s_j = \sum_{i=0}^{f-1}a_{kj}^{-1}a_{ij}\alpha^i \implies a_{kj}^{-1}s_k \not\equiv 0 \mod \pi_L$
+	because $1, \bar{\alpha}, \dots, \bar{\alpha}^{f-1}$ are linearly independent over $k_K$.
+	
+	\begin{align*}
+		\implies v_L(a_{kj}^{-1}s_j) = 0 \implies v_L(s_j) = v_L(a_{kj}) &= v_L(a_{kj}^{-1}s_j) \\
+		&\in v_L(K^\times) \\
+		&= ev_L(L^\times) = e\mathbb{Z}
+	\end{align*}
+	
+	Now write $\sum_{i,j} a_{ij}\alpha^i\pi^j = \sum_{j=0}^{e-1}s_j\pi^j = 0$.
+	If $s_j \neq 0$, we have $v_L(s_j\pi^j) = v_L(s_j) + j \in j+e\mathbb{Z}$.
+	
+	$\implies$ no two non-zero terms in $\sum_{j=0}^{e-1}s_j\pi^j$ have the same valuation.
+	
+	$\implies \sum_{j=0}^{e-1} s_j\pi^j \neq 0$, which is a contradiction.
+	
+	Claim $\mathcal{O}_L = \oplus_{i,j}\alpha^i\pi^j$.
+	
+	Set $M=\oplus_{i,j}\alpha^i\pi^j$ and $N=\oplus_{i=0}^{f-1}\mathcal{O}_K\alpha^i$.
+	Then $M=N+\pi+N+\dots+\pi^{e-1}N$.
+	Since $1, \bar{\alpha}, \dots, \bar{\alpha}^{f-1}$ span $k_L$ over $k_K$ we must have $\mathcal{O}_L=N+\pi\mathcal{O}_L$.
+	\begin{align*}
+		\text{Iterate: } \mathcal{O}_L &= N + \pi(N + \pi\mathcal{O}_L) \\
+		&= N + \pi N + \pi^2 \mathcal{O}_L \\
+		&= \dots \\
+		&= N + \pi N + \dots + \pi^{e-1}N + \pi^e \mathcal{O}_L \\
+		&= M + \pi_K \mathcal{O}_L \text{ ($\pi_K$ uniformiser of $K$)}
+	\end{align*}
+	
+	Iterate: $\mathcal{O}_L = M + \pi_K^n\mathcal{O}_L\ \forall n \geq 1 \implies M$ is dense in $\mathcal{O}_L$.
+	But $M$ is the closed unit ball in $V = \oplus_{ij}K\alpha^i\pi^j \subseteq L$ w.r.t the maximum norm on $V$ w.r.t the basis $\alpha^i\pi^j$.
+	
+	Proposition \ref{33} and Theorem \ref{29} $\implies$ $M$ is complete both w.r.t the maximum norm and $\abs{\cdot}$ on $L$.
+	
+	$\implies M \subseteq L$ is closed.
+	
+	$\implies M = \mathcal{O}_L$.
+	
+	Finally, since $\alpha^i\pi^j = \alpha^if(\alpha)^j$ is a polynomial in $\alpha$, have $\mathcal{O}_L = \mathcal{O}_K[\alpha]$.
+\end{proof}
+
+\begin{corollary}
+	Let $M/L/K$ be finite extensions of local fields.
+	Then $f_{M/K} = f_{L/K}f_{M/L}$ and $e_{M/K} = e_{L/K}e_{M/L}$.
+	\label{71}
+\end{corollary}
+\begin{proof}
+	$[k_M:k_K] = [k_M:k_L][k_L:k_K]$ by multiplicativity of degrees.
+	
+	$e_{M/L}e_{L/K} = \frac{[M:L]}{f_{M/L}}\frac{[L:K]}{f_{L/K}} = \frac{[M:K]}{f_{M/K}} = e_{M/K}$.
+\end{proof}
+
+\begin{definition}
+	Let $L/K$ be a finite extension of local fields.
+	$L/K$ is \textbf{unramified} if $e_{L/K} = 1$ (or $f_{L/K} = [L:K]$),
+	and \textbf{totally ramified} if $f{L/K} =1$.
+\end{definition}
+
+\begin{theorem}
+	Let $K$ be a local field.
+	For each finite extension $l/k_K$ there is a \textbf{unique} (up to isomorphism) finite unramified extension $L/K$ with $k_L \cong l$ over $k_K$.
+	
+	Moreover, $L/K$ is Galois with $\Gal(L/K) \cong \Gal(l/k_K)$.
+	\label{73}
+\end{theorem}
+\begin{proof}
+	Existence: let $\bar{\alpha}$ be a primitive element of $l/k_K$ with minimal polynomial $\bar{f} \in k_K[x]$.
+	Take a monic lift $f \in \mathcal{O}_K[x]$ of $\bar{f}$ ($\deg f = \deg \bar{f}$).
+	
+	Put $L=K(\alpha)$ where $\alpha$ is a root of $f$.
+	$\bar{f}$ irreducible $\implies f$ irreducible $\implies [L:K] = [l:k_K]$.
+	
+	Moreover, $k_L$ contains a root of $\bar{f}$ (the reduction of $\alpha$).
+	So $l \hookrightarrow k_L$ over $k_K \implies [L:K] \geq [k_L:k_K] = [L:K]$.
+	
+	$\implies L/K$ is unramified and $k_L \cong l$ over $k_K$.
+\end{proof}
+
+Uniqueness and Galois property follows from:
+
+\begin{lemma}
+	Let $L/K$ be a finite unramified extension of local fields and let $M/K$ be a finite extension.
+	Then there is a natural bijection
+	$$\Hom_{K-alg}(L,M) \overset{\sim}{\to} \Hom_{k_K-alg}(k_L, k_M)$$
+	($\varphi:L\to M$ restricts to $\varphi: \mathcal{O}_L \to \mathcal{O}_M$, then take reductions).
+	\label{74}
+\end{lemma}
+\begin{proof}
+	By uniqueness of extended absolute values (Theorem \ref{29})
+	any $K$-algebra homomorphism $\phi: L \to M$ is an isometry for the extended absolute values.
+	
+	Thus $\varphi(\mathcal{O}_L) \subseteq \mathcal{O}_M$, $\varphi(\mathfrak{m}_L) \subseteq \varphi(\mathfrak{m}_M)$
+	so we get the induced $k_K$-algebra homomorphism $\bar{\varphi}: k_L \to k_M$.
+	This gives
+	$$\Hom_{K-alg}(L,M) \to \Hom_{k_K-alg}(k_L, k_M)$$
+	
+	Bijectivity: let $\bar{\alpha} \in k_L$ be a primitive element over $k_K$,
+	$\bar{f} \in k_K[x]$ its minimal polynomial,
+	$f \in \mathcal{O}_K[x]$ a monic lift of $\bar{f}$ and $\alpha \in \mathcal{O}_L$ the unique root of $f$ which lifts to $\bar{\alpha}$ (Hensel's Lemma).
+	
+	Then $k_L = k_L(\bar{\alpha})$ and $L=K(\alpha)$.
+	
+	\begin{center}
+		\begin{tikzcd}
+			\varphi \ar[mapsto]{d} & \Hom_{K-alg}(L,M) \ar{r} \ar{d}[rotate=90,anchor=center,yshift=1ex]{\sim} & \Hom_{k_K}(k_L, k_M) \ar{d}[rotate=90,anchor=center,yshift=1ex]{\sim} & \hat{\varphi} \ar[mapsto]{d} \\
+			\varphi(\alpha) & \{x \in M \,|\, f(x) = 0 \} \ar{r} & \{\bar{x} \in k_M \,|\, \bar{f}(\bar{x}) = 0 \} & \bar{\varphi}(\bar{\alpha})
+		\end{tikzcd}
+	\end{center}
+	This is a bijection by Hensel's Lemma,
+	since $\bar{f}$ is seperable.
+\end{proof}
+
+\begin{proof}[Proof of \ref{73} cont.]
+	Uniqueness: $k_L \cong k_M$ over $k_K$, $L/K$, $M/K$ unramified.
+	Then $\bar{\phi}$ lifts to a $K$-embedding $\phi: L \hookrightarrow M$ and $[L:K]=[M:K] \implies \phi$ an isomorphism.
+	
+	Galois: $\abs{\Aut_K(L)} = \abs{\Aut_{k_K}(k_L)} = [k_L: k_K] = [L:K] \implies L/K$ Galois.
+	
+	Also, $\Aut_K(L) \to \Aut_{k_K}(k_L)$ is really a homomorphism (so an isomorphism).
+\end{proof}
+
+\begin{prop}
+	Let $K$ be a local field, $L/K$ finite unramified, $M/K$ finite.
+	Say $L,M \subset$ fixed algebraic closure $\bar{K}$ of $K$.
+	Then $LM/M$ is unramified.
+	Any subextension of $L/K$ is unramified over $K$.
+	If $M/K$ is unramified, then $LM/K$ is unramified.
+	\label{75}
+\end{prop}
+\begin{proof}
+	Let $\hat{\alpha}$ be a primitive element of $k_L/k_K$,
+	$\bar{f} \in k_K[x]$ the minimal polynomial of $\hat{\alpha}$,
+	$f \in \mathcal{O}_K[x]$ a monic lift of $\bar{f}$,
+	$\alpha \in \mathcal{O}_L$ the unique root of $f$ lifting $\hat{\alpha}$.
+	Then $L=K(\alpha)$ so $LM=M(\alpha)$.
+	
+	Let $\bar{g}$ be the minimal polynomial of $\bar{\alpha}$ over $k_M$.
+	Then $\bar{g} | \bar{f} \implies f=gh$ in $\mathcal{O}_M[x]$ by Hensel's Lemma.
+	$g$ monic, lifts $\bar{g} \implies g(\alpha)=0$ and $g$ irreducible in $M[x]$.
+	
+	So $g$ is the minimal polynomial of $\alpha$ over $M \implies$
+	$$[LM:M] = \deg g = \deg \bar{g} \leq [k_{LM} : k_M] \leq [LM:M]$$
+	$\implies$ have equalities, $LM/M$ unramified.
+	
+	The second claim follows from the multiplicativity of $f_{L/K}$ and $e_{L/K}$ (Corollary \ref{71}),
+	as does the third
+	($[LM:K] = [LM:M][M:K] = f_{LM/M}f_{M/K} = f_{LM/K} \implies LM/K$ unramified).
+\end{proof}
+
+
+\begin{corollary}
+	Let $K$ be a local field, $L/K$ finite.
+	Then $\exists$ a unique maximal subfield $K \subseteq T \subseteq L$ such that $T/K$ is unramified. 
+	Moreover, $[T:K] = f_{L/K}$.
+\end{corollary}
+\begin{proof}
+	Existence: $T$ is the composite of all unramified subextensions of $L/K$ (use Proposition \ref{75}).
+	
+	Have $[T:K] = f_{T/K} \leq f_{L/K}$ by Corollary \ref{71}.
+	
+	Let $T'/K$ be the unique unramified extension with residue field extension $k_L/k_K$.
+	Then $id: k_{T'} = k_L \to k_L$ lifts to a $K$-embedding $T' \overset{\varphi}{\hookrightarrow} L$, by Lemma \ref{74}.
+	
+	Then $[T:K] \geq [\varphi(T'):K] = f_{L/K} \implies [T:K]=f_{L/K}$.
+\end{proof}
+
+\subsection{Totally Ramified Extensions}
+Recall
+
+\begin{theorem}[Eisenstein's Criterion]
+	Let $K$ be a local field,
+	$f(x) = x^n + \dots + a_0 \in \mathcal{O}_K[x]$, $\pi_K$ uniformiser of $K$.
+	If $\pi_K | a_{n-1}, \dots, a_0$ and $\pi_K^2 \nmid a_0$,
+	then $f$ is irreducible.
+\end{theorem}
+
+Note that if $L/K$ finite, $v_K$ a normalised valuation on $K$ and $w$ the unique extension of $v_K$ to $L$.
+Then $e_{L/K}^{-1} = w(\pi_L) = \min_{x \in \mathfrak{m}_L}w(x)$.
+
+A polynomial $f(x) \in \mathcal{O}_K[x]$ satisfying the assumptions of Eisenstein's criterion is called an \textbf{Eisenstein polynomial}.
+
+\begin{prop}
+	Let $L/K$ be a totally ramified extension of local fields.
+	Then $L=K(\pi_L)$ and the minimal polynomial of $\pi_L$ over $K$ is Eisenstein.
+	
+	Conversely, if $L=K(\alpha)$ and the minimal polynomial of $\alpha$ over $K$ is Eisenstein,
+	then $L/K$ is totally ramified and $\alpha$ is a uniformiser of $L$.
+\end{prop}
+\begin{proof}
+	First part: $n=[L:K]$, $v_K$ a normalised valuation on $K$ and $w$ the unique extension of $v_K$ to $L$.
+	Then
+	$$[K(\pi_L):K]^{-1} \leq e^{-1}_{K(\pi_L)/K} = \min_{x \in \mathfrak{m}_K(\pi_L)}w(x) \leq \frac{1}{n}$$
+	$\implies [K(\pi_L):K] \geq [L:K] \implies L = K(\pi)$.
+	
+	Let $f(x)=x^n + a_{n-1}x^{n-1} + \dots + a_0 \in \mathcal{O}_K[x]$ be the minimal polynomial of $\pi_L$ over $K$.
+	$$\pi_L^n = -(a_0 + a_1(\pi_L) + \dots + a_{n-1}\pi_L^{n-1})$$
+	So $1= w(\pi_L^n) = w(a_0 + a_1 \pi_L + \dots + a_{n-1}\pi_L^{n-1}) = \min_{i=0,1,\dots,n-1}(v_K(a_i)+\frac{i}{n})$
+	$\implies v_K(a_i) \geq 1\ \forall i$ and $v_K(a_0)=1$, so $f$ is Eisenstein.
+	
+	Converse: $L=K(\alpha)$, $n=[L:K]$.
+	Let $g(x) = x^n + b_{n-1}x^{n-1}+ \dots + b_0 \in \mathcal{O}_K[x]$ be the minimal polynomial of $\alpha$.
+	$g$ irreducible $\implies$ all roots have the same valuation, so
+	$$1 = w(b_0) = n\cdot w(\alpha) \implies w(\alpha) = \frac{1}{n}$$
+	
+	$\implies e_{L/K}^{-1} = \min_{x \in \mathfrak{M}_L}w(x) \leq \frac{1}{n} = [L:K]^{-1}$
+	
+	$\implies [L:K] = e_{L/K} = n$, so $L/K$ is totally ramified and $\alpha$ is a uniformiser.
 \end{proof}
 \end{document}
