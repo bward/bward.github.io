@@ -26,6 +26,7 @@
 \newcommand*\circbox[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt} {#1}}}}
 \DeclareMathOperator{\Set}{\textbf{Set}}
 \DeclareMathOperator{\Sub}{\textbf{Sub}}
+\DeclareMathOperator{\Adj}{\textbf{Adj}}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -1198,5 +1199,153 @@ But then morphisms $FA \to FB$ in $\mathcal{D}$ correspond bijectively to morphi
 	\end{align*}
 	so $GF = T$ and $\eta: 1_\mathcal{C} \to GF$.
 	
+	We define $FGA \textcolor{red}{\overset{\epsilon_A}{\to}} A$ to be $TA \overset{\eta_{TA}}{\to} TA$.
+	To verify naturality of $\textcolor{red}{\epsilon}$, consider
+	\begin{center}
+		\begin{tikzcd}
+			FGA \ar[color=red]{r}{FGf} \ar[color=red]{d}{\epsilon_A} & FGB \ar[color=red]{d}{\epsilon_B} \\
+			A \ar[color=red]{r}{f} & B
+		\end{tikzcd}
+	\end{center}
+	The top and right edges yield
+	$$TA \overset{Tf}{\to} TTB \overset{\mu_B}{\to} TB \overset{\eta_{TB}}{\to} TTB \overset{1_{TTB}}{\to} TTB \overset{\mu_B}{\to} TB$$
+	and the left and bottom yield
+	$$TA \overset{1_{TA}}{\to} TA \overset{Tf}{\to} TTB \overset{\mu_B}{\to} TB$$
+	
+	For the $\triangle^r$ identities,
+	$$GA \overset{\eta_{GA}}{\to} GFGA \overset{G\epsilon_A}{\to} GA = TA \overset{\eta_{TA}}{\to} TTA \overset{1_{TTA}}{\to} TTA \overset{\mu_A}{\to} TA = 1_{TA}$$
+	and
+	\begin{align*}
+		FA \overset{F\eta_A}{\to} FGFA \overset{\epsilon_{FA}}{\to} FA &= A \overset{\eta_A}{\to} TA \overset{\eta_{TA}}{\to} TTA \overset{1_{TTA}}{\to} TTA \overset{\mu_A}{\to} TA \\
+		&= A \overset{\eta_A}{\to} TA\ (= FA \overset{1_{FA}}{\to} FA)
+	\end{align*}
+	
+	Finally, $G\epsilon_{FA} = TTA \overset{1_{TTA}}{\to} TTA \overset{\mu_A}{\to} TA = \mu_A$,
+	so the adjunction induces the monad $\mathbb{T}$.
+\end{proof}
+
+\begin{theorem}
+	Given a monad $\mathbb{T}$ on $\mathcal{C}$,
+	let $\Adj(\mathbb{T})$ be the category whose objects are adjunctions $\mathcal{C}\underset{G}{\overset{F}{\rightleftarrows}} \mathcal{D}$ inducing $\mathbb{T}$,
+	and whose morphisms $(\mathcal{C}\underset{G}{\overset{F}{\rightleftarrows}} \mathcal{D}) \to (\mathcal{C}\underset{G'}{\overset{F'}{\rightleftarrows}} \mathcal{D}')$
+	are functors $K: \mathcal{D} \to \mathcal{D}'$ satisfying $KF=F'$ and $G'K=G$.
+	
+	Then the Kleisi category $\mathcal{C}_\mathbb{T}$ is initial in $\Adj(\mathbb{T})$,
+	and the Eilenberg-Moore category $\mathcal{C}^\mathbb{T}$ is terminal.
+\end{theorem}
+\begin{proof}
+	Given $(\mathcal{C}\underset{G}{\overset{F}{\rightleftarrows}} \mathcal{D})$ in $\Adj(\mathbb{T})$,
+	we define the \textbf{Eilenberg-Moore comparison functor} $K: \mathcal{D} \to \mathcal{C}^\mathbb{T}$
+	by $KB=(GB, G\epsilon_B)$
+	(note that $G\epsilon_B$ is an algebra structure on $GB$:
+	the unit condition \circbox{4} follows from a $\triangle^r$ identity,
+	and \circbox{5} follows from the naturality of $\epsilon$).
+	
+	$K(B \overset{g}{\to} B') = Gg: (GB, G\epsilon_B) \to (GB', G\epsilon_{B'})$
+	(a homomorphism since $\epsilon$ is natural).
+	
+	It's clear that $K$ is a functor,
+	that $G^\mathbb{T}K=G$ and that $KFA = (GFA, G\epsilon_{FA}) = (TA, \mu_A) = F^\mathbb{T}A$ and $KF(A \overset{f}{\to} B) = Tf = F^\mathbb{T}f$.
+	
+	Uniqueness: suppose $\bar{K}$ also satisfies $G^\mathbb{T}\bar{K} = G$ and $\bar{K}F = F^\mathbb{T}$.
+	Then $\bar{K}B$ is of the form $(GB, \beta_B)$ for some algebra structure $\beta_B$,
+	and that $\beta_{FA} = \mu_A = G\epsilon_{FA}$ for all $A$.
+	
+	Given any $B$, consider the diagram
+	\begin{center}
+		\begin{tikzcd}
+			GFGFGB \ar{r}{GFG\epsilon_B} \ar{d}{\mu_{GB}} & GFGB \ar{d}{\beta_B}\\
+			GFGB \ar{r}{G\epsilon_B} & GB
+		\end{tikzcd}
+	\end{center}
+	which must commute, since $G\epsilon_B$ is an algebra homomorphism.
+	But it would also commute with $G\epsilon_B$ in place of $\beta_B$,
+	and $GFG\epsilon_B$ is (split) epic,
+	so $\beta_B = G\epsilon_B$.
+	
+	For the \textbf{Kleisi comparison functor} $K: \mathcal{C}_\mathbb{T} \to \mathcal{D}$,
+	we define $KA=FA$,
+	$K(A \textcolor{red}{\overset{f}{\to}} B) = FA \overset{Ff}{\to} FGFB \overset{\epsilon_{FB}}{\to} FB$.
+	
+	To verify this is functorial, consider
+	\begin{align*}
+		K(A \textcolor{red}{\overset{f}{\to}} B \textcolor{red}{\overset{g}{\to}} C) &=
+			FA \overset{Ff}{\to} FGFB \overset{FGFg}{\to} FGFGFC \overset{FG\epsilon_{FC}}{\to} FGFC \overset{\epsilon_{FC}}{\to} FC \\
+			&= FA \overset{Ff}{\to} FGFB \overset{FGFg}{\to} FGFGFC \overset{\epsilon_{FGFC}}{\to} FGFC \overset{\epsilon_{FC}}{\to} FC \\
+			&= FA \overset{Ff}{\to} FGFB \overset{\epsilon_{FB}}{\to} FB \overset{Fg}{\to} FGFC \overset{\epsilon_{FC}}{\to} FC \\
+			&= (K\textcolor{red}{g})(K\textcolor{red}{f})
+	\end{align*}
+	
+	$GKA = GFA = TA = G_\mathbb{T}A$
+	
+	$GK(A \textcolor{red}{\overset{f}{\to}} B) = TA \overset{Tf}{\to} TTB \overset{\mu_B}{\to} TB = G_\mathbb{T}(\textcolor{red}{f})$
+	
+	And $KF_\mathbb{T}A = FA$,
+	
+	$KF_\mathbb{T}(A \overset{f}{\to} B) = \begin{tikzcd} FA \ar{r}{Ff} & FB \ar{r}{F\eta_B} \ar{rd}{1_{FB}} & FGFB \ar{d}{\epsilon_{FB}} \\ && FB\end{tikzcd}$
+	
+	So $K$ is a morphism of $\Adj(\mathbb{T})$.
+	
+	Uniqueness: suppose $\bar{K}$ is any other morphism $\mathcal{C}_\mathbb{T} \to \mathcal{D}$ in $\Adj(\mathbb{T})$.
+	Then $\bar{K}A = FA = KA$ for all $A$;
+	since $\bar{K}$ commutes with both the $F$s and the $G$s,
+	we have $\bar{K}(\epsilon_A) = \epsilon_{FA}$.
+	
+	We can write $A \textcolor{red}{\overset{f}{\to}} B$ as
+	$A \textcolor{red}{\overset{F_\mathbb{T}f}{\to}} F_\mathbb{T}G_\mathbb{T} \textcolor{red}{\overset{\epsilon_B}{\to}} B$,
+	so $\bar{K}(\textcolor{red}{f}) = \bar{K}(\textcolor{red}{\epsilon_B})Ff=K(\textcolor{red}{f})$.
+\end{proof}
+
+The Kleisi category $\mathcal{C}_\mathbb{T}$ inherits coproducts from $\mathcal{C}$ if $\mathcal{C}$ has them,
+but it has few other limits or colimits in general.
+
+\begin{theorem}
+	\begin{enumerate}[label=\roman*.]
+		\item The forgetful functor $G: \mathcal{C}^\mathbb{T} \to \mathcal{C}$ creates all limits which exist in $\mathcal{C}$.
+		\item If $T: \mathcal{C} \to \mathcal{C}$ preserves colimits of shape $J$,
+		then $G: \mathcal{C}^\mathbb{T} \to \mathcal{C}$ creates them.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}[label=\roman*.]
+		\item 
+		Let $D: J \to \mathcal{C}^\mathbb{T}$ be a diagram,
+		write $D(j) = (GD(j), \delta_j)$.
+		
+		Let $(L, (\lambda_j : L \to GD(j)))$ be a limit for $GD$.
+		The composites $TL \overset{T\lambda_j}{\to} TGD(j) \overset{\delta_j}{\to} GD(j)$
+		form a cone over $GD$,
+		since the edges of $GD$ are algebra homomorphisms.
+		
+		So they induce a unique $l: TL \to L$ such taht
+		\begin{center}
+			\begin{tikzcd}
+				TL \ar{r}{T\lambda_j} \ar{d}{l} & TGD(j) \ar{d}{\delta_j} \\
+				L \ar{r}{\lambda_j}& GD(j)
+			\end{tikzcd}
+		\end{center}
+		commutes for each $j$.
+		
+		$l$ is an algebra structure:
+		$l\eta_L = l_L$ since both are factorisations of $(\lambda_j)$ through itself,
+		and $lTl = l\mu_L$ since they're factorisations of the same cone through $L$.
+		
+		So $((L,l), (\lambda_j))$ is the unique lifting of $(L, (\lambda_j))$ to a cone over $D$ in $\mathcal{C}^\mathbb{T}$.
+		
+		Any cone over $D$ in $\mathcal{C}^\mathbb{T}$ factors uniquely through $L$,
+		and the factorisation is an algebra homomorphism.
+		
+		\item
+		Similarly, given $D:J \to \mathcal{C}^\mathbb{T}$ as before and a colimit $(L, (\lambda_j: GD(j) \to L))$ for $GD$,
+		we get a unique $l: TL \to L$ making
+		\begin{center}
+			\begin{tikzcd}
+				TGD(j) \ar{r}{T\lambda_j} \ar{d}{\delta_j} & TL \ar{d}{l} \\
+				GD(j) \ar{r}{\lambda_j} & L
+			\end{tikzcd}
+		\end{center}
+		commute, since $(TL, (T\lambda_j))$ is a colimit.
+		The rest of the proof is similar to (i).
+	\end{enumerate}
 \end{proof}
 \end{document}
