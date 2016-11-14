@@ -449,4 +449,72 @@ Let $$\mathcal{F}_0 = \{A \in X^{(r)} \,|\, A \supset [l] \}$$
 	
 	$\abs{\mathcal{A}_t} \leq {l \choose t}{r-l \choose t}^2{n-l-2t \choose r-l-t}$
 \end{proof}
+
+\begin{theorem}
+	Suppose $2 \leq l < r < n$ and $n \geq \frac{3}{2}lr^3$.
+	Let $\mathcal{A} \subset X^{(r)}$ be $l$-intersecting.
+	Then $\abs{\mathcal{A}} \leq {n-l \choose r-l}$ and equality holds only if
+	$$\mathcal{A} \cong \{A \in X^{(r)} \,|\, A \supset L\}$$
+	for some $L \in X^{(l)}$.
+\end{theorem}
+\begin{proof}
+	Suppose $\mathcal{A}$ is not fixed by an $l$-set.
+	Then by Lemma 2,
+	\begin{align*}
+		\abs{A} &\leq (r-l){n-l-1 \choose r-l-1} + \sum_{t=1}^{t_0}{l \choose t}{r-l \choose t}^2{n-l-t \choose r-l-t} \\
+		&= (r-l){n-l-1 \choose r-l-1} + \sum_{t=1}^{t_0} S_t
+	\end{align*}
+	Note
+	\begin{align*}
+		\frac{S_{t+1}}{S_t} &= \frac{l-t}{t+1}\frac{(r-l-t)^2}{(t+1)^2}\frac{r-l-t}{n-l-t} \\
+		&\leq \frac{lr^3}{(t+1)^3n} \leq \frac{2}{3(t+1)^3} \leq \frac{1}{12}
+	\end{align*}
+	
+	Thus
+	\begin{align*}
+		\frac{\abs{\mathcal{A}}}{{n-l \choose r-l}} &\leq (r-l)\frac{r-l}{n-l} + \frac{12}{11}l(r-l)^2\frac{r-l}{n-l} \\
+		&= (1+\frac{12}{11}l(r-l)) \frac{(r-l)^2}{n-l} \\
+		&< \frac{3}{2}l\frac{r^3}{n} \leq 1
+	\end{align*}
+	If $r=l+2$ then $<$.
+\end{proof}
+
+Suppose $\mathcal{P}(X) \supset \mathcal{A}$ is intersecting.
+$\mathcal{A} \leq 2^{n-1}$.
+Binomial probability measure:
+$$\mathbb{P}_p(A) = p^{\abs{A}}(1-p)^{n-\abs{A}}$$
+$$\mathbb{P}_p(\mathcal{A}) = \sum_{A \in \mathcal{A}}\mathbb{P}_p(A)$$
+$\mathcal{A}$ intersecting $\implies \mathbb{P}_{\frac{1}{2}}(\mathcal{A}) \leq \frac{1}{2}$.
+
+\begin{theorem}
+	Let $0<p\leq \frac{1}{2}$ and let $\mathcal{A} \subset \mathcal{P}(X)$ be intersecting.
+	Then $\mathbb{P}_p(\mathcal{A}) \leq p$.
+\end{theorem}
+\begin{proof}
+	Set $N_k = \abs{\mathcal{A}_k}$.
+	$A \in \mathcal{A} \implies A^c = X\backslash A \not\in \mathcal{A}$.
+	
+	Hence $N_k + N_{n-k} \leq {n \choose k}$.
+	Also, for $k \leq \frac{n}{2}$, $p^k(1-p)^{n-k} \geq p^{n-k}(1-p)^k$, so
+	\begin{align*}
+		N_kp^k(1-p)^{n-k} + N_{n-k}p^{n-k}(1-p)^k & \leq {n-1 \choose k-1}p^k(1-p)^{n-k} + \left({n \choose k} - {n-1 \choose k-1}\right)p^{n-k}(1-p)^k \\
+		& \leq {n-1 \choose k-1}p^k(1-p)^{n-k} + {n-1 \choose n-k-1}p^{n-k}(1-p)^k
+	\end{align*}
+	
+	Thus
+	\begin{align*}
+		\mathbb{P}_p(\mathcal{A}) &= \sum_{k=1}^n p^k(1-p)^{n-k} \\
+		&\leq p \sum{k=1}^n {n-1 \choose k-1}p^{k-1}(1-p)^{n-k} = p
+	\end{align*}
+\end{proof}
+
+\begin{definition}
+	$\mathcal{A} \subset \mathcal{P}(X)$ is \textbf{k-wise-intersecting} if $A_1 \cap \dots \cap A_k \neq \emptyset\ \forall A_i \in \mathcal{A}$.
+\end{definition}
+
+\begin{theorem}
+	Let $ks \geq n$,
+	let $\mathcal{A} \subset X^{(s)}$ be such that $X$ is \textbf{not} the union of $k$ sets from $\mathcal{A}$.
+	Then $\abs{\mathcal{A}} \leq {n-1 \choose s}$.
+\end{theorem}
 \end{document}
