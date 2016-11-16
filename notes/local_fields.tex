@@ -31,6 +31,7 @@
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\Gal}{Gal}
 \DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ker}{Ker}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -917,6 +918,7 @@ then $N$ is finitely generated and $N \cong R^m$, with $m \leq n$.
 \begin{theorem}
 	Let $L/K$ be a finite extension of local fields.
 	Then $[L:K] = e_{L/K}f_{L/K}$ and $\exists \alpha \in \mathcal{O}_L$ such that $\mathcal{O}_L = \mathcal{O}_K[\alpha]$.
+	\label{70}
 \end{theorem}
 \begin{proof}
 	Write $e=e_{L/K}$, $f=f_{L/K}$.
@@ -1157,4 +1159,316 @@ A polynomial $f(x) \in \mathcal{O}_K[x]$ satisfying the assumptions of Eisenstei
 	
 	$\implies [L:K] = e_{L/K} = n$, so $L/K$ is totally ramified and $\alpha$ is a uniformiser.
 \end{proof}
+
+We've show that if $L/K$ is a totally ramified extension of local fields, then $L=K(\pi_L)$.
+In fact, $\mathcal{O}_L = \mathcal{O}_K[\pi_L]$ (see proof of Theorem \ref{70}).
+
+\subsection{The Unit Group $\mathcal{O}_K^\times$}
+Let $K$ be a local field.
+For each $s \in \mathbb{Z}_{\geq 1}$, set
+$$U_K^{(s)} = U^{(s)} = 1 + \pi_K^S \mathcal{O}_K$$
+where $\pi_K$ is a uniformiser of $K$.
+Put $U_K = U_K^{(0)} = U^{(0)} = O_K^\times$.
+
+\begin{prop}
+	We have $U_K/U_K^{(1)} \cong (k_K^\times,\, \cdot)$
+	and $U_K^{(s)}/U_K^{(s+1)} \cong (k_K,\, +)$.
+\end{prop}
+\begin{proof}
+	We have a surjective homomorphism $\mathcal{O}_K^\times \to k_K^\times$ which is just reduction mod $\pi_K$,
+	and the kernel is $1 + \pi_K\mathcal{O}_K = U_K^{(1)}$.
+	
+	For the second part, define a surjection
+	\begin{align*}
+		U_K^{(s)} &\to k_K \\
+		1 + \pi_K^sx &\mapsto x \mod \pi_K \\
+	\end{align*}
+	This is a group homomorphism: writing $\pi = \pi_K$,
+	$$(1 + \pi^Sx)(1+\pi^sy) = 1+\pi^s(x + y + \pi^sxy) \mapsto x+y+\pi^sxy \equiv x+y \mod \pi$$
+	The kernel is $1+\pi^{s+1}\mathcal{O}_K = U_K^{s+1}$.
+\end{proof}
+
+\subsection{The Inertia Group}
+\begin{prop}
+	If $L/K$ is a finite Galois extension of local fields,
+	then $\exists$ a surjective homomorphism $\Gal(L/K) \to \Gal(k_L/k_L)$.
+	\label{80}
+\end{prop}
+\begin{proof}
+	Lemma \ref{74} gives us a homomorphism
+	\begin{center}
+		\begin{tikzcd}
+			\Aut_K(L) \ar{r} \ar[equal]{d} & \Aut_{k_K}(k_L) \ar[equal]{d} \\
+			\Gal(L/K) & \Gal(k_L / k_K)
+		\end{tikzcd}
+	\end{center}
+	
+	Let $T/K$ be the maximal unramified subextension of $L/K$.
+	\begin{center}
+		\begin{tikzcd}
+			\Gal(L/K) \ar{r} \ar{d} & \Gal(k_L/k_K) \ar[equal]{d}{(k_T = k_L)} \\
+			\Gal(T/K) \ar{r}{\sim}& \Gal(k_T/k_K)
+		\end{tikzcd}
+	\end{center}
+	
+	$\implies$ surjectivity.
+\end{proof}
+
+\begin{definition}
+	In the setting of proposition \ref{80},
+	the kernel $I(L/K) = \Gal(L/T)$ of $\Gal(L/K) \to \Gal(k_L/k_K)$ is called the \textbf{inertia group} of $L/K$
+	(Trivial $\iff L/K$ unramified).
+	
+	The field $T$ is (sometimes) called the \textbf{inertial field} of $L/K$.
+\end{definition}
+
+\begin{lemma}
+	Let $L/K$ be a finite Galois extension of local fields.
+	Let $x \in k_L$ and $\sigma \in \Gal(L/K)$ with image $\bar{\sigma} \in \Gal(k_L/k_K)$.
+	Then
+	$$[\bar{\sigma}(x)] = \sigma([x])$$
+	In particular, $\sigma([x]) = [x]\ \forall x \in k_L \impliedby \sigma \in I(L/K)$.
+	\label{82}
+\end{lemma}
+\begin{proof}
+	The map
+	\begin{align*}
+		x &\mapsto \sigma^{-1}([\bar{\sigma}(x)]) \\
+		k_L & \to \mathcal{O}_L
+	\end{align*}
+	is multiplicative and $\sigma^{-1}([\bar{\sigma}(x)]) \equiv x \mod \pi_L$
+	
+	$\implies \sigma^{-1}([\bar{\sigma}(x)]) = [x]$ by uniqueness of $[-]$.
+\end{proof}
+
+\subsection{Higher Ramification Groups}
+Let $L/K$ be a finite Galois extension of local fields, $v_L$ a normalised valuation on $L$.
+
+\begin{definition}
+	Let $s \in \mathbb{R}_{\geq -1}$.
+	Define the \textbf{s-th ramification group} of $L/K$ by
+	$$G_s(L/K) = \{\sigma \in \Gal(L/K) \,|\, v_L(\sigma(x) - x) \geq s + 1 \ \forall x \in \mathcal{O}_L \}$$
+\end{definition}
+
+We could have defined these only for $s \in \mathbb{Z}_{\geq -1}$.
+Note that $G_{-1}(L/K) = \Gal(L/K)$, $G_0(L/K) = I(L/K)$.
+
+\begin{prop}
+	Notation as above, $\pi_L$ a uniformiser of $L$.
+	Then $G_{s+1}(L/K)$ is a normal subgroup of $G_s(L/K)\ \forall s \in \mathbb{Z}_{s \geq 0}$
+	and the map
+	\begin{align*}
+		\frac{G_s(L/K)}{G_{s+1}(L/K)} &\to \frac{U_L^{(s)}}{U_L^{(s+1)}} \\
+		\sigma &\mapsto \frac{\sigma(\pi_L)}{\pi_L}
+	\end{align*}
+	is a well-defined injective group homomorphism,
+	independent of the choice of $\pi_L$.
+\end{prop}
+\begin{proof}
+	Define $\phi: G_s(L/K) \to \frac{U_L^{(s)}}{U_L^{(s+1)}}$ by $\sigma \mapsto \frac{\sigma(\pi_L)}{\pi_L}$.
+	$\sigma \in G_s(L/K),\, \sigma(\pi_L) = \pi_L + \pi_L^{s+1}x$ for some $x \in \mathcal{O}_L \implies$
+	$$\frac{\sigma(\pi_L)}{\pi_L} = 1+\pi_L^sx \in U_L^{s}$$
+	
+	Now let $u \in \mathcal{O}_L^\times$.
+	Then $\sigma(u) = u+\pi_L^{s+1}y$ for some $y \in \mathcal{O}_L$, so
+	\begin{align*}
+		\frac{\sigma(\pi_Lu)}{\pi_Lu} &= \frac{(\pi_L + \pi_L^{s+1}x)(u+\pi_L^{s+1}y)}{\pi_Lu} \\
+		&= (1+\pi_L^sx)(1+\pi_L^{s+1}u^{-1}y) \\
+		&\equiv (1+\pi_L^s x) = \frac{\sigma(\pi_L)}{\pi_L} \mod U_L^{(s+1)}
+	\end{align*}
+	So $\phi$ is independent of the choice of $\pi_L$.
+	
+	It's a homomorphism:
+	\begin{align*}
+		\phi(\sigma\tau) &= \frac{\sigma(\tau(\pi_L))}{\pi_L} \\
+		&= \frac{\sigma(\tau(\pi_L))}{\tau(\pi_L)} \frac{\tau(\pi_L)}{\pi_L} \\
+		&\equiv \frac{\sigma(\pi_L)}{\pi_L} \frac{\tau(\pi_L)}{\pi_L} = \phi(\sigma)\phi(\tau) \mod U_L^{s+1}
+	\end{align*}
+	
+	We have
+	\begin{align*}
+		\Ker\phi &= \{\sigma \in G_s(L/K) \,|\, v_L(\sigma(\pi_L) - \pi_L) \geq s+2 \} \\
+		&\subseteq \{\sigma \in G_s(L/K) \,|\, v_L(\sigma(z) - z) \geq s+2 \ \forall \in \mathcal{O}_L \}\\
+		&= G_{s+1}(L/K)
+	\end{align*}
+	Conversely, let $x \in \mathcal{O}_L$ and write $x = \sum_{n=0}^\infty[x_n]\pi_L^n$, $x_n \in k_L$.
+	Write $\sigma(\pi_L)=\pi_L + \pi_L^{s+2}y,\ y \in \mathcal{O}_L$.
+	Let $\sigma \in \Ker \phi \subseteq I(L/K)$.
+	
+	By Lemma \ref{82},
+	\begin{align*}
+		\sigma(x)-x &= \sum_{n=1}^\infty[x_n]((\pi_L + \pi_L^{s+2}y)^n - \pi_L^n) \\
+		&= \pi_L^{s+2}y \sum_{n=1}^\infty[x_n]((\pi_L + \pi_L^{s+2}y)^{n-1} + (\pi_L + \pi_L^{s+2}y)^{n-2}\pi_L + \dots + \pi_L^n)
+	\end{align*}
+	so $v_L(\sigma(x) -x) \geq s+2$, so $\sigma \in G_{s+1}(L/K)$.
+\end{proof}
+
+\begin{corollary}
+	$\Gal(L/K)$ is soluble.
+\end{corollary}
+\begin{proof}
+	Note that $\bigcap_s G_s(L/K) = \{id\}$,
+	so $(G_s(L/K))_{s \in \mathbb{Z}_{\geq -1}}$ is a subnormal series of $\Gal(L/K)$
+	and $\frac{G_s(L/K)}{G_{s+1}(L/K)}$ is abelian.
+\end{proof}
+
+Let $L/K$ be a finite Galois extension of local fields.
+Then $G_1(L/K)$ is a $p$-group
+(since $\frac{G_s(L/K)}{G_{s+1}(L/K)} \hookrightarrow k_L \ \forall s \in \mathbb{Z}_\geq 1$)
+and $\frac{G_0(L/K)}{G_1(L/K)} \hookrightarrow k_L^\times$,
+which has order prime to $p$.
+
+$\implies G_1(L/K)$ is the unique Sylow $p$-subgroup of $G_0(L/K)$.
+
+$G_1(L/K)$ is called the \textbf{wild inertia group}
+and $\frac{G_0(L/K)}{G_1(L/K)}$ is called the \textbf{tame quotient}.
+
+\begin{prop}
+	Let $M/L/K$ be finite extensions of local fields, $M/K$ Galois.
+	Then $G_s(M/K)\cap\Gal(M/L) = G_s(M/L)$.
+\end{prop}
+\begin{proof}
+	\begin{align*}
+		G_s(M/L) &= \{\sigma \in \Gal(M/L) \,|\, v_M(\sigma(x) - x) \geq s+1 \} \\
+		&= G_s(M/K) \cap \Gal(M/L)
+	\end{align*}
+\end{proof}
+
+\subsection{Quotients}
+Let $L/K$ be a finite Galois extension of local fields.
+Pick $\alpha \in \mathcal{O}_L$ such that $\mathcal{O}_L = \mathcal{O}_K[\alpha]$.
+set $i_{L/K}(\sigma) = v_L(\sigma(\alpha) - \alpha)$ for $\sigma \in \Gal(L/K)$.
+
+If $g(x) = \sum_{i=0}^m b_i x^i \in \mathcal{O}_K[x]$, then 
+$$v_L(\sigma(g(\alpha)) - g(\alpha)) = v_L\left(\sum_{i=1}^{m}b_i(\sigma(\alpha)^i - \alpha^i)\right) \geq v_L(\sigma(\alpha) - \alpha)$$
+$\implies i_{L/K}(\sigma)$ is independent of $\alpha$, and
+$$G_s(L/K) = \{\sigma \in \Gal(L/K) \,|\, i_{L/K}(\sigma) \geq s+1 \}$$
+
+\begin{prop}
+	Let $M/L/K$ be finite extension of local fields,
+	$M/K$ and $L/K$ Galois.
+	Then
+	$$(*) \qquad i_{L/K}(\sigma) = e_{M/L}^{-1} \sum_{\mathclap{\substack{\tau \in \Gal(M/K) \\ \tau|_L = \sigma}}} i_{M/K}(\tau) \ \forall \sigma \in \Gal(L/K)$$
+	\label{87}
+\end{prop}
+\begin{proof}
+	If $\sigma = 1$, both sides $= \infty$. Assume $\sigma \neq 1$.
+	Let $\mathcal{O}_M = \mathcal{O}_K[\alpha]$, 
+	$\mathcal{O}_L = \mathcal{O}_K[\beta]$,
+	$\alpha \in \mathcal{O}_M$, 
+	$\beta \in \mathcal{O}_L$.
+	
+	$\implies e_{M/L}i_{L/K}(\sigma) = e_{M/L} v_L(\sigma(\beta)-\beta) = v_M(\sigma(\beta)-\beta)$.
+	
+	$\tau \in \Gal(M/K) \implies i_{M/K}(\tau) = v_M(\tau(\alpha) - \alpha)$.
+	
+	Fix $\tau$ such that $\tau|_L = \sigma$.
+	Set $H = \Gal(M/L)$. Then
+	$$(\text{RHS of } *)\cdot e_{M/L} = \sum_{g \in H}(\tau(g(\alpha)) - \alpha) = v_M(\prod_{g \in H}(\tau(g(\alpha)) - \alpha))$$
+	Set $b=\sigma(\beta)-\beta = \tau(\beta) - \beta$
+	and $a = \prod_{g \in H}(\tau(g(\alpha))) - \alpha)$.
+	We want to prove $v_M(b) = v_M(a)$.
+	
+	General observation:
+	let $z \in \mathcal{O}_L$,
+	write $z = \sum_{i=0}^h z_i \beta^i$, $z_i \in \mathcal{O}_K$.
+	Then $\tau(z)-z = \sum_{i=1}^n z_i(\tau(\beta)^i-\beta^i)$ is divisible by $\tau(\beta)-\beta = b$.
+	
+	Now let $F(x) \in \mathcal{O}_L[x]$ be the minimal polynomial of $\alpha$ over $L$.
+	Explicitly, $F(x) = \prod_{g \in H}(x - g(\alpha))$.
+	
+	We have $(\tau F)(x) = \prod_{g \in H}(x - \tau(g(\alpha)))$
+	[$\tau F$ is the polynomial obtained from $F$ by applying $\tau$ to all coefficients],
+	then all coefficients of $\tau F - F$ are of the form $\tau(z) - z$ for some $z \in \mathcal{O}_L$
+	$\implies$ they are divisible by $b$.
+	
+	$$\implies b | (\tau F -F)(a) = \pm a \implies b | a$$
+	
+	Conversely, pick $f \in \mathcal{O}_K[x]$ such that $f(\alpha) = \beta$.
+	Since $f(\alpha) - \beta = 0$,
+	$f(x) - \beta = F(x)h(x)$ for some $h(x) \in \mathcal{O}_L[x]$.
+	
+	Then $(f-\tau(\beta))(x) = (\tau F - \tau(\beta))(x) = (\tau F)(x)(\tau(h))(x)$.
+	Set $x = \alpha$: $-b = \beta - \tau(\beta) = (\pm a)\tau h(\alpha) \implies a | b$.
+\end{proof}
+
+Let $L/K$ be a finite Galois extension of local fields.
+Define $\eta_{L/K}: [-1, \infty) \to [-1, \infty)$ by
+$$\eta_{L/K}(s) = \int_{0}^{s} \frac{dx}{\abs{G_0(L/K):G_x(L/K)}}$$
+When $-1 \leq x < 0 $, our convention is that
+$\frac{1}{\abs{G_0{L/K}:G_x{L/K}}} = \abs{G_x(L/K) : G_0(L/K)}$ which is just $=1$ when $-1 < x < 0$.
+
+$\implies \eta_{L/K}(s)=s$ if $-1 \leq s \leq 0$.
+
+\begin{prop}
+	Let $G=\Gal(L/K)$.
+	Then $\eta_{L/K}(s) = \left(e_{L/K}^{-1} \sum_{\sigma \in G}\min(i_{L/K}(\sigma), s+1)\right) - 1$,
+	for $s \in [-1, \infty)$.
+	\label{88}
+\end{prop}
+\begin{proof}
+	Let RHS = $\theta(s)$.
+	Look at $s \mapsto \min(i_{L/K}, s+1)$.
+	
+	$\implies \theta(s)$ is piecewise linear and break points are integers (same for $\eta_{L/K}$).
+	
+	Have
+	$$\theta(0) = \frac{\#\{\sigma \in G \,|\, i_{L/K}(\sigma) \geq 1 \}}{e_{L/K}} - 1 = 0 = \eta_{L/K}(0)$$
+	
+	If $s \in [-1, \infty) \backslash \mathbb{Z}$,
+	$$\theta'(s) = e_{L/K}^{-1} \# \{\sigma \in G \,|\, i_{L/K}(\sigma) \geq s+1 \} = \frac{1}{\abs{G_0{L/K}:G_s{L/L}}} = \eta_{L/K}'(s)$$
+	$\implies \theta(s) = \eta_{L/K}(s)$.
+\end{proof}
+
+\begin{theorem}[Herbrand]
+	Let $M/L/K$ be finite extensions of local fields,
+	$M/K$ and $L/K$ Galois.
+	Set $H=\Gal(M/L)$ and $t = \eta_{L/K}(s)$, $s \in [-1, \infty)$.
+	
+	Then $\frac{G_s(M/K)H}{H} = G_t(L/K)$.
+\end{theorem}
+\begin{proof}
+	Put $G=\Gal(M/K)$.
+	Choose $\tau \in G$ such that $i_{M/K}(\tau) \geq i_{M/K}(\tau g)$ for all $g \in H$.
+	Put $m = i_{M/K}(\tau)$, $\sigma = \tau|_L$.
+	
+	Claim: $i_{L/K}(\sigma) - 1 = \eta_{M/L}(m-1)$.
+	
+	If $g \in G_{m-1}(M/L) \leq H$, then $i_{M/K}(g) \geq m$, so
+	\begin{align*}
+		i_{M/K}(\tau g) &= v_M(\tau g(\alpha) - \alpha) \\
+		&= v_M(\tau g(\alpha) - g(\alpha) + g(\alpha) - \alpha) \\
+		&\geq \min (v_M(\tau g(\alpha) - g(\alpha)), v_M(g(\alpha) - \alpha)) \\
+		&= \min(i_{M/K}(\tau g), i_{M/K}(g)) = m
+	\end{align*}
+	If $g \in H \backslash G_{m-1}(M/L)$,
+	then $i_{M/K}(g) < m$ and $i_{M/K}(\tau g) = i_{M/K}(g)$.
+	In either case, $i_{M/K}(\tau g) = \min(m, i_{M/K}(g))$.
+	By Proposition \ref{87}, $i_{L/K}(\sigma) = e_{M/L}^{-1} \sum_{g \in H}\min(m, i_{M/K}(g))$.
+	
+	By Proposition \ref{88},
+	$$\eta_{M/L}(m-1) = \left(e_{M/L}^{-1} \sum_{g \in H} \min(i_{M/K}, m)\right) - 1 = i_{L/K}(\sigma) - 1$$
+	This proves the claim.
+	
+	Now
+	\begin{align*}
+		\sigma &\in \frac{G_s(M/K)H}{H} \iff \tau \in G_s(M/K) \iff i_{M/K}(\tau) - 1 \geq s \\
+		&\iff \eta_{M/L}(i_{M/K}(\tau) - 1) \geq \eta_{M/L}(s) = t \text{ since $\eta_{M/L}$ strictly increasing} \\
+		&\iff i_{L/K}(\sigma) - 1 \geq t \iff \sigma \in G_t(L/K)
+	\end{align*}
+\end{proof}
+
+Let $L/K$ be a Galois extension of local fields.
+$\eta_{L/K}: [-1, \infty) \to [-1, \infty)$ is continuous, strictly increasing,
+$\eta_{L/K}(-1) = -1$ and $\eta_{L/K}(s) \to \infty$ as $s \to \infty$,
+so it is invertible.
+Set $\chi_{L/K} = \eta_{L/K}^{-1}$.
+
+\begin{definition}
+	$L/K$ as before.
+	The \textbf{upper numbering} of the ramification groups of $L/K$ is defined by
+	$$G^t(L/K) = G_{\chi_{L/K}(t)}(L/K)$$
+	for $t \in [-1, \infty)$.
+	The previous numbering is called the \textbf{lower numbering}.
+\end{definition}
 \end{document}
