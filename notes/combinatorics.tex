@@ -517,4 +517,86 @@ $\mathcal{A}$ intersecting $\implies \mathbb{P}_{\frac{1}{2}}(\mathcal{A}) \leq 
 	let $\mathcal{A} \subset X^{(s)}$ be such that $X$ is \textbf{not} the union of $k$ sets from $\mathcal{A}$.
 	Then $\abs{\mathcal{A}} \leq {n-1 \choose s}$.
 \end{theorem}
+\begin{proof}
+	Apply Katona's circle method.
+	Let $\Pi$ be the set of all $(n-1)!$ cyclic orders on $X$.
+	For $\pi \in \Pi$, let $\mathcal{A}_\pi = \{A \in \mathcal{A} \,|\, A \text{ is a $\pi$-arc}\}$.
+	
+	Claim: $\abs{\mathcal{A}_\pi} \leq n-s$.
+	
+	Proof of claim: we may assume $X = \mathbb{Z}_n$ is given by $\pi$;
+	we may assume one of the arcs in $\mathcal{A}_\pi$ ends in $n$.
+	Associate with each arc its end point,
+	except for the one ending in $n$,
+	to which we associate all $ks-n+1$ numbers in $[n, ks]$.
+	
+	Thus, if $l = \abs{\mathcal{A}_\pi}$,
+	and $L$ is the set of elements associated with our arcs,
+	then $\abs{L} = l+(ks-n)$.
+	
+	For $1 \leq i \leq s$, let $K_i = \{i, i+s, i+2s, \dots, i+(k-1)s\}$.
+	Then $K_1, \dots, K_s$ partition $[ks]$ into $s$ sets of $k$ elements each.
+	Can $K_i \subset L$ happen?
+	No, as then the corresponding $k$ arcs would cover $X$.
+	
+	Hence, $\abs{L \cap K_i} \leq k-1 \ \forall i$,
+	so $l+ks-n = \abs{L} \leq (k-1)s$,
+	i.e. $l \leq n-s.\ \checkmark$
+	
+	Double counting:
+	\begin{align*}
+		s!(n-s)!\abs{\mathcal{A}} &= \sum_{A \in \mathcal{A}} \abs{\{\pi \in \Pi: A \text{ is a $\pi$-arc} \}} \\
+		&= \sum_{\pi \in \Pi} \abs{\mathcal{A}_\pi} \leq (n-1)!(n-s)
+	\end{align*}
+\end{proof}
+
+\begin{corollary}[Equivalent to Theorem 5]
+	Let $2 \leq k,r < n$, $kr \leq (k-1)n$.
+	Let $\mathcal{A} \subset X^{(r)}$ be $k$-wise intersecting.
+	Then $\abs{\mathcal{A}} \leq {n-1 \choose r-1}$.
+\end{corollary}
+\begin{proof}
+	Note that $\mathcal{A}^c = \{X \backslash A \,|\, A \in \mathcal{A}\} \subset X^{(s)}$,
+	$s= n-r$, satisfies the conditions of Theorem 5,
+	so $\abs{\mathcal{A}} = \abs{\mathcal{A}^c} \leq {n-1 \choose s} = {n-1 \choose r-1}$.
+\end{proof}
+
+\begin{theorem}
+	Let $2 \leq k,r < n$, $kr \leq (k-1)n$;
+	let $\mathcal{A} \subset X^{(\leq r)}$ be a $k$-wise intersecting Sperner family.
+	Then
+	$$\sum_{j=1}^n \abs{\mathcal{A}_j} \bigg/ {n-1 \choose j-1} = \sum_{A \in \mathcal{A}} {n-1 \choose \abs{A}-1}^{-1} \leq 1$$
+\end{theorem}
+\begin{proof}
+	Set $l = \min \{j \,|\, \mathcal{A})j \neq \emptyset\}$,
+	$m = \max\{j \,|\, \mathcal{A}_j \neq \emptyset\}$.
+	
+	Induction on $m-l$: $m=l$ is exactly Corollary 6.
+	
+	Induction step: $m-l \geq 1$. Let $\mathcal{A}_l^+$ be the upper shadow of $\mathcal{A}_l$ at level $l+1$.
+	Then $\mathcal{A}' = (\mathcal{A} \backslash \mathcal{A}_l) \cup \mathcal{A}_l^+$ is again $k-wise$ intersecting Sperner,
+	with a smaller difference $m-l$. Thus, we're done if
+	$$ \abs{\mathcal{A}_l^+} \bigg/ {n-1 \choose l} \geq \abs{\mathcal{A}_l} \bigg/ {n-1 \choose l-1} $$
+	$\mathcal{A}_l^+$ is the cardinality of the lower shadow of $\mathcal{A}_l^c$.
+	Set $\abs{\mathcal{A}_l} = {x \choose n-l}$.
+	Then, by the weak Kruskal-Katona theorem,
+	$\abs{\mathcal{A}_l^+} \geq {x \choose n-l-1}$.
+	We know ${x \choose n-l} \geq {n-1 \choose l-1} = {n-1 \choose n-l}$, so $x \leq n-1$.
+	
+	Would like:
+	\begin{align*}
+		{x \choose n-l} \bigg/ {n-1 \choose l-1} &\leq {x \choose n-l-1} \bigg/ {n-1 \choose l} \\
+		{x \choose n-l} \bigg/ {n-1 \choose n-l} &\overset{?}{\leq} {x \choose n-l-1} \bigg/ {n-1 \choose n-l-1} \\
+		x-(n-l)+1 &\overset{?}{\leq} n-(n-l) = l \\
+		x &\leq n-1\ \checkmark
+	\end{align*}
+\end{proof}
+
+\section{Correlation Inequalities}
+Let $0 < p < 1$, $\mathcal{G}(n,p)$ the probability space of all $2^{{n \choose 2}}$ graphs on $[n]$ such that
+$\mathbb{P}_p(G_{n,p} = H) = p^{e(H)}(1-p)^{{n \choose 2} - e(H)}$.
+
+This is really the weighted cube $Q_p^n$. $\mathbf{p} = (p_1, \dots, p_n)$, random subset of $X=[n]$:
+$\mathbb{P}_\mathbf{p}(A) = \prod_{i \in A} p_i \prod_{i \not\in A}(1-p_i)$.
+For $\mathcal{G}(n,p)$, consider $Q_\mathbf{p}^{{n \choose 2}}$.
 \end{document}
