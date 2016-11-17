@@ -11,6 +11,7 @@
 \usepackage{graphicx}
 \usepackage{tikz-cd}
 \usepackage{enumitem}
+\usepackage{stmaryrd}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \theoremstyle{remark}
@@ -1505,4 +1506,115 @@ is a split coequaliser diagram.
 	We say $(F \dashv G)$ has \textbf{monadic length} $n$ if we reach an equivalence after $n$ steps.
 	$\text{\textbf{Top}} \to \Set$ has monadic length $\infty$.
 \end{remark}
+
+\section{Regular Categories}
+
+\begin{definition}
+	The \textbf{image} of a morphism $A \overset{f}{\to}$ is the smallest subobject of $B$ through which $f$ factors, if this exists.
+	
+	We say $\mathcal{C}$ \textbf{has images} if every $f \in \mor \mathcal{C}$ has an image.
+	
+	$A \overset{f}{\to} B$ is a \textbf{cover} if its image is $1_B$,
+	i.e. it doesn't factor through any proper subobject of $B$.
+	We write $A \overset{f}{\rightarrowtriangle} B$ to indicate that $f$ is a cover.
+\end{definition}
+
+\begin{lemma}
+	If $\mathcal{C}$ has finite limits,
+	then covers in $\mathcal{C}$ coincide with strong epimorphisms.
+\end{lemma}
+\begin{proof}
+	Recall that $f$ is strong epic if and only if given $(*)$
+	\begin{tikzcd}
+		A \ar{r}{g} \ar{d}{f} & C \ar[tail]{d}{k} \\
+		B \ar{r}{h} \ar[dashed]{ur}{l} & D
+	\end{tikzcd}
+	with $k$ monic, $\exists l: B \to C$ with $kl = h$ and $lf = g$.
+	
+	Being a cover is the special case of this condition with $h=1_B$,
+	so strong epimorphisms are covers.
+	
+	Conversely, if $f$ is a cover then it's epic,
+	since if $gf = hf$ then $f$ factors through the equaliser of $g$ and $h$,
+	so this must be an isomorphism. Given $(*)$, we can form the pullback
+	\begin{tikzcd}
+		P \ar{r}{n} \ar{d}{m} & C \ar[tail]{d}{k} \\
+		B \ar{r}{h} & D
+	\end{tikzcd},
+	and $m$ is monic by \ref{416}.
+	
+	$f$ factors through $m$, so $m$ is an isomorphism and $B \overset{nm^{-1}}{\to} C$ is the diagonal fill in for $(*)$.
+\end{proof}
+
+It follows that image factorisation is functorial: given
+\begin{center}
+	\begin{tikzcd}[row sep=small]
+		A \ar{rr}{f} \ar{ddd}{g}  \ar[Rightarrow]{rd}& & B \ar{ddd}{h}\\
+		& I \ar[tail]{ur} \ar[dashed]{d}& \\
+		& I' \ar[tail]{rd}& \\
+		A' \ar[Rightarrow]{ur} \ar{rr}[below]{f'} && B'
+	\end{tikzcd}
+\end{center}
+we get a unique $I \to I'$ making everything commute.
+So image factorisation defines a functor $[\mathbf{2}, \mathcal{C}] \to [\mathbf{3}, \mathcal{C}]$.
+
+\begin{definition}
+	A \textbf{regular category} is a category which preserves finite limits and images,
+	in which strong epimorphisms are stable under pullback.
+	
+	A \textbf{regular functor} is one which preserves finite limits and strong epimorphisms.
+\end{definition}
+
+\begin{theorem}
+	In a regular category, the strong epimorphisms coincide with regular epimorphisms.
+\end{theorem}
+\begin{proof}
+	Regular $\implies$ strong is true in general (see sheet 1).
+	Suppose $A \overset{f}{\rightarrowtriangle} B$ is strong epic.
+	Let $R \parallelpair{a}{b}$ be the \textbf{kernel-pair} of $f$,
+	i.e. the pullback of $f$ against itself. Certainly $fa = fb$.
+	
+	Suppose $A \overset{g}{\to} C$ with $ga = gb$. Form the image
+	\begin{center}
+		\begin{tikzcd}
+			A \ar[Rightarrow]{r} & I \ar[tail]{r}{(k,l)} & B \times C
+		\end{tikzcd}
+	\end{center}
+	of $(f, g)$.
+	
+	Claim $k$ is an isomorphism: given this,
+	the composite $B \overset{k^{-1}}{\to} I \overset{l}{\to} C$ satisfies $lk^{-1}f = lk^{-1}kh = lh = g$,
+	and it's unique since $f$ is epic.
+	
+	We know $k$ is strong epic, since $kh=f$ is strong epic.
+	So we need to show it's monic.
+	
+	Suppose $D \parallelpair{x}{y}$ satisfy $kx=ky$. Form the pullback
+	\begin{center}
+		\begin{tikzcd}
+			F \ar{rr}{m} \ar{d}{(n,p)} && D \ar{d}{(x,y)} \\
+			A \times A \ar[Rightarrow]{r}{1 \times h}& A \times I  \ar[Rightarrow]{r}{h \times 1}& I \times I
+		\end{tikzcd}
+	\end{center}
+	then $h \times 1$ and $1 \times h$ are strong epimorphisms, and hence so is $m$.
+	
+	Now $fn = khn = kxm = kym = khp = fp$, 
+	so $(n,p)$ factors through $(a, b)$,
+	say by $E \overset{q}{\to} R$.
+	Since $kha = khb$ and $lha = lhb$, and $(k, l)$ is monic, 
+	we have $ha = hb$.
+	So $xm = hn = haq = hbq = hp = ym$.
+	But $m$ is epic, so $x=y$.
+\end{proof}
+\begin{remark}
+	In many textbooks, regular categories are defined as categories with (some) finite limits,
+	in which every morphism factors as a regular epimorphism and a monomorphism,
+	and regular epimorphims are stable under pullback.
+\end{remark}
+
+Note that if $A \overset{f}{\to} B$ has kernel pair $R \parallelpair{a}{b} A$ and image factorisation
+$A \overset{g}{\rightarrowtriangle} I \rightarrowtail B$,
+then $(a, b)$ is also the kernel-pair of $g$ since $h$ is monic.
+So $g$ may be obtained as the coequaliser of the kernel-pair of $f$,
+and $f$ as the factorisation of $f$ through this.
 \end{document}
