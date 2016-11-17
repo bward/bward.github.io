@@ -11,12 +11,16 @@
 \usepackage{tikz-cd}
 \usepackage{enumitem}
 \usepackage{ stmaryrd }
+\theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem*{definitionnn}{Definition}
+\theoremstyle{default}
 \newtheorem{lemma}[definition]{Lemma}
 \newtheorem{theorem}[definition]{Theorem}
 \newtheorem{prop}[definition]{Proposition}
 \newtheorem{corollary}[definition]{Corollary}
+\theoremstyle{remark}
+\newtheorem*{remarks}{Remarks}
 \renewcommand{\baselinestretch}{1.3}
 \newcommand*\conj[1]{\overline{#1}}
 \newcommand*\dom[1]{\textnormal{dom}\,#1}
@@ -32,6 +36,8 @@
 \DeclareMathOperator{\Gal}{Gal}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Frob}{Frob}
+
 \begin{document}
 \maketitle
 \tableofcontents
@@ -1426,6 +1432,7 @@ $\implies \eta_{L/K}(s)=s$ if $-1 \leq s \leq 0$.
 	Set $H=\Gal(M/L)$ and $t = \eta_{L/K}(s)$, $s \in [-1, \infty)$.
 	
 	Then $\frac{G_s(M/K)H}{H} = G_t(L/K)$.
+	\label{89}
 \end{theorem}
 \begin{proof}
 	Put $G=\Gal(M/K)$.
@@ -1471,4 +1478,169 @@ Set $\chi_{L/K} = \eta_{L/K}^{-1}$.
 	for $t \in [-1, \infty)$.
 	The previous numbering is called the \textbf{lower numbering}.
 \end{definition}
+
+\begin{lemma}
+	Let $M/L/K$ be finite extension of local fields, $M/K$ and $L/K$ Galois.
+	Then $\eta_{M/K}=\eta{L/K}\circ\eta{M/L}$,
+	hence $\chi_{M/K}=\chi_{M/L}\circ\chi_{L/K}$.
+	\label{91}
+\end{lemma}
+\begin{proof}
+	Let $s \in [-1, \infty)$, set $t=\eta_{M/L}(s)$ and $H=\Gal(M/L)$.
+	
+	By Theorem \ref{89},
+	\begin{align*}
+	G_t(L/K) &\cong \frac{G_s(M/K)H}{H} \\
+	&\cong \frac{G_s(M/K)}{H \cap G_s(M/K)} \\
+	&=\frac{G_s(M/K)}{G_s(M/L)}
+	\end{align*}
+	Thus
+	$$\frac{\#G_s(M/K)}{e_{M/K}} = \frac{\#G_t(L/K)}{e_{L/K}} \cdot \frac{\#G_s(M/L)}{e_{M/L}}$$
+	so
+	\begin{align*}
+		\eta'_{M/K}(s) &= \frac{\#G_s(M/K)}{e_{M/K}} \\
+		&= \frac{\# G_t(L/K)}{e_{L/K}} \cdot \frac{\#G_s(M/L)}{e_{M/L}}\\
+		&=\eta'_{L/K}(t)\eta'_{M/L}(s) = (\eta_{L/K} \circ \eta_{M/L})'(s)
+	\end{align*}
+	whenever these derivatives make sense.
+	
+	Since $\eta_{L/K}(\eta_{M/L}(0)) = \eta_{L/K}(0) = 0 = \eta_{M/K}(0)$,
+	we get $\eta_{M/K} = \eta_{L/K}\circ\eta_{M/L}$.
+\end{proof}
+
+\begin{corollary}
+	Keep the notation of Lemma \ref{91} and its proof.
+	Let $t \in [-1, \infty)$.
+	Then $$\frac{G^t(M/K)H}{H} = G^t(L/K)$$
+\end{corollary}
+\begin{proof}
+	Put $s = \chi_{L/K}(t)$.
+	Then, by Theorem \ref{89} and Lemma \ref{91},
+	\begin{align*}
+		\frac{G^t(M/K)H}{H} &\overset{\text{def}}{=} \frac{G_{\chi_{M/K}(t)}(M/K)H}{H} \\
+		&\overset{89}{=} G_{\eta_{M/L}(\chi_{M/K}(t))}(L/K) \\
+		&\overset{91}{=} G_s(L/K) \overset{\text{def}}{=} G^t(L/K)
+	\end{align*}
+\end{proof}
+
+\section{Local Class Field Theory}
+This is the study of abelian extensions (i.e. extensions with abelian Galois groups) of local fields.
+
+\subsection{Infinite Galois Theory}
+\begin{definition}
+	Let $L/K$ be an algebraic field extension.
+	We say that $L/K$ is \textbf{seperable} if,
+	for every $\alpha \in L$,
+	the minimal polynomial $f_\alpha \in K[x]$ is seperable.	
+	We say $L/K$ is \textbf{normal} if
+	$f_\alpha$ splits into linear factors in $L[x]$ for every $\alpha \in L$.
+	
+	$L/K$ is \textbf{Galois} if it is normal and seperable.
+	If so, we write $\Gal(L/K) = \Aut_K(L)$.
+\end{definition}
+
+\begin{definition}
+	Let $M/K$ be a Galois extension.
+	$U \subseteq \Gal(M/K)$ is open if for every $\sigma \in U$,
+	$\exists L/K$ a finite subextension of $M/K$ such that $\sigma\Gal(M/K) \subseteq U$.
+	
+	These sets form the open sets of a topology on $\Gal(M/K)$ called the \textbf{Krull topology}.
+	$G=\Gal(M/K)$ is a topological group w.r.t. the Krull topology.
+\end{definition}
+
+\begin{prop}
+	Let $M/K$ be a Galois extension.
+	Then $\Gal(M/K)$ is compact and Hausdorff,
+	and if $U \subseteq \Gal(M/K)$ is an open subset such that $1 \in U$,
+	then there exists an open normal subgroup $N \subseteq \Gal(M/K)$ such that $N \subseteq U$.
+	\label{95}
+\end{prop}
+
+\begin{remarks}
+	\begin{enumerate}
+		\item When $M/K$ is finite, the Krull topology is discrete.
+		\item Topological groups with the properties in Proposition \ref{95} are called \textbf{profinite}.
+		\item Last part: by definition, $\exists L/K$ a finite subextension of $M/K$ such that $\Gal(M/L) \subseteq U$.
+		Let $L'$ be the Galois closure of $L$ over $K$,
+		then $\Gal(M/L') \subseteq \Gal(M/L) \subseteq U$,
+		and $\Gal(M/L')$ is open and normal.
+	\end{enumerate}
+\end{remarks}
+
+\begin{definition}
+	Let $I$ be a set with a partial order $\leq$.
+	We say that $I$ is a \textbf{directed system} if
+	$\forall i,j \in I\ \exists I$ such that $I \leq k$ and $j \leq k$.
+\end{definition}
+
+\begin{definition}
+	Let $I$ be a directed system.
+	An \textbf{inverse system} (of topological groups) indexed by $I$
+	is a collection of topological groups $G_i$, $i \in I$
+	and continuous homomorphisms $f_{ij}: G_j \to G_i$ $\forall i,j \in I$ with $i \leq j$ such that
+	\begin{enumerate}
+		\item $f_{ii} = id_{G_i}$
+		\item $f_{ik} = f_{ij} \circ f_{jk}$ when $i \leq j \leq k$
+	\end{enumerate}
+	We define the \textbf{inverse limit} of the system $(G_i, f_{ij})$ to be
+	$$ \varprojlim_{i \in I} G_i = \left\{(g_i) \in \prod_{i \in I} G_i \,|\, f_{ij}(g_j) = g_i\ \forall i \leq j \right\} \subseteq \prod_{i \in I} G_i $$
+	
+	It's a group under coordinate-wise multiplication and a topological space when given the subspace topology of the product topology on $\prod_{i \in} G_i$.
+	This makes $\varprojlim_{i \in I} G_i$ into a topological group.
+\end{definition}
+
+\begin{prop}
+	Let $M/K$ be a Galois extension.
+	The set $I$ of finite Galois subextensions $L/K$ of $M/K$ is a directed system under inclusion.
+	If $L, L' \in I$ with $L \subseteq L'$,
+	then we have a map $\cdot|_L^{L'}: \Gal(L'/K) \to \Gal(L/K)$.
+	Then $(\Gal(L/K), \cdot|_L^{L'})_{L \in I,\, L \subseteq L'}$ is an inverse system,
+	and the map
+	\begin{align*}
+		\Gal(M/K) & \to \varprojlim_{L \in I} \Gal(L/K) \\
+		\sigma &\mapsto (\sigma|_L)_{L \in I}
+	\end{align*}
+	is an isomorphism of topological groups.
+\end{prop}
+
+\begin{theorem}[Fundamental Theorem of Galois Theory]
+	Let $M/K$ be Galois.
+	The map $L \mapsto \Gal(M/L)$ defines a bijection between subextensions $L/K$ of $M/K$ and closed subgroups of $\Gal(N/K)$,
+	with inverse $H \mapsto M^H$.
+	
+	Moreover, $L/K$ is finite $\iff \Gal(M/L)$ is open,
+	and $L/K$ Galois $\iff \Gal(M/L)$ is normal, and then
+	\begin{align*}
+		\sigma &\mapsto \sigma|_L \\
+		\frac{\Gal(M/K)}{\Gal(M/L)} &\overset{\sim}{\to} \Gal(L/K)
+	\end{align*}
+	
+	and $Gal(M/L)$ is closed.
+\end{theorem}
+
+\subsection{Unramified Extensions and Weil Groups}
+
+\begin{definition}
+	Let $K$ be a local field, $M/K$ an algebraic extension.
+	$M/K$ is \textbf{unramified} (or \textbf{totally ramified})
+	if $L/K$ is unramified (or totally ramified) for every finite subextension $L/K$ of $M/K$.
+	
+	In general, an algebraic extension $M/K$ has a maximal unramified subextension $T=T_{M/K}/K$, which is Galois.
+\end{definition}
+
+If $L/K$ is a finite unramified extension of local fields with $q = \# k_K$,
+then $\Gal(L/K) \overset{\sim}{\to} \Gal(k_L/k_K) \ni x \mapsto x^q$,
+so $\Gal(L/K)$ is cyclic with a canonical generator $\Frob_{L/K}$,
+which is a lift of $x \mapsto x^q$.
+This is called the (arithmetic) \textbf{Frobenius element} of $L/K$.
+
+$\Frob$ is compatible in towers:
+if $M/L/K$ are finite unramified extensions of local fields,
+then $\Frob_{M/K}|_L = \Frob_{L/K}$
+($x \mapsto x^q$ on $k_M$ restricts to $x \mapsto x^q$ on $k_L$, $q = \# k_K$).
+
+$\implies$ for $M/K$ an arbitrary unramified extension, we get
+$$\Frob_{L/K} \in \varprojlim_{\mathclap{\substack{L/K \\ \text{finite subexts} \\ \text{of } M/K}}} \Gal(L/K) \cong \Gal(M/K)$$
+so we get an element $\Frob_{M/K} \in \Gal(M/K)$.
+It is the unique lift of $x \mapsto x^{\# k_K}$ on $k_M/k_K$.
 \end{document}
