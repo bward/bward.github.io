@@ -11,8 +11,11 @@
 \usepackage{graphicx}
 \usepackage{tikz-cd}
 \usepackage{enumitem}
+\theoremstyle{definition}
 \newtheorem{definition}{Definition}
+\theoremstyle{remark}
 \newtheorem{remark}[definition]{Remark}
+\theoremstyle{default}
 \newtheorem{lemma}[definition]{Lemma}
 \newtheorem{corollary}[definition]{Corollary}
 \newtheorem{theorem}[definition]{Theorem}
@@ -24,9 +27,12 @@
 \newcommand*\ob[1]{\textnormal{ob}\,#1}
 \newcommand*\mor[1]{\textnormal{mor}\,#1}
 \newcommand*\circbox[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt} {#1}}}}
+\newcommand*\parallelpair[2]{\overset{#1}{\underset{#2}{\rightrightarrows}}}
+\newcommand*\rightleft[2]{\overset{#1}{\underset{#2}{\rightleftarrows}}}
 \DeclareMathOperator{\Set}{\textbf{Set}}
 \DeclareMathOperator{\Sub}{\textbf{Sub}}
 \DeclareMathOperator{\Adj}{\textbf{Adj}}
+\DeclareMathOperator{\coeq}{coeq}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -1305,6 +1311,7 @@ but it has few other limits or colimits in general.
 		\item If $T: \mathcal{C} \to \mathcal{C}$ preserves colimits of shape $J$,
 		then $G: \mathcal{C}^\mathbb{T} \to \mathcal{C}$ creates them.
 	\end{enumerate}
+	\label{58}
 \end{theorem}
 \begin{proof}
 	\begin{enumerate}[label=\roman*.]
@@ -1348,4 +1355,154 @@ but it has few other limits or colimits in general.
 		The rest of the proof is similar to (i).
 	\end{enumerate}
 \end{proof}
+
+\begin{definition}
+	An adjunction $(\mathcal{C} \overset{F}{\underset{G}{\rightleftarrows}} \mathcal{D})$, $(F \dashv G)$,
+	is \textbf{monadic} if the comparison functor 
+	$K: \mathcal{D} \to \mathcal{C}^\mathbb{T}$
+	is part of an equivalence,
+	where $\mathbb{T}$ is the monad induced by $(F \dashv G)$.
+	We also say $G: \mathcal{D} \to \mathcal{C}$ is monadic if it has a left adjoint and the adjunction is monadic.
+\end{definition}
+
+Note that $K$ preserves all limits which exist in $\mathcal{D}$,
+since $G$ preserves them and $G^\mathbb{T}$ creates them.
+
+\begin{lemma}
+	Suppose given $(\mathcal{C} \overset{F}{\underset{G}{\rightleftarrows}} \mathcal{D})$, $(F \dashv G)$
+	inducing a monad $\mathbb{T}$ on $\mathcal{C}$.
+	Suppose, for each $\mathbb{T}$-algebra $(A, \alpha)$, the pair
+	$FGFA \overset{F\alpha}{\underset{\epsilon_{FA}}{\rightrightarrows}} FA$
+	has a coequaliser in $\mathcal{D}$.
+	Then $K: \mathcal{D} \to \mathcal{C}^\mathbb{T}$ has a left adjoint $L$.
+	\label{510}
+\end{lemma}
+\begin{proof}
+	We define $L(A, \alpha) = \coeq(FGFA \parallelpair{F\alpha}{\epsilon_{FA}} FA)$.
+	
+	Given $(A, \alpha) \overset{f}{\to} (B, \beta)$, we get
+	\begin{center}
+		\begin{tikzcd}
+			FGFA \ar{d}{FGFf} \ar[shift left]{r}{F\alpha} \ar[shift right]{r}[below]{\epsilon_{FA}}& FA \ar{r} \ar{d}{Ff} & L(A, \alpha) \ar[dashrightarrow]{d}{Lf}\\
+			FGFB \ar[shift left]{r}{F\beta} \ar[shift right]{r}[below]{\epsilon_{FB}} & FB \ar{r}& L(B, \beta)
+		\end{tikzcd}
+	\end{center}
+	So $\exists! Lf$ making the right hand square commute.
+	Uniqueness ensures $L$ is functorial.
+	
+	Morphisms $L(A, \alpha) \to B$ in $\mathcal{D}$ correspond bijectively to morphisms
+	$f: FA \to B$ such that $f(F\alpha) = f(\epsilon_{FA})$ and hence to morphisms
+	$\bar{f}:A \to GB$ such that $f\bar{\alpha} = Gf|_{GFA} = G\epsilon_B \circ GF\bar{f}$,
+	i.e. to algebra homomorphisms $(A, \alpha) \to (GB, G\epsilon_B) = KB$.
+	
+	So $(L \dashv K)$.
+\end{proof}
+
+\begin{definition}
+	\begin{enumerate}[label=\alph*.]
+		\item A parallel pair $A \overset{f}{\underset{g}{\rightrightarrows}} B$ is \textbf{reflexive}
+		if $\exists r: B \to A$ such that $fr = gr = 1_B$.
+		
+		Note that $FGFA \parallelpair{F\alpha}{\epsilon_{FA}} FA$ is reflexive,
+		with common splitting $FA \overset{F\eta_A}{\to} FGFA$.
+		
+		A \textbf{reflexive coequaliser} is the coequaliser of a reflexive pair.
+		
+		\item A \textbf{split coequaliser diagram} is a diagram
+		\begin{center}
+			\begin{tikzcd}
+				A \ar[shift left]{r}{f} \ar[shift right]{r}[below]{g} & B \ar{r}{h} \ar[bend left=50]{l}{t} & C \ar[bend left=30]{l}{s}
+			\end{tikzcd}
+		\end{center}
+		satisfying $hf=hg$, $hs=1_C$, $gt = 1_B$ and $ft = sh$.
+		
+		If these equations hold, $h$ \textbf{is} a coequaliser of $f$ and $g$:
+		given $k: B \to D$ with $kf = kg$, we have $k=kgt=kft=ksh$,
+		so $k$ factors through $h$, uniquely since $h$ is split epic.
+		
+		Note that \textbf{any} functor preserves split equalisers.
+		
+		\item Given $G: \mathcal{D} \to \mathcal{C}$,
+		a pair $A \parallelpair{f}{g} B$ in $\mathcal{D}$ is \textbf{G-split}
+		if there exists a split coequaliser
+		\begin{center}
+			\begin{tikzcd}
+				GA \ar[shift left]{r}{Gf} \ar[shift right]{r}[below]{Gg} & GB \ar{r} \ar[bend left=50]{l}{t} & C \ar[bend left=30]{l}{s}
+			\end{tikzcd}
+		\end{center}
+		in $\mathcal{C}$.
+	\end{enumerate}
+\end{definition}
+
+The pair $FGFA \overset{F\alpha}{\underset{\epsilon_{FA}}{\rightrightarrows}} FA$ of \ref{510} is $G$-split:
+\begin{center}
+	\begin{tikzcd}
+		GFGFA \ar[shift left]{r}{Gf\alpha} \ar[shift right]{r}[below]{G\epsilon_{FA}} & GFA \ar{r}{\alpha} \ar[bend left=50]{l}{\eta_{GFA}} & A \ar[bend left=30]{l}{\eta_A}
+	\end{tikzcd}
+\end{center}
+is a split coequaliser diagram.
+
+\begin{theorem}[Precise Monadicity Theorem]
+	$G: \mathcal{D} \to \mathcal{C}$ is monadic $\iff$ $G$ has a left adjoint, and c reates coequalisers of $G$-split pairs.
+	\label{512}
+\end{theorem}
+
+\begin{theorem}[Crude Monadicity Theorem]
+	Suppose $G: \mathcal{C} \to \mathcal{C}$ has a left adjoint,
+	that $\mathcal{D}$ has and $G$ preserves reflexive coequalisers,
+	and $G$ reflects isomorphisms.
+	Then $G$ is monadic.
+	\label{513}
+\end{theorem}
+
+\begin{proof}
+	For the forward implication in \ref{512},
+	it's enough to show that $G^\mathbb{T}: \mathcal{C}^\mathbb{T} \to \mathcal{C}$ creates coequalisers of $G^\mathbb{T}$-split pairs.
+	This follows from \ref{58},
+	given that $T$ and $TT$ both preserve split coequalisers.
+	
+	Conversely in either case, $K: \mathcal{D} \to \mathcal{C}^\mathbb{T}$ has a left adjoint $L$ by \ref{510}.
+	Now $LKB = \coeq(FGFGB \parallelpair{FG\epsilon_B}{\epsilon_{FGB}} FGB)$
+	and the counit $LKB \to B$ is the factorisation of $FGB \overset{\epsilon_{FGB}}{\underset{\epsilon_B}{\rightrightarrows}} B$ through this coequaliser.
+	
+	But
+	\begin{tikzcd}GFGFGB \ar[shift left]{r} \ar[shift right]{r}& GFGB \ar{r} \ar[bend left=30]{l}{\eta_{GFGB}} & GB \ar[bend left=30]{l}{\eta_{GB}}\end{tikzcd}
+	is a split coequaliser diagram.
+	
+	So either set of hypotheses ensures that $LKB \to B$ is an isomorphism.
+	
+	$KL(A, \alpha) = K(\coeq(FGFA \parallelpair{F\alpha}{\epsilon_{FA}} FA))$.
+	Either hypothesis implies that $G=G^\mathbb{T}K$ preserves this coequaliser, but
+	\begin{center}
+		\begin{tikzcd}
+			GFGFGA \ar[shift left]{r}{GF\alpha} \ar[shift right]{r}[below]{G\epsilon_{FA}} & GFA \ar{r}{\alpha} \ar[bend left=50]{l}{\eta_{GFA}} & A \ar[bend left=30]{l}{\eta_{A}}
+		\end{tikzcd}
+	\end{center}
+	is a split coequaliser, so $GL(A, \alpha) \cong A$.
+	
+	The unit $(A, \alpha) \to KL(A, \alpha)$ is mapped to this isomorphism by $G^\mathbb{T}$,
+	so it's an isomorphism in $\mathcal{C}^\mathbb{T}$.
+\end{proof}
+
+\begin{remark}
+	Let $\mathcal{C} \rightleft{F}{G} \mathcal{D}$ be an adjunction,
+	and suppose $\mathcal{D}$ has reflexive coequalisers.
+	The \textbf{monadic tower} of $(F \dashv G)$ is the diagram
+	\begin{center}
+		\begin{tikzcd}[column sep=small, row sep=tiny]
+			&&&& \textcolor{white}{a}\\
+		&&& (\mathcal{C}^\mathbb{T})^\mathbb{S} \ar[shift left]{ddl} \ar[shift left]{dlll} \ar[dotted, no head]{ur}\\
+		\mathcal{D} \ar[shift left]{ddr}{G} \ar[shift left]{drr}{K} \ar[shift left]{urrr}\\
+		&& \mathcal{C}^\mathbb{T} \ar[shift left]{dl}{G^\mathbb{T}} \ar[shift left]{uur} \ar[shift left]{ull}{L}\\[20pt]
+		& \mathcal{C} \ar[shift left]{ur}{F^\mathbb{T}} \ar[shift left]{uul}{F}
+		\end{tikzcd}
+	\end{center}
+	where $\mathbb{T}$ is the monad induced by $(F \dashv T)$, 
+	$K$ is the Eilenberg-Moore comparison functor,
+	$(L \dashv K)$ (\ref{510}),
+	$\mathbb{S}$ is the monad induced by $(L \dashv K)$, etc.
+	
+	We say $(F \dashv G)$ has \textbf{monadic length} $n$ if we reach an equivalence after $n$ steps.
+	$\text{\textbf{Top}} \to \Set$ has monadic length $\infty$.
+\end{remark}
 \end{document}
