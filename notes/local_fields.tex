@@ -37,7 +37,7 @@
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\Frob}{Frob}
-
+\DeclareMathOperator{\Art}{Art}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -1066,7 +1066,7 @@ Uniqueness and Galois property follows from:
 		\end{tikzcd}
 	\end{center}
 	This is a bijection by Hensel's Lemma,
-	since $\bar{f}$ is seperable.
+	since $\bar{f}$ is separable.
 \end{proof}
 
 \begin{proof}[Proof of \ref{73} cont.]
@@ -1643,4 +1643,150 @@ $\implies$ for $M/K$ an arbitrary unramified extension, we get
 $$\Frob_{L/K} \in \varprojlim_{\mathclap{\substack{L/K \\ \text{finite subexts} \\ \text{of } M/K}}} \Gal(L/K) \cong \Gal(M/K)$$
 so we get an element $\Frob_{M/K} \in \Gal(M/K)$.
 It is the unique lift of $x \mapsto x^{\# k_K}$ on $k_M/k_K$.
+
+\begin{remarks}
+	Let $K$ be a local field, $M/K$ unramified.
+	\begin{center}
+		\begin{tikzcd}
+			\Gal(M/K) \ar{r}{\text{red.}} \ar{d}[rotate=90,anchor=center,yshift=1ex]{\sim}& \Gal(k_M/k_K) \ar{d}[rotate=90,anchor=center,yshift=1ex]{\sim}\\
+			\varprojlim \Gal(L/K) \ar{r}{\text{red.}} & \varprojlim \Gal(k_L/k_K)
+		\end{tikzcd}
+	\end{center}
+	$\implies \Gal(M/K) \overset{\sim}{\to} \varprojlim \Gal(k_L/k_K)$
+\end{remarks}
+
+Note that finite subextensions of $M/K$ biject with finite subextensions of $k_M/k_K$.
+So $\Frob_{M/K}$ is the unique lift of $x \mapsto x^{\# k_K}$ on $k_M$.
+
+\begin{definition}
+	Let $K$ be a local field, $M/K$ Galois, $T = T_{M/K}/K$ the maximal unramified subextension of $M/K$.
+	The \textbf{Weil Group} $W(M/K)$ of $M/K$ is
+	$$W(M/K) = \{\sigma \in \Gal{M/K} \,|\, \sigma|_T = \Frob_{T/K}^n, \text{ some } n \in \mathbb{Z} \}$$
+	We define a topology on $W(M/K)$ by saying that
+	$U$ is open $\iff \forall \sigma \in U\ \exists L/T$ a finite extension such that $\sigma \Gal(L/T) \subset U$.
+\end{definition}
+
+\begin{center}
+	\begin{tikzcd}
+		\Gal(M/T) \ar{r} \ar{rd} & W(M/K) \ar{r} \ar[hookrightarrow]{d} & \Frob_{T/K}^\mathbb{Z} \ar[hookrightarrow]{d}\\
+		& \Gal(M/K) \ar{r} & \Gal(T/K)
+	\end{tikzcd}
+\end{center}
+
+Discrete topology on $\Frob_{T/K}^\mathbb{Z} \rightsquigarrow$ topology of $W(M/K)$.
+
+\begin{prop}
+	Let $K$ be a local field, $M/K$ Galois.
+	Then $W(M/K)$ is dense in $\Gal(M/K)$.
+	If $L/K$ is a finite subextension of $M/K$,
+	then $W(M/L) = W(M/K) \cap \Gal(M/L)$.
+	If $L/K$ is also Galois,
+	then $\frac{W(M/K)}{W(M/L)} \overset{\sim}{\longrightarrow} \Gal(L/K)$,
+	via restriction.
+\end{prop}
+
+\begin{proof}
+	Density: need to sho that,
+	for every finite Galois subextension $L/K$ of $M/K$,
+	$W(M/K)$ surjects onto $\Gal(L/K)$ (via restriction).
+	
+	Let $T = T_{M/K}$, then $T_{L/K} = T \cap L$. Then
+	\begin{center}
+		\begin{tikzcd}
+			\Gal(M/T) \ar{r} \ar[two heads]{d}& W(M/K) \ar{r} \ar{d}& \Frob_{T/K}^\mathbb{Z} \ar[draw=none, sloped, yshift=-1ex, xshift=2ex]{r}{\cong} \ar[two heads]{d} & {(x \mapsto x^{\# k_K})}^\mathbb{Z}\ar[two heads]{d}\\
+			\Gal(T/L\cap T) \ar{r} & \Gal(L/K) \ar{r} & \Gal(T \cap L /K) \ar[draw=none, sloped, yshift=-1ex]{r}{\cong} & \langle x \mapsto x^{\# k_K} \rangle
+		\end{tikzcd}
+	\end{center}
+	Chasing the diagram implies surjectivity in the middle.
+	
+	Second part: let $L$ be as in the first part.
+	$L T_{M/K} \subseteq T_{M/L}$.
+	
+	\begin{center}
+		\begin{tikzcd}
+			\Frob_{T_{M/K}/K}^\mathbb{Z} \ar[draw=none, sloped, yshift=-1ex]{r}{\subseteq} & \Gal(T_{M/K}/K) \ar[draw=none, sloped, yshift=-1ex]{r}{\cong} & \Gal(k_M/k_K) \\
+			\Frob_{T_{M/L}/L}^\mathbb{Z} \ar[hookrightarrow]{u}  \ar[draw=none, sloped, yshift=-1ex]{r}{\subseteq} & \Gal(T_{M/L}/L) \ar[hookrightarrow]{u} \ar[draw=none, sloped, yshift=-1ex]{r}{\cong} & \Gal(k_M/k_L) \ar[hookrightarrow]{u}
+		\end{tikzcd}
+	\end{center}
+	$\implies \Frob^\mathbb{Z}_{T_{M/L}/L} = \Frob^\mathbb{Z}_{T_{M/K}/K} \cap \Gal(T_{M/L}/L)$
+	(and $T_{M/L} = L\cdot T_{M/K}$).
+	
+	If $\sigma \in \Gal(M/L)$, then
+	\begin{align*}
+		\sigma \in W(M/K) &\iff \sigma|_{T_{M/L}} \in \Frob_{T_{M/L}/L}^\mathbb{Z} \\
+		&\overset{\text{above}}{\iff} \sigma|_{T_{M/K}} \in \Frob_{T_{M/K}/K}^\mathbb{Z} \\
+		&\iff \sigma \in W(M/K)
+	\end{align*}
+	
+	Third part: now $L/K$ is Galois as well.
+	
+	$\Gal(M/L)$ is normal in $\Gal(M/K) \implies W(M/L)$ is normal in $W(M/K)$ by the second part.
+	\begin{align*}
+	\frac{W(M/K)}{W(M/L)} &= \frac{W(M/K)}{W(M/K)\cap\Gal(M/K)} \\
+	&\cong \frac{W(M/K)\Gal(M/L)}{\Gal(M/L)} \\
+	&= \frac{\Gal(M/K)}{\Gal(M/L)} \\
+	&\cong \Gal(L/K)
+	\end{align*}
+	Since $W(M/K)\Gal(M/L) = \Gal(M/K)$ by density (first part).
+\end{proof}
+
+\subsection{Main Theorems of Local Class Field Theory}
+Let $K$ be a local field.
+A Galois extension $L/K$ is called \textbf{abelian} if $\Gal(L/K)$ is abelian.
+
+Fix an algebraic closure $\bar{K}$ of $K$,
+and all algebraic extensions considered are subfields of $\bar{K}$.
+Let $K^{sep}$ be the separable closure of $K$ inside $\bar{K}$.
+
+If $L/K$ and $M/K$ are Galois,
+then $LM/K$ is Galois and
+\begin{align*}
+	\Gal(LM/K) &\hookrightarrow \Gal(L/K) \times \Gal(M/K) \\
+	\sigma &\mapsto (\sigma|_L,\, \sigma_M)
+\end{align*}
+In particular, $L/K$ and $M/K$ abelian $\implies LM/K$ is abelian.
+
+$\implies \exists$ maximal abelian extension $K^{ab}$ of $K$.
+
+Notes that $K^{ur} := T_{K^{sep}/K} \subseteq K^{ab}$. Put $\Frob_K = \Frob_{K^{ur}/K}$.
+
+\begin{theorem}[Local Artin Reciprocity]
+	There exists a unique topological isomorphism $\Art_L : K^\times \overset{\sim}{\longrightarrow} W(K^{ab}/K)$, characterised by
+	\begin{enumerate}
+		\item $\Art_K(\pi_K)|_{K^{ur}} = \Frob_K$ ($\pi_K$ any uniformiser)
+		\item $\Art_K(N_{L/K}(x))|_L = id_L\ \forall L/K$ finite abelian, $x \in L^\times$
+	\end{enumerate}
+	Moreover, if $M/K$ is finite, then $\Art_M(x)|_{K^{ab}} = \Art_K(N_{M/K}(x))\ \forall x \in M^\times$,
+	and $\Art_K$ induces an isomorphism
+	$$\frac{K^\times}{N_{M/K}(M^\times)} \overset{\sim}{\longrightarrow} \Gal((M \cap K^{ab})/K)$$
+	\label{103}
+\end{theorem}
+
+Write $N(L/K) = N_{L/K}(L^\times)$ for $L/K$ finite.
+
+\begin{theorem}
+	$L/K$ finite $\implies N(L/K) = N((L \cap K^{ab})/K)$,
+	and $[K^\times:N(L/K)] \leq [L:K]$
+	with equality $\iff L/K$ abelian.
+	\label{104}
+\end{theorem}
+
+\begin{proof}
+	Put $M=L \cap K^{ab}$. Have
+	$$\frac{K^\times}{N(L/K)} \underset{\Art_K}{\overset{\sim}{\longrightarrow}} \Gal(M/K) \underset{\Art_K}{\overset{\sim}{\longleftarrow}} \frac{K^\times}{N(M/K)}$$
+	Since $N(L/K) \subseteq N(M/K)$, we are done.
+\end{proof}
+
+\begin{theorem}
+	Let $L/K$ be a finite extension, $M/K$ abelian.
+	Then $N(L/K) \subseteq N(M/K) \iff M \subseteq L$.
+\end{theorem}
+\begin{proof}
+	By Theorem \ref{104}, wlog $L/K$ abelian (replace it with $L\cap K^{ab}$).
+	$\impliedby$ is clear. Assume that $N(L/K) \subseteq N(M/K)$ and let $\sigma \in \Gal(K^{ab}/L)$.
+	
+	Then $W(K^{ab}/L) = \Art_K(N(L/K)) \subseteq \Art_K(N(M/K)) \implies \exists m \in M^\times$ such that $\sigma = \Art_K(N_{M/K}(x))$.
+	
+	Then $\sigma|_M = id_M$ by Theorem \ref{103}.
+\end{proof}
 \end{document}
