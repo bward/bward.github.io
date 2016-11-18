@@ -593,10 +593,94 @@ $\mathcal{A}$ intersecting $\implies \mathbb{P}_{\frac{1}{2}}(\mathcal{A}) \leq 
 \end{proof}
 
 \section{Correlation Inequalities}
+\setcounter{theorem}{0}
 Let $0 < p < 1$, $\mathcal{G}(n,p)$ the probability space of all $2^{{n \choose 2}}$ graphs on $[n]$ such that
 $\mathbb{P}_p(G_{n,p} = H) = p^{e(H)}(1-p)^{{n \choose 2} - e(H)}$.
 
 This is really the weighted cube $Q_p^n$. $\mathbf{p} = (p_1, \dots, p_n)$, random subset of $X=[n]$:
 $\mathbb{P}_\mathbf{p}(A) = \prod_{i \in A} p_i \prod_{i \not\in A}(1-p_i)$.
 For $\mathcal{G}(n,p)$, consider $Q_\mathbf{p}^{{n \choose 2}}$.
+
+\begin{theorem}
+	Let $A, B \in Q_\mathbf{p}^n$.
+	If both are up-sets or both are down-sets,
+	then $\mathbb{P}_\mathbf{p}(A \cap B) \geq \mathbb{P}_\mathbf{p}(A)\mathbb{P}_\mathbf{p}(B)$.
+	IF one is an up-set and the other is a down-set, then the inequality reverses.
+\end{theorem}
+\begin{proof}
+	Induction on $n$. $n=1$: $\checkmark$. Let $n \geq 1$.
+	
+	Let $A_i = \{\mathbf{x} \in \{0, 1\}^{n-1} \,|\, (x_1, \dots, x_{n-1} ,i) \in A\}$,
+	similary $B_i$.
+	
+	Then $\mathbb{P}_\mathbf{p}(A) = (1-p_n)\mathbb{P}_\mathbf{p'}(A_0) + p_n\mathbb{P}_\mathbf{p'}(A_1)\ $
+	($\mathbf{p'} = (p_1, p_2, \dots, p_{n-1})$)
+	
+	Also $(*):\ (\mathbb{P}_\mathbf{p'}(A_1)-\mathbb{P}_\mathbf{p'}(A_0))(\mathbb{P}_\mathbf{p'}(B_1)-\mathbb{P}_\mathbf{p'}(B_0)) \geq 0 - (*)$
+	since both are up/down sets.
+	
+	\begin{align*}
+		\mathbb{P}_\mathbf{p}(A \cap B) &= (1-p_n)\mathbb{P}_\mathbf{p'}(A_0 \cap B_0) + p_n\mathbb{P}_\mathbf{p'}(A_1 \cap B_1) \\
+		&\geq (1-p_n)\mathbb{P}_\mathbf{p'}(A_0)\mathbb{P}_\mathbf{p'}(B_0) + p_n\mathbb{P}_\mathbf{p'}(A_1)\mathbb{P}_\mathbf{p'}(B_1) \text{ by induction} \\
+		&\overset{?}{\geq} ((1-p_n)\mathbb{P}(A_0) + p_n\mathbb{P}(A_1))((1-p_n)\mathbb{P}(B_0)+p_n\mathbb{P}(B_1))
+	\end{align*}
+	
+	This holds if $\mathbb{P}(A_0)\mathbb{P}(B_0)-\mathbb{P}(A_0)\mathbb{P}(B_1)-\mathbb{P}(A_1)\mathbb{P}(B_0)+\mathbb{P}(A_1)\mathbb{P}(B_1) \geq 0$,
+	which is exactly $(*)$.
+	
+	If $A$ is an up-set, $B$ a down-set then
+	\begin{align*}
+		\mathbb{P}(A \cap B) &= \mathbb{P}(A) - \mathbb{P}(A\cap B^c) \\
+		&\leq \mathbb{P}(A)-\mathbb{P}(B)(1-\mathbb{P}(B)) \\
+		&= \mathbb{P}(A) \mathbb{P}(B)
+	\end{align*}
+\end{proof}
+
+\begin{definition}
+	Let $A, B \in Q^n = \{0, 1\}^n$.
+	\begin{align*}
+		A \square B = \{z \in Q^n \,|\, \exists \text{ disjoint } I, J \in [n] \text{ s.t. } &x|I = z|I \implies x\in A,\\ \, &y|J = z|J \implies y \in B \}
+	\end{align*}
+\end{definition}
+
+If $A$ and $B$ are increasing then
+$$A \square B = \{ x+y \,|\, x \in A,\, y \in B\}$$
+$$\mathcal{A} \square \mathcal{B} = \{A \cup B \,|\, A\cap B = \emptyset,\, A \in \mathcal{A},\, B \in \mathcal{B}\}$$
+
+\begin{theorem}
+	If $A$ and $B$ are up-sets in $Q^n_\mathbf{p}$, then
+	$$\mathbb{P}_\mathbf{p}(A \square B) \leq \mathbb{P}_\mathbf{p}(A)\mathbb{P}_\mathbf{p}(B)$$
+\end{theorem}
+\begin{proof}
+	Put $C = A \square B$. Induction on $n$: $n=0\ \checkmark$. So let $n \geq 1$.
+	
+	Let $C_0 = A_0 \square B_0$, $C_1 = (A_0 \square B_1) \cup (A_1 \square B_0) \subseteq A_1 \square B_1$.
+	Then we have $C_0 \subset (A_0 \square B_1) \cap (A_1 \square B_0)$.
+	
+	$\mathbb{P}_\mathbf{p'}(C_0) \leq \mathbb{P}_\mathbf{p'}(A_0)\mathbb{P}_\mathbf{p'}(B_0)$,
+	$\mathbb{P}(C_1) \leq \mathbb{P}(A_1)\mathbb{P}(B_1)$.
+	
+	\begin{align*}
+		\mathbb{P}(C_0) + \mathbb{P}(C_1) & \leq \mathbb{P}((A_0 \square B_1) \cap (A_1 \square B_0)) + \mathbb{P}((A_0 \square B_1) \cup (A_1 \square B_0)) \\
+		&= \mathbb{P}(A_0\square B_1) + \mathbb{P}(A_1 \square B_0) \\
+		&\leq \mathbb{P}(A_0)\mathbb{P}(B_1) + \mathbb{P}(A_1)\mathbb{P}(B_0)
+	\end{align*}
+	
+	Multiply then by $(1-p_n)^2$, $p_n^2$, $p_n(1-p_n)$ and add them:
+	$$\mathbb{P}(C_0)((1-p_n)^2+(1-p_n)p_n) + \mathbb{P}(C_1)(p_n^2 + p_n(1-p_n)) \leq \mathbb{P}_\mathbf{p}(A)\mathbb{P}_\mathbf{p}(B)$$
+	
+	Obtain $\mathbb{P}(C) \leq \mathbb{P}(A) \mathbb{P}(B)$.
+\end{proof}
+
+The full Van den Berg - Kesten conjecture that $\mathbb{P}(A \square B) \leq \mathbb{P}(A)\mathbb{P}(B)$ was proved by Reimer.
+
+\subsection{The Ahlswede-Daykin Four Functions Theorem}
+\begin{theorem}
+	let $\alpha, \beta, \gamma, \delta: \mathcal{P}(X) \to \mathbb{R}^+$.
+	Suppose $\alpha(A)\beta(B) \leq \gamma(A \cup B)\delta(A \cap B)\ \forall A, B \subset X$.
+	
+	Then $\alpha(\mathcal{A})\beta(\mathcal{B}) \leq \gamma(\mathcal{A} \vee \mathcal{B})\delta(\mathcal{A} \wedge \mathcal{B})$
+	where $\mathcal{A} \vee \mathcal{B} = \{A \cup B \,|\, A \in \mathcal{A},\, B \in \mathcal{B} \}$,
+	$\mathcal{A} \wedge \mathcal{B} = \{A \cap B \,|\, A \in \mathcal{A},\, B \in \mathcal{B} \}$
+\end{theorem}
 \end{document}
