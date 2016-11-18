@@ -1617,4 +1617,107 @@ $A \overset{g}{\rightarrowtriangle} I \rightarrowtail B$,
 then $(a, b)$ is also the kernel-pair of $g$ since $h$ is monic.
 So $g$ may be obtained as the coequaliser of the kernel-pair of $f$,
 and $f$ as the factorisation of $f$ through this.
+
+\begin{definition}
+	Let $R \parallelpair{a}{b} A$ be a parallel pair in a category with finite limits.
+	\begin{enumerate}[label=\alph*.]
+		\item $(a, b)$ is a \textbf{relation} if $R \overset{(a,b)}{\longrightarrow} A \times A$ is monic.
+		\item $(a,b)$ is \textbf{reflexive} if there exists $A \overset{r}{\to} R$ with $ar = br = 1_A$.
+		\item $(a, b)$ is \textbf{symmetric} if there exists $R \overset{s}{\to} R$ with $as = b$, $bs = a$.
+		\item $(a, b)$ is \textbf{transitive} if, given the pullback
+			\begin{tikzcd}
+				T \ar{r}{q} \ar{d}{p} & R \ar{d}{a} \\
+				R \ar{r}{b} & A
+			\end{tikzcd},
+			there exists $t: T \to R$ such that $at = ap$ and $bt = bq$.
+		\item $(a, b)$ is an \textbf{equivalence relation} if all of (a-d) hold.	
+	\end{enumerate}
+	The kernel-pair of any $A \overset{f}{\to} B$ is an equivalence relation.
+	
+	$(a, b)$ is an \textbf{effective} equivalence relation if it occurs as a kernel pair,
+	$\mathcal{C}$ is an \textbf{effective} regular category if all equivalence relations in $\mathcal{C}$ are effective (aka 'Barr-exact').	
+\end{definition}
+
+\begin{definition}
+	The \textbf{support} $\sigma A$ of an object $A$ in a regular category is the image of $A \to 1$.
+	$A$ is \textbf{well-supported} if $\sigma A \cong 1$,
+	i.e. if $A \rightarrowtriangle 1$ is strong epic.
+	
+	$\mathcal{C}$ is \textbf{totally supported} if all its objects are well-supported.
+	(E.g. \textbf{Gp} and \textbf{ApGp} are totally supported,
+	since any $A \to 1$ is split epic).
+	
+	An object $0$ in a regular category is \textbf{strict} if any morphism $A \to 0$ is an isomorphism.
+	(This implies that $0$ is initial: $O \times A \overset{\pi_1}{\to} 0$ is an isomorphism,
+	so $0 \overset{\pi_1^{-1}}{\to} 0 \times A \overset{\pi_2}{\to} A$ exists for any $A$,
+	but given $O \parallelpair{f}{g} A$,
+	the equaliser must be an isomorphism.)
+	
+	$\mathcal{C}$ is \textbf{almost totally supported} if every object of $\mathcal{C}$ is either well-supported or strict (e.g. \textbf{Set}).
+\end{definition}
+
+\begin{theorem}[Barr's Embedding Theorem]
+	Let $\mathcal{C}$ be a small regular category.
+	Then there exists a small category $\mathcal{D}$ and a full and faithful regular functor $\mathcal{C} \to [\mathcal{D}, \Set]$.
+	Moreover, if $\mathcal{C}$ is almost totally supported then $\mathcal{D}$ can be taken to be a monoid.
+\end{theorem}
+
+We'll prove the most important part of this:
+$\mathcal{C}$ has an isomorphism reflecting regular functor to be a power of $\Set$.
+We follow a proof due to F. Borceaux:
+
+\begin{theorem}
+	Let $\mathcal{C}$ be a small a.t.s. regular category.
+	Then there exists an isomorphism reflecting regular functor $F: \mathcal{C} \to \Set$.
+\end{theorem}
+\begin{proof}
+	We construct $F$ as the colimit in $[\mathcal{C}, \Set]$ of a diagram of representable functors:
+	explicitly, $J$ will be a meet-semilattice and $D: J \to \mathcal{C}$ a diagram such that
+	each $D(j)$ is well-supported and each $D(j' \to j)$ is a strong epimorphism $D(j') \rightarrowtriangle D(j)$.
+	
+	Then $F = colim(J^op \overset{D}{\to} \mathcal{C}^op \overset{Y}{\to} [\mathcal{C}, \Set])$.
+	
+	Explicitly, elements of $FA$ are represented by morphisms $D(j) \overset{f}{\to} A$ for some $j$,
+	where $f \sim f'$ if and only if
+	\begin{center}
+		\begin{tikzcd}[row sep=tiny]
+			& D(j) \ar{rd}{f} & \\
+			D(j \wedge j') \ar{ru} \ar{rd} && A \\
+			& D(j') \ar{ru}{f'} &
+		\end{tikzcd}
+	\end{center}
+	commutes.
+	
+	$F$ preserves finite products: $F1 = \{*\}$,
+	and if $D(j) \overset{f}{\to} A$, $D(j') \overset{g}{\to} B$ represent elts of $FA$ and $FB$,
+	$D(j \wedge j') \to D(j) \overset{f}{\to} A$ and
+	$D(j \wedge j') \to D(j) \overset{g}{\to} B$
+	induce an element of $F(A \times B)$,
+	mapping to the given element of $FA \times FB$.
+	
+	Hence $F(A \times B) \to FA \times FB$ is surjective,
+	and it's easily seen to be injective.
+	
+	$F$ preserves equalisers:
+	notes that if $0$ exists in $\mathcal{C}$,
+	then $F0 = \emptyset$.
+	If $E \overset{e}{\rightarrowtail} A \parallelpair{f}{g} B$ is an equaliser diagram in $\mathcal{C}$ and $E$ is well-supported,
+	then the equaliser of $FA \parallelpair{}{} FB$ consists of morphisms $D(j) \to A$ having equal composites with $f$ and $g$ (and hence factoring through $E$).
+	And if $E=0$ then the equaliser of $FA \parallelpair{}{} FB$ is $\emptyset$.
+	
+	Now assume that, for every strong epimorphism $A \overset{f}{\to} D(j)$ in $\mathcal{C}$,
+	there exists $j' \leq j$ such that $D(j' \to j) = f$.
+	
+	Then $F$ preserves strong epimorphisms:
+	given $A \overset{f}{\rightarrowtriangle} B$ and a morphism $D(j) \overset{g}{\to}$ representing an element of $FB$,
+	form the pullback
+	\begin{center}
+		\begin{tikzcd}
+			D(j') \ar{r}{h} \ar{d} & A \ar[Rightarrow]{d}{f} \\
+			D(j) \ar{r}{g} & B
+		\end{tikzcd}
+	\end{center}
+	then $h$ represents an element of $FA$ whose image under $Ff$ is $g$.
+	So $Ff$ is surjective.
+\end{proof}
 \end{document}
