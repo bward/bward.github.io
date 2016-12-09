@@ -1510,7 +1510,7 @@ is a split coequaliser diagram.
 \section{Regular Categories}
 
 \begin{definition}
-	The \textbf{image} of a morphism $A \overset{f}{\to}$ is the smallest subobject of $B$ through which $f$ factors, if this exists.
+	The \textbf{image} of a morphism $A \overset{f}{\to} B$ is the smallest subobject of $B$ through which $f$ factors, if this exists.
 	
 	We say $\mathcal{C}$ \textbf{has images} if every $f \in \mor \mathcal{C}$ has an image.
 	
@@ -1571,7 +1571,7 @@ So image factorisation defines a functor $[\mathbf{2}, \mathcal{C}] \to [\mathbf
 \begin{proof}
 	Regular $\implies$ strong is true in general (see sheet 1).
 	Suppose $A \overset{f}{\rightarrowtriangle} B$ is strong epic.
-	Let $R \parallelpair{a}{b}$ be the \textbf{kernel-pair} of $f$,
+	Let $R \parallelpair{a}{b} A$ be the \textbf{kernel-pair} of $f$,
 	i.e. the pullback of $f$ against itself. Certainly $fa = fb$.
 	
 	Suppose $A \overset{g}{\to} C$ with $ga = gb$. Form the image
@@ -1639,8 +1639,8 @@ and $f$ as the factorisation of $f$ through this.
 \end{definition}
 
 \begin{definition}
-	The \textbf{support} $\sigma A$ of an object $A$ in a regular category is the image of $A \to 1$.
-	$A$ is \textbf{well-supported} if $\sigma A \cong 1$,
+	The \textbf{support} $\sigma(A)$ of an object $A$ in a regular category is the image of $A \to 1$.
+	$A$ is \textbf{well-supported} if $\sigma(A) \cong 1$,
 	i.e. if $A \rightarrowtriangle 1$ is strong epic.
 	
 	$\mathcal{C}$ is \textbf{totally supported} if all its objects are well-supported.
@@ -1669,6 +1669,7 @@ We follow a proof due to F. Borceaux:
 \begin{theorem}
 	Let $\mathcal{C}$ be a small a.t.s. regular category.
 	Then there exists an isomorphism reflecting regular functor $F: \mathcal{C} \to \Set$.
+	\label{610}
 \end{theorem}
 \begin{proof}
 	We construct $F$ as the colimit in $[\mathcal{C}, \Set]$ of a diagram of representable functors:
@@ -1701,7 +1702,7 @@ We follow a proof due to F. Borceaux:
 	$F$ preserves equalisers:
 	notes that if $0$ exists in $\mathcal{C}$,
 	then $F0 = \emptyset$.
-	If $E \overset{e}{\rightarrowtail} A \parallelpair{f}{g} B$ is an equaliser diagram in $\mathcal{C}$ and $E$ is well-supported,
+	If $$E \overset{e}{\rightarrowtail} A \parallelpair{f}{g} B$$ is an equaliser diagram in $\mathcal{C}$ and $E$ is well-supported,
 	then the equaliser of $FA \parallelpair{}{} FB$ consists of morphisms $D(j) \to A$ having equal composites with $f$ and $g$ (and hence factoring through $E$).
 	And if $E=0$ then the equaliser of $FA \parallelpair{}{} FB$ is $\emptyset$.
 	
@@ -1719,5 +1720,114 @@ We follow a proof due to F. Borceaux:
 	\end{center}
 	then $h$ represents an element of $FA$ whose image under $Ff$ is $g$.
 	So $Ff$ is surjective.
+	
+	Assume every well-supported object of $\mathcal{C}$ occurs as $D(j)$ for some $j$.
+	Then $F$ preserves properness of subobjects:
+	the element of $FA$ represented by $D(j) \overset{1}{\to} A$ can't be in the image of $FA' \rightarrowtail FA$ for any proper subobject $A' \rightarrowtail A$
+	(if it were, we'd have
+	\begin{tikzcd}
+		D(j') \ar{r} \ar[Rightarrow]{d} & A' \ar[tail]{d} \\
+		D(j) \ar[dashed]{ur} \ar{r}{1} & A
+	\end{tikzcd})
+	
+	Since $F$ preserves equalisers, it follows that it's faithful.
+	Hence $F$ reflects monomorphisms,
+	and so the argument above shows that it reflects isomorphisms.
+	
+	We'll construct $J$ as the union $\bigcup_{n=0}^\infty J_n$ of an increasing sequence of sub-semilattices $J_n$:
+	$J_0 = \{1\}$ and $D(1) = 1$,
+	the terminal object of $\mathcal{C}$.
+	Objects of $J_1 \backslash J_0$ are non-empty finite sets $\{A_1, A_2, \dots, A_n \}$ of well-supported objects of $\mathcal{C}$,
+	ordered by  $\supseteq$ (so $j \wedge j' = j \cup j'$),
+	and $D(\{A_1, A_2, \dots, A_n \}) = \prod_{i=1}^n A_i$.
+	(Note that is well-supported: if $A$ and $B$ are well supported, we have a pullback
+	\begin{tikzcd}
+		A \times B \ar[Rightarrow]{r} \ar[Rightarrow]{d} & A \ar[Rightarrow]{d} \\
+		B \ar[Rightarrow]{r} & 1
+	\end{tikzcd})
+	
+	If $j' \supseteq j$, $D(j \to j')$ is the product projection $\prod_{A \in j'} \rightarrowtriangle \prod_{A \in j} A$.
+	
+	An object of $J_2 \backslash J_1$ is a pair $(j_1, \{f_1, \dots, f_n\})$
+	where $j_1 \in J_1 \backslash J_0$ and $\{f_1, \dots, f_n\}$ is a non-empty finite set of strong epimorphisms with codomain $D(j_1)$.
+	(Equivalently, well-supported objects of $\mathcal{C}/D(j_1)$.
+	
+	The meet of $(j_1, \{f_1, \dots, f_n\})$ and $(j_1', \{g_1, \dots g_m\})$ has first coordinate $j_1 \wedge j_1'$,
+	and then we take the union of the sets of strong epimorphisms obtained from pulling back the $f_i$ and $g_j$
+	along $D(j_1) \wedge j_1' \rightarrowtriangle D(j_1)$ and $D(j_1 \wedge j_1') \rightarrowtriangle D(j_1')$.
+	
+	We define $D((j_1, \{f_1, \dots, f_n\}))$ to be the domain of the object $\prod_{i=1}^n f_i$ of $\mathcal{C}/D(j_1)$,
+	and $D(j_2 \wedge j_2')$ is the composite of the appropriate product projection in $\mathcal{C}/D(j_1 \wedge j_1')$
+	with the appropriate pullback of $D(j_1 \wedge j_1') \rightarrowtriangle D(j_1)$.
+	
+	Similarly, object of $J_3 \backslash J_2$ are pairs $(j_2, \{h_1, \dots, h_n\})$
+	where $j_2 \in J_2 \backslash J_1$ and the $h_i$ are strong epimorphisms with codomain $D(j_2)$,
+	and so on.
+	
+	Now we've satisfied the condition for $F$ to preserve strong epimorphisms:
+	if $A = D(j)$ where $j \in J_n \backslash J_{n-1}$,
+	and $B \overset{g}{\rightarrowtriangle} A$ is strong epic,
+	then $B = D((j, \{g\}))$ and $g = D((j, \{g\}) \to j)$.
+\end{proof}
+
+\begin{remark}
+	If we define $M$ to be the monoid of endomorphisms of $F: \mathcal{C} \to \Set$ in $[\mathcal{C}, \Set]$,
+	then $M$ acts on every $FA$, 
+	so we can regard $F$ as taking values in $[M, \Set]$.
+	As such, it's still regular and faithful, but also full.
+\end{remark}
+
+Given a general regular category $\mathcal{C}$ and $S \rightarrowtail 1$ in $\mathcal{C}$,
+we write $\mathcal{C}_S$ for the full subcategory of $\mathcal{C}$ on objects $A$ with $\sigma(A) \cong S$.
+This is closed in $\mathcal{C}$ under non-empty finite products, images and pullbacks of strong epimorphisms
+(if we're given
+\begin{tikzcd}
+	P \ar{r}{h} \ar[Rightarrow]{d}{k} & A \ar[Rightarrow]{d}{f}\\
+	B \ar{r}{g} & C
+\end{tikzcd}
+with $f$ strong epic then $k$ is strong epic, so $\sigma(P) = \sigma(B)$.)
+It doesn't have all finite limits,
+but if $D: J \to \mathcal{C}_S$ is a finite diagram whose limit in $\mathcal{C}$ is not in $\mathcal{C}_S$,
+then there are no cones over $D$ in $\mathcal{C}_S$.
+
+\begin{definition}
+	Given a category $\mathcal{C}$,
+	let $\mathcal{C}^+$ denote the category whose objects are those of $\mathcal{C}$ plus a new object $0$,
+	with one morphism $0 \to A$ and no morphisms $A \to 0$ for each $A \in \ob \mathcal{C}$.
+\end{definition}
+
+In $\mathcal{C}_S^+$, every finite diagram has a limit:
+if it lies in $\mathcal{C}_S$ and has a limit there, that is its limit in $\mathcal{C}_S^+$,
+otherwise its limit is the unique cone with apex 0.
+
+$\mathcal{C}_S^+$ is regular: the new morphisms $0 \to A$ are monic,
+and hence their own images,
+and strong epimorphisms are still stable under pullback.
+
+It's almost totally supported: note that $\mathcal{C}/S$ may be identified with the full subcategory of $\mathcal{C}$ on objects with support $\leq S$,
+so its well-supported objects are those of $\mathcal{C}_S$.
+
+We have a functor $E: \mathcal{C}/S \to \mathcal{C}_S^+$ sending all objects of $\mathcal{C}_S$ to themselves,
+and everything else to 0.
+$E$ is regular!
+And we have a regular functor $(-) \times S : \mathcal{C} \to \mathcal{C}/S$ (it preserves finite limits because it's right adjoint to the forgetful functor,
+and images because they're stable under pullback along $S \to 1$).
+
+\begin{theorem}
+	For every small regular category $\mathcal{C}$,
+	there exists a set $I$ and an isomorphism reflecting regular functor $\mathcal{C} \to \Set^I$.
+\end{theorem}
+\begin{proof}
+	Take $I = \Sub_\mathcal{C}(1)$,
+	and for each $S \in \mathcal{I}$ consider the composite
+	$$G_S \overset{(-) \times S}{\longrightarrow} \mathcal{C}/S \overset{E}{\to} \mathcal{C}_S^+ \overset{F_s}{\longrightarrow} \Set$$
+	where $F_S$ is defined as in \ref{610}.
+	The $G_S$ are all regular,
+	and they jointly reflect isomorphisms:
+	if $A \overset{f}{\to} B$ is not an isomorphism in $\mathcal{C}$,
+	let $S = \sigma(B)$.
+	Then $E(f)$ is either $f$ itself (if $\sigma(A)=S$)
+	or $0 \to B$ (otherwise).
+	In either case it's not an isomorphism, so its image under $F_S$ is not an isomorphism.
 \end{proof}
 \end{document}
