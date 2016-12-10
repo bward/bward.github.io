@@ -30,14 +30,23 @@
 \newcommand*\circbox[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt} {#1}}}}
 \newcommand*\parallelpair[2]{\overset{#1}{\underset{#2}{\rightrightarrows}}}
 \newcommand*\rightleft[2]{\overset{#1}{\underset{#2}{\rightleftarrows}}}
+\newcommand*\col[2]{\begin{psmallmatrix}#1 \\ #2 \end{psmallmatrix}}
 \DeclareMathOperator{\Set}{\textbf{Set}}
 \DeclareMathOperator{\Sub}{\textbf{Sub}}
 \DeclareMathOperator{\Adj}{\textbf{Adj}}
+\DeclareMathOperator{\CMon}{\textbf{CMon}}
+\DeclareMathOperator{\AbGp}{\textbf{AbGp}}
+\DeclareMathOperator{\Mod}{\textbf{Mod}}
+\DeclareMathOperator{\Add}{\textbf{Add}}
 \DeclareMathOperator{\coeq}{coeq}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\img}{im}
+\DeclareMathOperator{\coim}{coim}
+\DeclareMathOperator{\colim}{colim}
 \begin{document}
 \maketitle
 \tableofcontents
-
+\newpage
 \section{Definitions and Examples}
 \begin{definition}[Category]
 	A category $\mathcal{C}$ consists of 
@@ -1567,6 +1576,7 @@ So image factorisation defines a functor $[\mathbf{2}, \mathcal{C}] \to [\mathbf
 
 \begin{theorem}
 	In a regular category, the strong epimorphisms coincide with regular epimorphisms.
+	\label{65}
 \end{theorem}
 \begin{proof}
 	Regular $\implies$ strong is true in general (see sheet 1).
@@ -1775,6 +1785,7 @@ We follow a proof due to F. Borceaux:
 	then $M$ acts on every $FA$, 
 	so we can regard $F$ as taking values in $[M, \Set]$.
 	As such, it's still regular and faithful, but also full.
+	\label{611}
 \end{remark}
 
 Given a general regular category $\mathcal{C}$ and $S \rightarrowtail 1$ in $\mathcal{C}$,
@@ -1829,5 +1840,482 @@ and images because they're stable under pullback along $S \to 1$).
 	Then $E(f)$ is either $f$ itself (if $\sigma(A)=S$)
 	or $0 \to B$ (otherwise).
 	In either case it's not an isomorphism, so its image under $F_S$ is not an isomorphism.
+\end{proof}
+
+\section{Additive and Abelian Categories}
+\begin{definition}
+	Let $\mathcal{A}$ be a category equipped with a forgetful functor $U: \mathcal{A} \to \Set$.
+	A locally small category $\mathcal{C}$ is \textbf{enriched} over $\mathcal{A}$ if
+	$$\mathcal{C}(-, -): \mathcal{C}^{op} \times \mathcal{C} \to \Set$$
+	factors through $U$.
+	
+	If $\mathcal{A} = \Set_*$,
+	$\mathcal{C}$ is called a \textbf{pointed category}
+	(i.e. we have a distingushed morphism $A \overset{0}{\to} B$) for each pair $(A, B)$ satisfying $0f = 0$ and $g0 = 0$).
+	
+	If $\mathcal{A} = \CMon$,
+	$\mathcal{C}$ is called \textbf{semi-additive}
+	(i.e. we have 0 and $(f, g) \mapsto f+g$ satisfying $(f+g)h = fh+gh$ and $k(f+g) = kf + kg$).
+	
+	If $\mathcal{A} = \AbGp$, $\mathcal{C}$ is called \textbf{additive}.
+	
+	We also talk about \textbf{pointed} and \textbf{(semi)-additive} functors between such categories.
+\end{definition}
+
+\begin{lemma}
+	\begin{enumerate}[label=\alph*.]
+		\item For an object 0 of a pointed category, TFAE:
+			\begin{enumerate}[label=\roman*.]
+				\item 0 is terminal
+				\item 0 is initial
+				\item $1_0 = 0$
+			\end{enumerate}
+		\item For three objects $A, B, C$ of a semi-additive category, TFAE:
+			\begin{enumerate}[label=\roman*.]
+				\item There exist $A \overset{\pi_1}{\longleftarrow} C \overset{\pi_2}{\longrightarrow} B$ making $C$ a product of $A$ and $B$
+				\item There exist $A \overset{\nu_1}{\longrightarrow} C \overset{\nu_2}{\longleftarrow} B$ making $C$ a coproduct of $A$ and $B$
+				\item There exist $A \rightleft{\nu_1}{\pi_1} C \rightleft{\nu_2}{\pi_2} B$ satisfying $\pi_1\nu_1=1_A$, $\pi_2\nu_2=1_B$, $\pi_1\nu_1=0=\pi_2\nu_1$ and $\nu_1\pi_1+\nu_2\pi_2 = 1_\mathcal{C}$
+			\end{enumerate}
+	\end{enumerate}
+	\label{72}
+\end{lemma}
+\begin{proof}
+	In each case we prove (i) $\iff$ (iii); (ii) $\iff$ (iii) is dual.
+	\begin{enumerate}[label=\alph*.]
+		\item (i) $\implies$ (iii) since if $0$ is terminal there's only one morphism $0 \to 0$.
+		
+		(iii) $\implies$ (i): if (iii) holds then any $f: A \to 0$ satisfies $f = 1_0 f = 0f = 0$.
+		
+		\item (i) $\implies$ (iii): given $\pi_1$ and $\pi_2$ making $C$ a product,
+		we define $\nu_1$ and $\nu_2$ to be the unique morphisms satisfying the first four equations of (iii).
+		
+		Then 
+		\begin{align*}
+			\pi(\nu_1\pi_1 + \nu_2\pi_2) &= \pi_1\nu_1\pi_1 + \pi_1\nu_2\pi_2 \\
+			&= 1_A \pi_1 + 0\pi_2 = \pi_1
+		\end{align*}
+		and $\pi_2(\nu_1\pi_1 + \nu_2\pi_2) = \pi_2$ similarly.
+		
+		So $\nu_1\pi_1 + \nu_2\pi_2 = 1_C$ since it's a factorisation of $(\pi_1, \pi_2)$ through itself.
+		
+		(iii) $\implies$ (i): given
+		\begin{tikzcd}[row sep=tiny] & A \\ D \ar{ur}{f} \ar{dr}{g} \\ & B\end{tikzcd}
+		, if there exists $h: D \to C$ such that $\pi_1 h = f$, $\pi_2 h = g$ then
+		$$h = (\nu_1 \pi_1 + \nu_2\pi-2)h = \nu_1\pi_1 h + \nu_2 \pi_2 h = \nu_1 f + \nu_2 g$$
+		But $\pi_1(\nu_1 f + \nu_2 g) = \pi_1\nu_1 f+ \pi_1\nu_2 g = f + 0 = f$,
+		and $\pi_2(\nu_1 f + \nu_2 g) = g$ similarly.
+	\end{enumerate}
+\end{proof}
+
+We say 0 is a \textbf{zero object} if it is both initial and terminal.
+
+In (b) we call $C$ a \textbf{biproduct} of $A$ and $B$, and denote it $A \oplus B$.
+
+\begin{lemma}
+	\begin{enumerate}[label=\alph*.]
+		\item A category with a zero object has a unique pointed structure.
+		\item If $\mathcal{C}$ is pointed with finite products and coproducts,
+		and for every pair $(A, B)$ the canonical $c: A + B \to A \times B$ defined by $\pi_i c \nu_j = \delta_{ij}$ is an isomorphism,
+		then $\mathcal{C}$ has a unique semi-additive structure.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	\begin{enumerate}[label=\alph*.]
+		\item We define $0: A \to B$ to be the unique composite $A \to 0 \to B$,
+		where 0 is the zero object (and this is the only possibility).
+		
+		\item Given $(f,g) : A \rightrightarrows B$, we define $f +_L g$ to be the composite
+		$$A \overset{{1 \choose 1}}{\longrightarrow} A \times A \overset{c^{-1}}{\longrightarrow} A + A \overset{(f,g)}{\longrightarrow} B $$
+		and $f +_R g$ to be
+		$$A \overset{{f \choose g}}{\longrightarrow} B \times B \overset{c^{-1}}{\longrightarrow} B + B \overset{(1,1)}{\longrightarrow} B $$
+		Note that we have $h(f+_Lg) = hf +_L hg$ and $(f+_Rg)k = fk+_Rgk$ when the composites are defined.
+		
+		To show $f+_L0 = f$, consider
+		\begin{center}
+			\begin{tikzcd}[column sep=tiny]
+				A \ar{rr}{{1 \choose 1}} \ar{rrrd}[below]{1} && A \times A \ar{rr}{c^{-1}} \ar{rd}{\pi_1} && A+A  \ar{rr}{(f, 0)} \ar{ld}[above]{(1,0)}&& B \\
+				&&&A \ar{urrr}[below]{f}
+			\end{tikzcd}
+		\end{center}
+		All three triangles commute,
+		so $f +_L 0 = f$.
+		Similarly $0 +_L f = f$ and dually $f+_R 0=0+_Rf = f$.
+		
+		Now consider the composite
+		$$A \overset{\begin{psmallmatrix}1\\1\end{psmallmatrix}}{\longrightarrow} A \times A \overset{c^{-1}}{\longrightarrow} A+A
+		\overset{\begin{psmallmatrix}f&g\\h&k\end{psmallmatrix}}{\longrightarrow} B \times B \overset{c^{-1}}{\longrightarrow} B+B \overset{(1,1)}{\longrightarrow} B$$
+		
+		The composite $A \to B \times B$ is $\begin{psmallmatrix} f+_L g \\ h +_L k\end{psmallmatrix}$,
+		so the whole is $(f+_L g)+_R(h+_Lk)$.
+		But it also equals $(f+_R h)+_L(g+_R k)$.
+
+		Now putting $g=h=0$, we get $f+_Rk=f+_Lk$ so $+_R = +_L$.
+	
+		Putting $f=k=0$, we get $g+h = h+g$, so $+$ is commutative.  
+		
+		Putting $g=0$, we get $f+(h+k) = (f+h)+k$, so $+$ is associative.
+		
+		For uniqueness: given any semi-additive structure $+$,
+		we must have $c^{-1} = \nu_1 \pi_1 + \nu_2 \pi_2$ by \ref{72}(b),
+		so $+$ coincides with $+_L$ and $+_R$.
+	\end{enumerate}
+\end{proof}
+
+\begin{corollary}
+	If $\mathcal{C}$ and $\mathcal{D}$ are semi-additive with finite biproducts,
+	then a functor $F:\mathcal{C} \to \mathcal{D}$ is additive $\iff$ it preserves finite (co)products.
+	
+	In particular, if $F$ has an adjoint (on either side) then it's additive.
+	Moreover, the adjunction is enriched over $\CMon$,
+	in the sense that the bijection $\mathcal{D}(FA, B) \to \mathcal{C}(A, GB)$ is an isomorphism of commutative monoids.
+\end{corollary}
+
+\begin{definition}
+	Let $A \overset{f}{\to} B$ be a morphism in a pointed category.
+	The \textbf{kernel} of $f$ is the equaliser $E \overset{\ker f}{\longrightarrow} A$ of $A \parallelpair{f}{0} B$.
+	
+	A monomorphism is \textbf{normal} if it occurs as a kernel.
+	
+	In additive categories, every regular monomorphism is normal,
+	since the equaliser of $A \parallelpair{f}{g} B$ is the kernel of $f-g$.
+	
+	$A \overset{f}{\to} B$ is a \textbf{pseudo-monomorphism} if $\ker f$ is a zero map,
+	i.e. if $fg = 0 \implies g = 0$.
+	Again, in additive categories this holds if $f$ is monic, but in semi-additive categories it's weaker.
+\end{definition}
+
+\begin{lemma}
+	In a pointed category with cokernels, every normal monomorphism is the kernel of its own cokernel.
+\end{lemma}
+\begin{proof}
+	Suppose $f= \ker g$. Then $gf=0$ so $g$ factors through $\coker f$.
+	\begin{center}
+		\begin{tikzcd}[column sep=tiny]
+			A \ar[tail]{r}{f} &[20pt] B \ar{rr}{g} \ar{dr}[below]{\coker f} && C \\
+			E \ar{ur}{h} && D \ar{ur}
+		\end{tikzcd}
+	\end{center}
+	So if $h:E \to B$ satisfies $(\coker f)h = 0$, then $gh=0$,
+	and hence $h$ factors uniquely through $f$.
+\end{proof}
+
+In particular, if $\mathcal{C}$ has kernels and cokernels,
+then $\ker$ and $\coker$ induce a bijection between (isomorphism classes) 
+of normal subobjects and normal quotients of any object.
+
+\begin{lemma}
+	If $\mathcal{C}$ is pointed with kernels and cokernels then $\mathcal{C}$ has images.
+\end{lemma}
+\begin{proof}
+	Given $A \overset{f}{\to} B$, $f$ factors through $\ker(B \overset{g}{\to} C)$
+	\begin{align*}
+		& \iff gf = 0 \\
+		& \iff g \text{ factors through } \coker f \\
+		& \iff \ker \coker f \text{ factors through } \ker g
+	\end{align*}
+	So $\ker\coker f$ is the smallest normal subobject of $\mathcal{C}$ through which $f$ factors.
+\end{proof}
+
+\begin{definition}
+	A category $\mathcal{A}$ is \textbf{ablelian} if
+	\begin{enumerate}[label=\roman*.]
+		\item $\mathcal{A}$ is additive
+		\item $\mathcal{A}$ has finite biproducts, kernels and cokernels (equivalently all finite limits and colimits)
+		\item Every monomorphism is normal and very epimorphism is normal
+	\end{enumerate} 
+\end{definition}
+
+\begin{lemma}
+	In an additive category with finite biproducts,
+	consider a square
+	\begin{tikzcd}
+		A \ar{r}{f} \ar{d}{g} & B \ar{d}{h} \\
+		C \ar{r}{k} & D \\
+	\end{tikzcd}
+	of objects and morphisms.
+	
+	The flatting of the square is the diagram
+	$$A \overset{\begin{psmallmatrix}f\\g\end{psmallmatrix}}{\longrightarrow} B \oplus C \overset{(h, -k)}{\longrightarrow} D$$
+	
+	Then
+	\begin{enumerate}[label=\roman*.]
+		\item the square commutes $\iff (h, -k)\begin{psmallmatrix}f\\g\end{psmallmatrix} = 0$
+		\item the square is a pullback $\iff \begin{psmallmatrix}f\\g\end{psmallmatrix} = \ker(h, -k)$
+		\item the square is a pushout $\iff (h, -k) = \coker \begin{psmallmatrix}f\\g\end{psmallmatrix}$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	The composite of the flattening is $hf-kg$.
+	
+	Then $\begin{psmallmatrix}f\\g\end{psmallmatrix}$ is universal among morphisms with $(h, -k)\begin{psmallmatrix}f\\g\end{psmallmatrix} = 0 \iff (f,g)$ is universal among pairs with $hf=kg$.
+	
+	(iii) is dual to (ii).
+\end{proof}
+
+\begin{corollary}
+	In an abelian category, epimorphisms are stable under pullback.
+\end{corollary}
+\begin{proof}
+	Suppose
+	\begin{tikzcd}
+		A \ar{r}{f} \ar{d}{g} & B \ar[two heads]{d}{h} \\
+		C \ar{r}{k} & D
+	\end{tikzcd}
+	is a pullback with $h$ epic.
+	
+	Then $\begin{psmallmatrix}f\\g\end{psmallmatrix} = \ker(h, -k)$,
+	but $(h, -k)$ is epic since $h$ is,
+	so $(h, -k) = \coker \begin{psmallmatrix}f\\g\end{psmallmatrix}$ and the square is a pushout.
+
+	Now suppose $C \overset{l}{\to} E$ satisfies $lg=0$.
+	Then the pair $(l, B \overset{0}{\to} E)$ factors through $(k, h)$,
+	say by $m: D \to E$,
+	but then $mh=0$ and so $m=0$ since $h$ is epic.
+	So $l=mk=0$.
+\end{proof}
+
+
+Hence abelian categories are regular. In fact,
+
+\begin{theorem}
+	$\mathcal{A}$ is abelian $\iff \mathcal{A}$ is additive and effective regular.
+\end{theorem}
+\begin{proof}
+	Suppose that $\mathcal{A}$ is abelian.
+	We've shown that $\mathcal{A}$ is regular, so we need to consider effectivity.
+	
+	Let $R \parallelpair{a}{b} A$ be an equivalence relation.
+	Form the pullback
+	\begin{tikzcd}
+		K \ar{r}{l} \ar[tail]{d}{k} & R \ar[tail]{d}{(a,b)} \\
+		A \ar{r}{\begin{psmallmatrix}1\\0\end{psmallmatrix}} & A \oplus A
+	\end{tikzcd}
+	$k$ is monic, so it's the kernel of some $A \overset{f}{\to} B$.
+	We'll show $(a, b)$ is the kernel-pair of $f$.
+	
+	Suppose $C \parallelpair{x}{y} A$ satisfy $fx = fy$,
+	then $x-y$ factors as $kz$ for some $z: C \to K$.
+	
+	Now consider $lz+ry: C \to R$ where $r: A \to R$ satisfies $ar = br = 1_A$.
+	
+	Now
+	\begin{align*}
+		a(lz+ry) &= alz+ary \\
+		&= kz +y \\
+		&= x-y+y = x
+	\end{align*}
+	\begin{align*}
+	b(lz+ry) &= blz+bry \\
+	&= 0z+y = y
+	\end{align*}
+	So $lz+ry$ is a factorisation of $(x, y)$ through $(a, b)$.
+	
+	Conversely: first we show that any reflexive relation in an additive category (with finite limits) is symmetric and transitive:
+	given \begin{tikzcd}R \ar[shift left]{r}{a} \ar[shift right]{r}[below]{b} & A \ar[bend left=40]{l}{r} \end{tikzcd},
+	let $s=ra+rb-1_R: R \to R$. Then
+	\begin{align*}
+		as &= ara+arb-a \\
+		&= a + b - a = b
+	\end{align*}
+	and $bs = a$ similarly.
+	
+	Similarly, given the pullback
+	\begin{tikzcd}
+		T \ar{r}{q} \ar{d}{p} & R \ar{d}{a}\\
+		R \ar{r}{b} & A
+	\end{tikzcd}
+	, set $t=p+q-raq : T \to R$.
+	
+	Then $at = ap+aq-araq = ap$ and $bt=bp+pq-brbp=bq$.
+	
+	Now suppose $\mathcal{A}$ is effective regular and additive.
+	Then $\mathcal{A}$ has finite biproducts and kernels.
+	
+	Consider a monomorphism $K \overset{k}{\rightarrowtail} A$.
+	Consider $K \oplus A \parallelpair{(k, 1)}{(0, 1)}$;
+	this is jointly monic since if $(k, 1) \col{x}{y} = (0,1)\col{x}{y} = 0$ then $y=0$ and $kx=0$,
+	so $x=0$.
+	
+	It's reflexive with common splittling $A \overset{\col{0}{1}}{\longrightarrow} K \oplus A$.
+	So it's an equivalence relation,
+	and hence a kernel-pair of some $A \overset{f}{\to} B$.
+	Now if $fg=0$ for some $C \overset{g}{\to} A$,
+	then $(g, 0)$ factors as
+	\begin{center}
+		\begin{tikzcd}
+			C \ar{r}{\col{u}{v}} & K \oplus A \ar[shift left]{r}{(k, 1)} \ar[shift right]{r}[below]{(0, 1)} & A
+		\end{tikzcd}
+	\end{center}
+	whence $r=0$, and $ku=g$.
+	So $k=\ker f$.
+	
+	Since $\mathcal{A}$ has images,
+	it's enough to show that monomorphisms have cokernels.
+	Given a monomorphism $K \overset{k}{\rightarrowtail}{A}$,
+	form $K \oplus A \parallelpair{(k, 1)}{(0, 1)} A$;
+	this is an equivalence relation,
+	so has a coequaliser by \ref{65}.
+	But a coequaliser for this pair is a cokernel fork.
+	
+	Given an arbitrary epimorphism $A \overset{f}{\twoheadrightarrow} B$,
+	we can factor it as $A \overset{q}{\rightarrowtriangle} I \overset{m}{\rightarrowtail} B$ where $m$ is both regular monic and epic,
+	hence an isomorphism,
+	and $q$ is a normal epimorphism.
+	So $f$ is normal.
+\end{proof}
+
+\begin{definition}
+	\begin{enumerate}[label=\alph*.]
+		\item Given a sequence
+		\begin{center}
+			\begin{tikzcd}\dots \ar{r} & C_{n+1} \ar{r}{f_{n+1}} & C_n \ar{r}{f_n} & C_{n-1} \ar{r} & \dots \end{tikzcd}
+		\end{center}
+		in a pointed category with kernels and cokernels,
+		we say it's \textbf{exact at} $\mathbf{C_n}$ if $\img f_{n+1} = \ker f_n$
+		(equivalently, $\coker f_{n+1} = \coim f_n$).
+		
+		E.g.
+		\begin{enumerate}[label=\roman*.]
+			\item \begin{tikzcd}0 \ar{r} & A \ar{r}{f} & B\end{tikzcd} exact $\iff f$ monic
+			\item \begin{tikzcd}0 \ar{r} & A \ar{r}{f} & B \ar{r}{g} & C\end{tikzcd} exact $\iff f = \ker g$
+			\item \begin{tikzcd}0 \ar{r} & A \ar{r}{f} & B \ar{r}{g} & C \ar{r} &0\end{tikzcd} exact $\iff f = \ker g$ and $g=\coker f$
+		\end{enumerate}
+		
+		\item A functor $F: \mathcal{A} \to \mathcal{B}$ between abelian categories is \textbf{exact} if it preserves exact sequences
+		(equivalently, preserves kernels and cokernels).
+		
+		Note that a biproduct $A \oplus B$ is characterised by the exactness of
+		\begin{center}
+			\begin{tikzcd}
+				0 \ar{r} & A \ar{r}{\col{0}{1}} & A \oplus B \ar{r}{(0, 1)} & B \ar{r} & 0
+			\end{tikzcd}
+		\end{center}
+		plus the fact that $\col{1}{0}$ and $(0, 1)$ are both split.
+		So any exact functor preserves biproducts,
+		and hence all finite limits and colimits.
+		
+		\item $F$ is called \textbf{left exact} if it preserves kernels
+		(equivalently, exact sequences of type (ii)).
+		This also implies additivity,
+		and hence preservation of all finite limits. 
+	\end{enumerate}
+\end{definition}
+
+Note that if $F$ is left exact and preserves epimorphisms, then it's exact.
+In particular, a regular functor between abelian categories is exact.
+
+\begin{theorem}
+	Let $\mathcal{A}$ be a small abelian category.
+	Then there exists a faithful (equivalently isomorphism-reflecting) exact functor $\mathcal{A} \to \AbGp$
+	(and a full and faithful exact functor $\mathcal{A} \to \Mod_R$ for some ring $R$).
+\end{theorem}
+\begin{proof}
+	As a regular category,
+	$\mathcal{A}$ is totally supported,
+	so by \ref{610} there's a faithful regular functor $F = \colim_{J^{op}} \mathcal{A}(D(j), -): \mathcal{A} \to \Set$.
+	
+	If we regard the $\mathcal{A}(D(j), -)$ as functors $\mathcal{A} \to \AbGp$,
+	we can take their colimit in $[\mathcal{A}, \AbGp]$,
+	and the description of $F$ in \ref{610} still works.
+	It's still regular,
+	since $\AbGp \to \Set$ reflects finite limits and strong epimorphisms,
+	so it's exact.
+	It's still faithful.
+	
+	To get the full and faithful functor to $\Mod_R$,
+	we proceed as in \ref{611},
+	taking $R$ to be the ring of endomorphisms of $F$ in the additive category $[\mathcal{A}, \AbGp]$.
+\end{proof}
+
+We can now proof all of the standard 'diagram chasing' lemmas for abelian categories by proving them in module categories,
+and then transferring them via the embedding theorem.
+
+For example, we have the \textbf{Snake Lemma}:
+
+\begin{lemma}
+	Suppose given a commutative diagram
+	\begin{center}
+		\begin{tikzcd}
+			& 0 \ar{d} & 0 \ar{d} & 0  \ar{d} \\
+			& A_1 \ar{d} \ar[color=red]{r} & A_2 \ar{d} \ar[color=red]{r} & A_3 \ar{d} \ar[color=red, rounded corners, ]{dddll} \\
+			& B_1 \ar{d} \ar{r} & B_2 \ar{d} \ar{r} & B_3 \ar{d} \ar{r} & 0 \\
+			0 \ar{r} & C_1 \ar{d} \ar{r} & C_2 \ar{d} \ar{r} & C_3 \ar{d} \\
+			&D_1 \ar{d} \ar[color=red]{r} & D_2 \ar{d} \ar[color=red]{r} & D_3 \ar{d} \\
+			& 0 & 0 & 0 \\
+		\end{tikzcd}
+	\end{center}
+	in an abelian category where the black rows and columns are exact.
+	Then there exist red morphisms forming an exact sequence.
+\end{lemma}
+
+\begin{definition}
+	A \textbf{complex} in an abelian category $\mathcal{A}$ is an infinite sequence
+	\begin{center}
+		\begin{tikzcd}\dots \ar{r} & C_{n+1} \ar{r}{f_{n+1}} & C_n \ar{r}{f_n} & C_{n-1} \ar{r} & \dots \end{tikzcd}
+	\end{center}
+	satisfying $f_n f_{n+1} = 0$ for all $n$
+	(equivalently, $\ker f_n \geq \img f_{n+1}$).
+\end{definition}
+
+The complexes in $\mathcal{A}$ form an abelian category $c\mathcal{A} = \Add(\mathcal{Z}, \mathcal{A})$
+where $\mathcal{Z}$ is the additive category with $\ob \mathcal{Z} = \mathbb{Z}$.
+\begin{align*}
+	\mathcal{Z}(p, q) &= \mathbb{Z} \text{ if } q=p \text{ or } p=1 \\
+	&= \{0\} \text{ otherwise}
+\end{align*}
+and
+\begin{align*}
+p \overset{m}{\to} q \overset{n}{\to} r &= mn \text{ if } p \geq q \geq r \geq p-1 \\
+&= 0 \text{ otherwise}
+\end{align*}
+
+Given a complex $C_\cdot$, we write
+\begin{align*}
+	Z_n(C_\cdot) &\rightarrowtail C_n \text{ for } \ker f_n \\
+	B_n(C_\cdot) &\rightarrowtail C_n \text{ for } \img f_{n+1} \\
+	Z_n(C_\cdot) &\rightarrowtail H_n(C_\cdot) \text{ for } \coker(B_n \rightarrowtail Z_n) \\
+\end{align*}
+If we also write $C_n \to Q_n(C_\cdot)$ for $\coker f_{n+1}$,
+then we have a diagram
+\begin{center}
+	\begin{tikzcd}[column sep=small]
+		C_{n+1} \ar[two heads]{rd} \ar{rrrr}{f_{n+1}} & & & & C_n \ar{rrrr}{f_n} \ar[two heads]{rd} & & & & C_{n-1} \\
+		& Q_{n+1} \ar[two heads]{r} & B_n \ar[tail]{r} & Z_n \ar[two heads]{r} \ar[tail]{ur} & H_n \ar[tail]{r} & Q_n \ar[two heads]{r} & B_{n-1} \ar[tail]{r} & Z_{n-1} \ar[tail]{ur}
+	\end{tikzcd}
+\end{center}
+and $H_n = \img(Z_n \to Q_n)$.
+Note also that $B_n$, $Q_n$, $H_n$ and $Z_n$ are all (additive) functors $c\mathcal{A} \to \mathcal{A}$.
+
+\begin{theorem}[Mayer-Vietoris]
+	Let
+	$$\begin{tikzcd}0 \ar{r} & C_\cdot \ar{r} & D_\cdot \ar{r} & E_\cdot  \ar{r} & 0\end{tikzcd}$$
+	be a short exact sequence in $c\mathcal{A}$.
+	Then there's an exact sequence
+	$$\begin{tikzcd}[column sep=small]\dots \ar{r} & H_n(C_\cdot) \ar{r} & H_n(D_\cdot) \ar{r} & H_n(E_\cdot) \ar{r} & H_{n-1}(C_\cdot) \ar{r} & H_{n-1}(D_\cdot) \ar{r} & \dots\end{tikzcd}$$
+\end{theorem}
+\begin{proof}
+	First apply the snake lemma to
+	\begin{center}
+		\begin{tikzcd}
+			& 0 \ar{d} & 0 \ar{d} & 0 \ar{d} \\
+			0 \ar{r} & Z_n(C_\cdot) \ar{r} \ar{d} &  Z_n(D_\cdot) \ar{r} \ar{d} & Z_n(E_\cdot) \ar{d} \\
+			0 \ar{r} & C_n \ar{r} \ar{d} &  D_n \ar{r} \ar{d} & E_n \ar{r} \ar{d} & 0 \\
+			0 \ar{r} & C_{n-1} \ar{r} \ar{d} &  D_{n-1} \ar{r} \ar{d} & E_{n-1} \ar{r} \ar{d} & 0 \\
+			& Q_{n-1}(C_\cdot) \ar{r} \ar{d} & Q_{n-1}(D_\cdot) \ar{r} \ar{d} & Q_{n-1}(E_\cdot) \ar{r} \ar{d} & 0 \\
+			& 0 & 0 & 0
+		\end{tikzcd}
+	\end{center}
+	
+	Then apply it to
+	\begin{center}
+		\begin{tikzcd}
+			& 0 \ar{d} & 0 \ar{d} & 0 \ar{d} \\
+			& H_n(C_\cdot) \ar{r} \ar{d} &  H_n(D_\cdot) \ar{r} \ar{d} & H_n(E_\cdot) \ar{d} \ar{llddd} \\
+			& Q_n(C_\cdot) \ar{r} \ar{d} &  Q_n(D_\cdot) \ar{r} \ar{d} & Q_n(E_\cdot) \ar{r} \ar{d} & 0 \\
+			0 \ar{r} & Z_{n-1}(C_\cdot) \ar{r} \ar{d} &  Z_{n-1}(D_\cdot) \ar{r} \ar{d} & Z_{n-1}(E_\cdot) \ar{d}\\
+			& H_{n-1}(C_\cdot) \ar{r} \ar{d} & H_{n-1}(D_\cdot) \ar{r} \ar{d} & H_{n-1}(E_\cdot) \ar{d} \\
+			& 0 & 0 & 0
+		\end{tikzcd}
+	\end{center}
 \end{proof}
 \end{document}
