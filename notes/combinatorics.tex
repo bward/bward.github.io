@@ -10,7 +10,11 @@
 \usepackage{graphicx}
 \usepackage{tikz-cd}
 \usepackage{enumitem}
+\theoremstyle{definition}
 \newtheorem*{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\theoremstyle{default}
 \newtheorem*{conjecture}{Conjecture}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -27,7 +31,7 @@
 \begin{document}
 \maketitle
 \tableofcontents
-
+\newpage
 \section{Introduction}
 Let $X, Y, \dots$ be sets
 \begin{definition}
@@ -674,8 +678,7 @@ $$\mathcal{A} \square \mathcal{B} = \{A \cup B \,|\, A\cap B = \emptyset,\, A \i
 
 The full Van den Berg - Kesten conjecture that $\mathbb{P}(A \square B) \leq \mathbb{P}(A)\mathbb{P}(B)$ was proved by Reimer.
 
-\subsection{The Ahlswede-Daykin Four Functions Theorem}
-\begin{theorem}
+\begin{theorem}[Ahlswede-Daykin Four Functions Theorem]
 	let $\alpha, \beta, \gamma, \delta: \mathcal{P}(X) \to \mathbb{R}^+$.
 	Suppose $\alpha(A)\beta(B) \leq \gamma(A \cup B)\delta(A \cap B)\ \forall A, B \subset X$.
 	
@@ -683,4 +686,422 @@ The full Van den Berg - Kesten conjecture that $\mathbb{P}(A \square B) \leq \ma
 	where $\mathcal{A} \vee \mathcal{B} = \{A \cup B \,|\, A \in \mathcal{A},\, B \in \mathcal{B} \}$,
 	$\mathcal{A} \wedge \mathcal{B} = \{A \cap B \,|\, A \in \mathcal{A},\, B \in \mathcal{B} \}$
 \end{theorem}
+\begin{proof}
+	Induction on $n$. $n=1: \alpha: \{\emptyset, \{1\}\} \to \mathbb{R}$, etc. $\alpha_0, \alpha_1, \beta_0, \beta_1, \dots$
+	
+	The conditions become
+	\begin{align*}
+		\alpha_0\beta_0 &\leq \gamma_0\delta_0 \\
+		\alpha_1\beta_0 &\leq \gamma_1\delta_0 \\
+		\alpha_0\beta_1 &\leq \gamma_1\delta_0 \\
+		\alpha_1\beta_1 &\leq \gamma_1\delta_1
+	\end{align*}
+	
+	We need
+	\begin{equation*}
+		(\alpha_0 + \alpha_1)(\beta_0+\beta_1) \overset{?}{\leq} (\gamma_0 + \gamma_1)(\delta_0+\delta_1)
+		\tag{*}
+	\end{equation*}
+	
+	We may assume all are $> 0$,
+	also $\gamma_0 = \frac{\alpha_0\beta_0}{\delta_0}$,
+	$\delta_1 = \frac{\alpha_1\beta_1}{\gamma_1}$.
+	
+	(*) becomes
+	\begin{align*}
+		\alpha_0\beta_1+\alpha_1\beta_0 &\overset{?}{\leq} \gamma_0\delta_1 + \gamma_1\delta_0 \\
+		&= \frac{\alpha_0\beta_0}{\delta_0}\frac{\alpha_1\beta_1}{\gamma_1} + \gamma_1\delta_0 \\ \\
+		\alpha_0\beta_1\gamma_1\delta_0 + \alpha_1\beta_0\gamma_1\delta_0 &\leq \alpha_0\beta_0\alpha_1\beta_1 + (\gamma_1\delta_0)^2 \\ \\		
+		(\gamma_1\delta_0 - \alpha_1\beta_0)(\gamma_1\delta_0-\alpha_0\beta_1) & \geq 0 \qquad \checkmark
+	\end{align*}
+	
+	$X=[n], Y=[n]-\{n\}$.
+	We may assume $\text{supp }\alpha = \mathcal{A}$, $\text{supp }\beta = \mathcal{B}$,
+	$\text{supp }\gamma = \mathcal{A} \wedge \mathcal{B}$, $\text{supp }\delta = \mathcal{A} \vee \mathcal{B}$.
+	
+	Need: $\alpha(\mathcal{P})\beta(\mathcal{P}) \leq \gamma(\mathcal{P})\delta(\mathcal{P})$.
+	
+	Define $\alpha', \beta', \gamma', \delta': \mathcal{P}(Y) \to \mathbb{R}^+$ by
+	$\alpha'(E) = \alpha(E)+\alpha(E \cup \{n\})$,
+	$\beta'(E) = \beta(E)+\beta(E \cup \{n\}), \dots$
+	
+	Need $\alpha'(\mathcal{P}(Y))\beta'(\mathcal{P}(Y)) \leq \gamma'(\mathcal{P}(Y))\delta'(\mathcal{P}(Y))$.
+	By induction this holds if it holds $\forall A, B \subset Y$.
+	
+	Suffices to prove that
+	$$(\alpha(A) + \alpha(A \cup \{n\})(\beta(B) + \beta(B \cup \{n\}) \leq (\gamma(C) + \gamma(C \cup \{n\})(\delta(D) + \delta(D \cup \{n\})$$
+	
+	Since we know the four function theorem for $n=1$,
+	this holds if $\tilde{\alpha}:\{\emptyset, 1\} \to \mathbb{R}^+$,
+	$\tilde{\alpha}_0=\alpha(A), \tilde{\alpha}_1=\alpha(A\cup\{n\})$,
+	$\tilde{\beta}_0=\beta(B), \dots$
+	satisfy our four conditions.
+	But these are exactly the inequalities satisfied by $\alpha, \beta, \gamma and \delta$.
+\end{proof}
+
+\begin{definition}
+	A \textbf{lattice} $L$ is a poset with finite meets and joins.
+	$L$ is a \textbf{distributive lattice} if $\forall x, y, z \in L$,
+	$x \vee (y \wedge z) = (x \vee y ) \wedge (x \vee z)$
+	(equivalently $x \wedge (y \vee z)$).
+\end{definition}
+
+Prime example: $\mathcal{P}(X)$.
+Every finite distributive lattice is a sublattice of $\mathcal{P}(X)$.
+
+\begin{corollary}
+	If $L$ is a distributive lattice and $\alpha, \beta, \gamma, \delta: L \to \mathbb{R}^+$
+	then $\alpha(A)\beta(B) \leq \gamma(A \wedge B) \delta(A \vee B)\ \forall A,B \subset L \iff$
+	it holds $\forall A, B$ singletons.
+\end{corollary}
+
+\begin{definition}
+	A probability measure $\mu: L \to \mathbb{R}^+$ is \textbf{log-supermodular} if
+	$$\mu(x)\mu(y) \leq \mu(x \wedge y)\mu(x \vee y)$$
+\end{definition}
+
+\begin{corollary}[FKG inequality]
+	If $\mu: L \to \mathbb{R}^+$ is a log-supermodular probability measure and $f, g$ are increasing, non-negative functions then
+	$$\int f \,d\mu \int g \,d \mu \leq \int fg \,d\mu$$
+\end{corollary}
+
+\section{Isoperimetric Inequalities}
+\setcounter{theorem}{0}
+\subsection{Vertex Isoperimetric Inequality}
+Let $A \subset Q^n \cong \mathcal{P}(X)$;
+$A \leftrightarrow \mathcal{A} \subset \mathcal{P}(X)$;
+$x,y \in A$, $x, y \leftrightarrow A,B \subset X$.
+
+Let $N(A) = A \cup \{x \in Q^n \,|\, x \not\in A,\, \exists y \in A \text{ s.t. } xy \in E \}$,
+the neighbourhood of $A$.
+
+Given $a \geq 1$, which set $A \in X^{(a)}$ minimise $\abs{N(A)}$ over $X^{(a)}$?
+
+\begin{definition}
+	The \textbf{simplicial order} on $Q_n \cong \mathcal{P}(X)$ is given by $A < B$ if $\abs{A} < \abs{B}$
+	or $\abs{A} = \abs{B}$ and $\min(A \triangle B) \in A$.
+\end{definition}
+
+$n=4:\ \emptyset, 1,\, 2,\, 3,\, 4,\, 12,\, 13,\, 14,\, 23,\, 24,\, 34,\, 123, \dots$
+
+$N(\{\emptyset,\, 1,\, 2,\, 3,\, 4,\, 12,\, 13\}) = \{\emptyset, 1,\, 2,\, 3,\, 4,\, 12,\, 13,\, 14,\, 23,\, 24,\, 34,\, 123,\, 124,\, 134\}$
+
+If $A$ is an initial segment in the simplicial order then $N(A)$ is also an initial segment.
+
+\begin{definition}
+	For $S \subset Q^n$ and direction $i$,
+	$1 \leq i \leq n$, the \textbf{i-sections} of $S$ are
+	$$S_-^{(i)} = \{x \in S \,|\, i \not\in x \} \subset \mathcal{P}([n]-\{i\})$$
+	$$S_+^{(i)} = \{x - \{i\} \,|\, x \in S,\, i \in x \} \subset \mathcal{P}([n]-\{i\})$$
+\end{definition}
+\begin{theorem}
+	Let $A \subset Q^n$ and let $B$ be the initial segment of length $\abs{A}$ in the simplicial order on $Q^n$.
+	Then $\abs{N(A)} \geq \abs{N(B)}$.
+	In particular, $\abs{A} = \sum_{n=0}^r {n \choose i} \implies \abs{N(A)} \geq \sum_{n=0}^{r+1} {n \choose i}$.
+\end{theorem}
+\begin{proof}\renewcommand{\qedsymbol}{}
+	Let $C_i(A)$ be obtained from $A$ by replacing each $i$-segment by the initial segment of $\mathcal{P}([n]-\{i\})$ of the same size.
+	Let $C_-^{(i)}(A)$ be the initial segment of length $\abs{A_-^{(i)}}$ in the simplicial order on $\mathcal{P}([n]-\{i\})$,
+	similarly $C_+^{(i)}(A)$.
+	
+	$C_i(A)$ is given by
+	\begin{align*}
+		C_i(A)_-^{(i)} &= C_-^{(i)}(A) \\
+		C_i(A)_+^{(i)} &= C_+^{(i)}(A)
+	\end{align*}
+	
+	Then $\abs{C_i(A)} = \abs{A}$.
+	
+	$\abs{N(S)} = \abs{N(S_-^{(i)}) \cup S_+^{(i)}} + \abs{N(S_+^{(i)}) \cup S_-^{(i)}}$
+	
+	Induction on $n$. $n=1:\ \checkmark$
+	
+	Note
+	\begin{align*}
+		\abs{N(C_i(A))} &= \abs{N(C_-^{(i)}(A)) \cup C_+^{(i)}(A)} + \abs{N(C_+^{(i)}(A)) \cup C_-^{(i)}(A)} \\
+		&= \abs{N(A_-^{(i)}) \cup A_+^{(i)}} + \abs{N(A_+^{(i)}) \cup A_-^{(i)}}
+	\end{align*}
+	Thus $\abs{N(C_i(A))} \leq \abs{N(A)}$.
+	
+	We may compress $A$ in any direction.
+	Compress while the set moves.
+	This ends, since the elements of $A$ move closer to the beginning.
+	We end with a compressed set $A$: $C_i(A) = A\ \forall i$.
+	
+	Define $A^{(n)}_{vc, exc} \subset Q^n$:
+	\begin{align*}
+		n=2k+1:\qquad & A^{(n)}_{vx, exc} = (X^{(\leq k)} - \text{last}) \cup \text{next} \\
+		n=2k:\qquad &A^{(n)}_{vx, exc} = (\text{half - last}) \cup \text{next}
+	\end{align*}
+\end{proof}
+
+\begin{lemma}
+	Let $A \subset Q^n$ be $i$-compressed $\forall i$,
+	but not an initial segment.
+	Then $A = A^{(n)}_{vx, exc}$.
+\end{lemma}
+\begin{proof}
+	$\exists x \in Q^n \backslash A$, $y \in A$, $x < y$.
+	Since $A$ is compressed for $1 \leq i \leq n$,
+	$i \in x \iff i \not\in y$.
+	Indeed, if $i \in x \cap y$ or $i \not\in x \cup y$ then the $i$-compression would move $A$.
+	
+	Hence $y = x^c$,
+	so $A$ has only one 'gap' ($x$),
+	and that is followed by a single element ($y$).
+	
+	Thus $A$ is an initial segment minus its last element,
+	followed by the complement of this element.
+	
+	In the simplicial order, $x$ is followed by $x^c$
+	\begin{align*}
+	n=2k+1:\qquad & x = \{k+2,\, k+3,\, 2k+1\};\ y=\{1,\, 2,\, \dots,\, k+1\} \\
+	n=2k:\qquad & x = \{1,\, k+2,\, \dots,\, 2k\};\ y=\{2,\, 3,\, \dots,\, k+1\}
+	\end{align*}
+\end{proof}
+
+\begin{proof}[Proof of Theorem 1 cont.]
+	We may assume $A$ is compressed.
+	Hence either $A$ is an initial segment,
+	so we're done,
+	or else $A = A^n_{vx, exc}$. But this set has too large a neighbourhood.
+\end{proof}
+
+\subsection{Edge Isoperimetric Inequality}
+
+$A \subset Q^n$, $\partial_e A = \{xy \in E \,|\, x \in A,\, y \not\in A\}$.
+
+Binary order on $\mathcal{P}(n)$: $A<B$ if $\max(A\triangle B) \in B$.
+
+\begin{theorem}
+	Let $A \subset Q^n$ and let $B$ be the initial segment of length $\abs{A}$ in the binary order.
+	Then $\abs{\partial_e A} \geq \abs{\partial_e B}$.
+	In particular, if $\abs{A}=2^k$ then $\abs{\partial_e A} \geq 2^{k(n-k)}$.
+\end{theorem}
+\begin{proof}\renewcommand{\qedsymbol}{}
+	The 1-codimensional compression of $A$ in the direction $i$, $C_i(A)$ is the set $B$ such that
+	\begin{itemize}
+		\item $B_-^{(i)}$ is the initial segment in $\mathcal{P}([n]\backslash\{i\})$ in the binary order of length $\abs{A_-^{(i)}}$
+		\item $B_+^{(i)}$ similarly
+	\end{itemize}
+	Note: 
+	\begin{align*}
+		\abs{\partial_e(A)} &= \abs{\partial_e A_-^{(i)}} + \abs{\partial_e A_+^{(i)}} + \abs{A_-^{(i)} \triangle A_+^{(i)}} \\
+		&\geq \abs{\partial_e B_-^{(i)}} + \abs{\partial_e B_+^{(i)}} + \abs{B_-^{(i)} \triangle B_+^{(i)}} = \abs{\partial_e(B)}
+	\end{align*}
+	Compress until our set moves.
+	This stops: we get a compressed set $A$.
+\end{proof}
+
+\begin{lemma}
+	If $A \subset Q^n$ is compressed (in the binary order) but not an initial segment,
+	then $A$ = (half - last) $\cup$ next, e.g. $(\mathcal{P}(n-1)\backslash \{1,\, 2,\, \dots,\, n-1\}) \cup \{\{n\}\}$
+\end{lemma}
+\begin{proof}
+	$\exists x \in Q^n \backslash A$, $y \in A$, $x < y$.
+	As before, $y = x^c$.
+	Then $y = \{n\}$, $x = \{1,\, 2,\, \dots, \, n-1\}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem 3 cont.]
+	We may assume $A$ is compressed,
+	so it is either an initial segment or our exceptional set $A^n_{edge, exc}$.
+	But $\abs{\partial_e A^n_{edge, exc}}$ is too large.
+\end{proof}
+
+\section{Intersecting Families II}
+\setcounter{theorem}{0}
+
+Modular intersections: $L=\{l_1,\,\dots,\,l_s\}$,
+$\mathcal{A} \subset \mathcal{P}(n)$,
+$\abs{A \cap B} \in L\ \forall A,B \in \mathcal{A}$.
+
+\begin{theorem}[Ray-Chaudhuri-Wilson, 1975]
+	Let $p$ be a prime and $L=\{l_1,\, \dots,\, l_s\}$ a set of $s$ integers.
+	Let $\mathcal{A} = \{A_1,\dots,A_m\} \subset \mathcal{P}(n)$ be a set system such that
+	\begin{itemize}
+		\item $\abs{A_i} \not\in L \mod p$
+		\item $\abs{A_i \cap A_j} \in L \mod p$
+	\end{itemize}
+	Then $m=\abs{\mathcal{A}} \leq \sum_{i=0}^s {n \choose i}$.
+\end{theorem}
+\begin{remark}
+	For $\mathcal{A} = [n]^{(s)}$ and $L=\{0,\,1,\, \dots,\, s-1\}$ we have equality
+\end{remark}
+\begin{proof}
+	We work with the polynomial ring $\mathbb{F}_p[X] = \mathbb{F}_p[X_1, \dots, X_n]$ as a vector space.
+	For $A \in \mathcal{P}(n)$,
+	write $v_A \in \mathbb{F}_p^n$ for the characteristic function of $A$: $v_A = (v_1, \dots, v_n)$,
+	$v_i = \begin{cases}1 & i \in A \\ 0 & \text{otherwise}\end{cases}$
+	
+	For $A \in \mathcal{P}(n)$,
+	define $f_A(X) = f_A^{(L)}(X) = \prod_{h=1}^s(\langle X, v_A \rangle - l_h)$.
+	
+	Thus $f_A(X) = \prod_{h=1}^s(\sum_{i \in A}X_i - l_h)$.
+	
+	For $f \in \mathbb{F}_p[X]$, its multilinear form $\tilde{f}(X)$ is obtained from $f$ by replacing each exponent $\geq 1$ with $1$.
+	Then $\mathbb{F}_p[X] \to M[X]$, $f \mapsto \tilde{f}$ is a linear map.
+	If $v \in \{0,1\}^n \subset \mathbb{F}_p^n$,
+	then $f(v) = \tilde{f}(v)$.
+	
+	To avoid clutter, we'll write $f_i$ for $f_{A_i}$,
+	$v_i$ for $v_{A_i}$.
+	Note that
+	\begin{align*}
+		\tilde{f_i}(v_j) &= f_i(v_j)\\
+		&= \prod_{h=1}{s}(\abs{A_i \cap A_j} - l_h) \\
+		&= \begin{cases}
+		c_i \neq 0 & j=i \\
+		0 & \text{otherwise}
+		\end{cases}
+	\end{align*}
+	Hence, $\{\tilde{f}_1,\, \tilde{f}_2,\, \dots,\, \tilde{f}_m \}$ is independent.
+	Indeed, if $\sum_i \lambda_i \tilde{f}_i = 0 \in \mathbb{F}_p[X]$ then
+	$(\sum_i \lambda_i \tilde{f}_i)(v_j) = \lambda_jc_j = 0$,
+	so $\lambda_j = 0$.
+	But $\tilde{f}_i \in M_{n,s} =$ vector space of multilinear polynomials of degree $\leq s$.
+	
+	Hence $m = \abs{\mathcal{A}} \leq \dim M_{n,s} = \sum_{i=0}^s {n \choose i}$.
+\end{proof}
+
+\begin{theorem}[RW 1975]
+	Let $p$ be a prime,
+	$L = \{l_1, \dots, l_s\}$ a set of $s$ integers
+	and let $\mathcal{A} = {A_1, \dots, A_m} \subset [n]^{(r)}$ be such that $r \not\in L \mod p$
+	and $\abs{A_i \cap A_j} \in L$ for all $i \neq j$.
+	Then $\abs{\mathcal{A}} \leq {n \choose s}$.
+\end{theorem}
+\begin{proof}
+	Proceed as before:
+	we get $\tilde{f}_1, \dots, \tilde{f}_m \in M_{n,s}$.
+	For $I \in [n]^{(\leq s-1)}$,
+	define $p_I(X) = (\prod_{i \in I} X_i)(\sum_1^n X_i -r)$.
+	Then $p_I(v_L) = 0$.
+	Let $\tilde{p}_I$ be the multilinear form of $p_I$.
+	
+	Claim: $\{\tilde{f}_i \,|\, 1 \leq i \leq m \} \cup \{\tilde{p}_I \,|\, I \in [n]^{(\leq s-1)}\}$
+	is an independent set in $M_{n,s}$.
+	
+	Indeed, suppose $F=\sum_1^m \lambda_i \tilde{f}_i + \sum_{\abs{I}\leq s-1} \mu_I \tilde{p}_I = 0$.
+	
+	Evaluating $F$ at $v_h$ (characteristic function of $A_h$)
+	the second sum is 0,
+	so $F(v_h) = \lambda_h c_h$ so $\lambda_h =0$.
+	Thus every $\lambda_i$ is 0,
+	$$G = \sum_{\abs{I} \leq s-1} \mu_I \tilde{p}_I = 0$$
+	
+	Let $I_1,\, I_2,\, \dots,\, I_t$ be an enumeration of $[n]^{(\leq s-1)}$ such that if $i<j$ then $\abs{I_i} \leq \abs{I_j}$.
+	
+	Writing $w_i$ for the characteristic vector of $I_i$,
+	$$\tilde{p}_{I_i}(w_j) = \begin{cases}
+		\abs{I_i}-r \neq 0 & j=i \\
+		0 & j<i
+	\end{cases}$$
+	
+	Hence $\{\tilde{p}_I \,|\, I \in [n]^{(\leq s-1)} \}$ is an independent set in $M_{n,s}$.
+	The claim is proved.
+	
+	Therefore
+	$$\mathcal{A} + \sum_{i=0}^{s-1}{n \choose i} \leq \sum_{i=0}^s {n \choose i}$$
+	$$\implies \mathcal{A} \leq {n \choose s}$$
+\end{proof}
+
+Frankl (1981): how large can a 3-wise intersecting family be?
+
+Conjecture: $\mathcal{A} = o(2^n)$.
+
+\begin{definition}
+	$\mathcal{A}$ and $\mathcal{B} \subset \mathcal{P}(n)$ are \textbf{cross-intersecting} if
+	$A \cap B \neq \emptyset\ \forall A \in \mathcal{A}$, $B \in \mathcal{B}$.
+\end{definition}
+
+\begin{definition}
+	$\mathcal{A}$ is symmetric if its automorphism group is transitive on $[n]$.
+\end{definition}
+
+\begin{theorem}
+	If $\mathcal{A} \subset \mathcal{P}(n)$ is a 3-wise intersecting symmetric family then $\mathcal{A}=o(2^n)$;
+	in fact, $\mathcal{A} \leq \frac{2^n}{n^{1/8}}$ if $n$ is large.
+\end{theorem}
+\begin{proof}\renewcommand{\qedsymbol}{}
+	Let $J(\mathcal{A}) = \{A \cap B \,|\, A,B \in \mathcal{A}\}$.
+	$\mathcal{A}$ and $J(\mathcal{A})$ are cross-intersecting.
+	
+	$$\mathbb{P}_{\frac{1}{2}}(\mathcal{A}) = \delta \implies \mathbb{P}_{\frac{1}{4}}(J(\mathcal{A})) \geq \delta^2$$
+	$$\mathbb{P}_{\frac{1}{4}}(J(\mathcal{A})) \geq \delta^2 \implies \mathbb{P}_{\frac{3}{4}} \leq 1-\delta^2$$
+	$$\mathbb{P}_{\frac{1}{2}}(\mathcal{A}) > \delta^2 \implies \mathbb{P}_{\frac{1}{2}+\epsilon}(\mathcal{A}) > 1-\delta^2$$
+	
+	Friedgut and Kalai:
+	If $\mathcal{A}$ is increasing and symmetric then
+	$$\mathbb{P}_p(\mathcal{A}) > \epsilon \implies \mathbb{P}_q(\mathcal{A}) > 1-\epsilon$$
+	where $q = \min\{1,\, p+\frac{\log(\frac{1}{\epsilon})}{\log n}\}$
+	
+	We may assume $\mathcal{A}$ is increasing.
+\end{proof}
+
+\begin{lemma}
+	$\mathbb{P}_{\frac{1}{2}}(\mathcal{A}) = \delta \implies \mathcal{P}_{\frac{1}{4}}(J(\mathcal{A})) \geq \delta^2$.
+	\label{74}
+\end{lemma}
+\begin{proof}
+	Set $N_j = \abs{J(\mathcal{A}) \cap [n]^{(j)}}$.
+	
+	Define
+	\begin{align*}
+	F: \mathcal{A} \times \mathcal{A} &\to J(\mathcal{A}) \\
+	(A, B) &\mapsto A \cap B
+	\end{align*}
+	
+	Then $\forall C \in J(\mathcal{A})$, $\abs{F^{-1}(C)} \leq 3^{n-j} \qquad (j=\abs{C})$
+	
+	$\abs{\mathcal{A}}^2 \leq \sum N_j 3^{n-j}$, hence
+	\begin{align*}
+		\mathbb{P}_{\frac{1}{4}} &= \sum_{j=1}^n \left(\frac{1}{4}\right)^j \left(\frac{3}{4}\right)^{n-j}N_j \\
+		&= 2^{-2n}\sum N_j 3^{n-j} \\
+		& \geq \mathbb{P}_{\frac{1}{2}}(\mathcal{A})^2 = \delta^2
+	\end{align*}
+\end{proof}
+
+\begin{lemma}
+	If $\mathcal{A}$ and $\mathcal{B}$ are cross-intersecting then
+	$\mathbb{P}_p(\mathcal{A}) + \mathbb{P}_{1-p}(\mathcal{B}) \leq 1$.
+\end{lemma}
+\begin{proof}
+	$\mathcal{B}^c = \{[n] \backslash B \,|\, B \in \mathcal{B} \}$.
+	Then $\mathcal{A} \cap \mathcal{B}^c = \emptyset$.
+	
+	Also,
+	\begin{align*}
+		\mathbb{P}_p(\mathcal{B}^c) &= \mathbb{P}_{1-p}(\mathcal{B}) \\
+		\implies \mathbb{P}_p(\mathcal{A}) + \mathbb{P}_{1-p}(\mathcal{B}) 
+		&= \mathbb{P}_p(\mathcal{A}) + \mathbb{P}_p(\mathcal{B}^c) \leq 1
+	\end{align*}
+\end{proof}
+
+\begin{lemma}
+	If $\mathcal{A}$ is an increasing, intersecting family then
+	$\mathbb{P}_{\frac{1}{2}} = \delta \implies \mathbb{P}_q(\mathcal{A}) \geq 1-\delta^2$,
+	where $q=\frac{1}{2} + \frac{\log(1/\delta^2)}{\log n}$.
+\end{lemma}
+\begin{proof}
+	$\mathbb{P}_\frac{1}{2} > \delta^2$, apply FK.
+\end{proof}
+
+\begin{proof}[Proof of Theorem 3 cont.]
+	We may assume $\mathcal{A}$ is increasing,
+	set $J(\mathcal{A})$ as before.
+	Suppose $\mathbb{P}_\frac{1}{2}(\mathcal{A}) = \delta$.
+	Then $\mathbb{P}_\frac{1}{4}(J(\mathcal{A})) \geq \delta^2$.
+	
+	Hence by Lemma \ref{74},
+	$\mathbb{P}_\frac{1}{4}(J(\mathcal{A})) + \mathbb{P}_\frac{3}{4}(\mathcal{A}) \leq 1$,
+	so $\mathbb{P}_\frac{3}{4}(\mathcal{A}) \leq 1-\delta^2$.
+	But $\mathbb{P}_\frac{1}{2}(\mathcal{A}) = \delta > \delta^2$,
+	so for $q=\frac{1}{2} + \frac{2\log(1/\delta)}{\log n}$,
+	$\mathbb{P}_q(\mathcal{A}) \geq 1-\delta^2$.
+	
+	Hence $q > \frac{3}{4}$,
+	$\frac{2\log(1/\delta)}{\log n} > \frac{1}{4}$,
+	$\delta < n^{-1/8}$.
+\end{proof}
 \end{document}
