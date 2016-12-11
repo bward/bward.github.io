@@ -2269,13 +2269,13 @@ p \overset{m}{\to} q \overset{n}{\to} r &= mn \text{ if } p \geq q \geq r \geq p
 &= 0 \text{ otherwise}
 \end{align*}
 
-Given a complex $C_\cdot$, we write
+Given a complex $C_\bullet$, we write
 \begin{align*}
-	Z_n(C_\cdot) &\rightarrowtail C_n \text{ for } \ker f_n \\
-	B_n(C_\cdot) &\rightarrowtail C_n \text{ for } \img f_{n+1} \\
-	Z_n(C_\cdot) &\rightarrowtail H_n(C_\cdot) \text{ for } \coker(B_n \rightarrowtail Z_n) \\
+	Z_n(C_\bullet) &\rightarrowtail C_n \text{ for } \ker f_n \\
+	B_n(C_\bullet) &\rightarrowtail C_n \text{ for } \img f_{n+1} \\
+	Z_n(C_\bullet) &\rightarrowtail H_n(C_\bullet) \text{ for } \coker(B_n \rightarrowtail Z_n) \\
 \end{align*}
-If we also write $C_n \to Q_n(C_\cdot)$ for $\coker f_{n+1}$,
+If we also write $C_n \to Q_n(C_\bullet)$ for $\coker f_{n+1}$,
 then we have a diagram
 \begin{center}
 	\begin{tikzcd}[column sep=small]
@@ -2288,20 +2288,21 @@ Note also that $B_n$, $Q_n$, $H_n$ and $Z_n$ are all (additive) functors $c\math
 
 \begin{theorem}[Mayer-Vietoris]
 	Let
-	$$\begin{tikzcd}0 \ar{r} & C_\cdot \ar{r} & D_\cdot \ar{r} & E_\cdot  \ar{r} & 0\end{tikzcd}$$
+	$$\begin{tikzcd}0 \ar{r} & C_\bullet \ar{r} & D_\bullet \ar{r} & E_\bullet  \ar{r} & 0\end{tikzcd}$$
 	be a short exact sequence in $c\mathcal{A}$.
 	Then there's an exact sequence
-	$$\begin{tikzcd}[column sep=small]\dots \ar{r} & H_n(C_\cdot) \ar{r} & H_n(D_\cdot) \ar{r} & H_n(E_\cdot) \ar{r} & H_{n-1}(C_\cdot) \ar{r} & H_{n-1}(D_\cdot) \ar{r} & \dots\end{tikzcd}$$
+	$$\begin{tikzcd}[column sep=small]\dots \ar{r} & H_n(C_\bullet) \ar{r} & H_n(D_\bullet) \ar{r} & H_n(E_\bullet) \ar{r} & H_{n-1}(C_\bullet) \ar{r} & H_{n-1}(D_\bullet) \ar{r} & \dots\end{tikzcd}$$
+	\label{718}
 \end{theorem}
 \begin{proof}
 	First apply the snake lemma to
 	\begin{center}
 		\begin{tikzcd}
 			& 0 \ar{d} & 0 \ar{d} & 0 \ar{d} \\
-			0 \ar{r} & Z_n(C_\cdot) \ar{r} \ar{d} &  Z_n(D_\cdot) \ar{r} \ar{d} & Z_n(E_\cdot) \ar{d} \\
+			0 \ar{r} & Z_n(C_\bullet) \ar{r} \ar{d} &  Z_n(D_\bullet) \ar{r} \ar{d} & Z_n(E_\bullet) \ar{d} \\
 			0 \ar{r} & C_n \ar{r} \ar{d} &  D_n \ar{r} \ar{d} & E_n \ar{r} \ar{d} & 0 \\
 			0 \ar{r} & C_{n-1} \ar{r} \ar{d} &  D_{n-1} \ar{r} \ar{d} & E_{n-1} \ar{r} \ar{d} & 0 \\
-			& Q_{n-1}(C_\cdot) \ar{r} \ar{d} & Q_{n-1}(D_\cdot) \ar{r} \ar{d} & Q_{n-1}(E_\cdot) \ar{r} \ar{d} & 0 \\
+			& Q_{n-1}(C_\bullet) \ar{r} \ar{d} & Q_{n-1}(D_\bullet) \ar{r} \ar{d} & Q_{n-1}(E_\bullet) \ar{r} \ar{d} & 0 \\
 			& 0 & 0 & 0
 		\end{tikzcd}
 	\end{center}
@@ -2310,12 +2311,167 @@ Note also that $B_n$, $Q_n$, $H_n$ and $Z_n$ are all (additive) functors $c\math
 	\begin{center}
 		\begin{tikzcd}
 			& 0 \ar{d} & 0 \ar{d} & 0 \ar{d} \\
-			& H_n(C_\cdot) \ar{r} \ar{d} &  H_n(D_\cdot) \ar{r} \ar{d} & H_n(E_\cdot) \ar{d} \ar{llddd} \\
-			& Q_n(C_\cdot) \ar{r} \ar{d} &  Q_n(D_\cdot) \ar{r} \ar{d} & Q_n(E_\cdot) \ar{r} \ar{d} & 0 \\
-			0 \ar{r} & Z_{n-1}(C_\cdot) \ar{r} \ar{d} &  Z_{n-1}(D_\cdot) \ar{r} \ar{d} & Z_{n-1}(E_\cdot) \ar{d}\\
-			& H_{n-1}(C_\cdot) \ar{r} \ar{d} & H_{n-1}(D_\cdot) \ar{r} \ar{d} & H_{n-1}(E_\cdot) \ar{d} \\
+			& H_n(C_\bullet) \ar{r} \ar{d} &  H_n(D_\bullet) \ar{r} \ar{d} & H_n(E_\bullet) \ar{d} \ar{llddd} \\
+			& Q_n(C_\bullet) \ar{r} \ar{d} &  Q_n(D_\bullet) \ar{r} \ar{d} & Q_n(E_\bullet) \ar{r} \ar{d} & 0 \\
+			0 \ar{r} & Z_{n-1}(C_\bullet) \ar{r} \ar{d} &  Z_{n-1}(D_\bullet) \ar{r} \ar{d} & Z_{n-1}(E_\bullet) \ar{d}\\
+			& H_{n-1}(C_\bullet) \ar{r} \ar{d} & H_{n-1}(D_\bullet) \ar{r} \ar{d} & H_{n-1}(E_\bullet) \ar{d} \\
 			& 0 & 0 & 0
 		\end{tikzcd}
 	\end{center}
+\end{proof}
+
+\begin{definition}
+	Let $f_\bullet, g_\bullet: C_\bullet \rightrightarrows D_\bullet$ be morphisms of complexes.
+	A \textbf{homotopy} between $f_\bullet$ and $g_\bullet$ is a sequence of morphisms $h_n:C_n \to D_n$
+	such that $f_n - g_n = d_{n+1}h_n+h_{n-1}C_n$
+	\begin{center}
+		\begin{tikzcd}
+			C_{n+1} \ar{r}{c_{n+1}} & C_n \ar{r}{c_n} \ar[shift right]{d}[left]{f_n} \ar[shift left]{d}{g_n} \ar{ld}[above]{h_n} & C_{n-1} \ar{ld}{h_{n-1}} \\
+			D_{n+1} \ar{r}{d_{n+1}} & D_n \ar{r}{d_n} & D_{n-1}
+		\end{tikzcd}
+	\end{center}
+	
+	We write $f_\bullet \simeq g_\bullet$ if there exists a homotopy.
+	Note that $\simeq$ is an equivalence relation and it's a congruence
+	(if $k_\bullet: D_\bullet \to E_\bullet$,
+	then the composites $k_n h_n$ form a homotopy $k_\bullet f_\bullet \simeq k_\bullet g_\bullet$
+	and similarly on the other side).
+\end{definition}
+
+So we can form the quotient category $c\mathcal{A}/\simeq$.
+
+\begin{lemma}
+	If $f_\bullet \simeq g_\bullet$ then $H_n(f_n) = H_n(g_n)$.
+	\label{720}
+\end{lemma}
+\begin{proof}
+	The difference $Z_n(f_n)-Z_n(g_n)$ is the restriction to $Z_n(C_\bullet)$ of $d_{n+1}h_n$
+	since $C_n$ restricted to $Z_n$ is 0.
+	
+	When we compose with the quotient map $Z_n(D_\bullet) \to H_n(D_\bullet)$,
+	this term also becomes 0,
+	so $H_n(f_n)-H_n(g_n) = 0$.
+\end{proof}
+
+\begin{definition}
+	\begin{enumerate}[label=\alph*.]
+		\item A category $\mathcal{C}$ has \textbf{enough projectives} if for all $A \in \ob \mathcal{C}$,
+		there exists an epimorphism $P \twoheadrightarrow A$ with $P$ projective.
+		
+		(Note that $\Mod_R$ has enough projectives, since free modules are projective.)
+		
+		\item A \textbf{projective resolution} of an object $A$ in an abelian category $\mathcal{A}$
+		is an exact sequence
+		$$\begin{tikzcd}[column sep=small]\dots \ar{r} & P_n \ar{r} & P_{n-1} \ar{r} & \dots \ar{r} & P_1 \ar{r} & P_0 \ar{r} & A \ar{r} & 0\end{tikzcd}$$
+		with all $P_i$ projective.
+		
+		Equivalently it's a complex $P_\bullet$ with $P_n=0$ for all $n<0$,
+		$P_n$ projective for all $n \geq 0$ and
+		$$H_n(P_\bullet) = \begin{cases}
+		A & n=0 \\
+		0 & n \neq 0
+		\end{cases}$$
+	\end{enumerate}
+\end{definition}
+
+If $A$ has enough projectives,
+every object has a projective resolution:
+choose $P_0 \twoheadrightarrow A$ with $P_0$ projective.
+Let $K_0 \to P_0 = \ker(P_0 \twoheadrightarrow A)$,
+choose $P_1 \twoheadrightarrow K_0$ with $P_1$ projective, etc.
+
+\begin{lemma}
+	Let $P_\bullet$ and $Q_\bullet$ be projective resolutions of $A$ and $B$ respectively.
+	For any $f: A \to B$,
+	there exists $g_\bullet: P_\bullet \to Q_\bullet$ with $H_0(g_\bullet) = f$
+	and any two such complex morphisms are homotopic.
+	\label{722}
+\end{lemma}
+\begin{proof}
+	Consider
+	\begin{center}
+		\begin{tikzcd}
+			\dots \ar{r} & P_2 \ar{r} & P_1 \ar{r}{p_1} \ar{d}{g_1} & P_0 \ar[two heads]{r}{p_0} \ar{d}{g_0} & A \ar{d}{f} \\
+			\dots \ar{r} & Q_2 \ar{r} & Q_1 \ar{r}{q_1} & Q_0 \ar[two heads]{r}{q_0} & B\\
+		\end{tikzcd}
+	\end{center}
+	$g_0$ exists since $P_0$ is projective and $q_0$ epic.
+	$q_0g_0p_1 = fp_0p_1=0$ so $g_0p_1$ factors through $\ker q_0 = \img q_1$,
+	so $g_1$ exists since $P_1$ is projective and $\coim q_1$ is epic, etc.
+	
+	Suppose we had another such morphism $g_\bullet'$.
+	Then $q_0(g_0-g_0') = fp_0-fp_0 = 0$.
+	So $g_0-g_0'$ factors through $\img q_1$,
+	so $\exists h_0$ with $q_1h_0 = g_0-g_0'$.
+	
+	Now
+	\begin{align*}
+		q_1(g_1-g_1'- h_0p_1) &= g_0p_1-g_0'p_1-q_1h_0p_1 \\
+		&= (g_0-g_0'-q_1h_0)p_1 = 0
+	\end{align*}
+	So $g_1-g_1'-q_1h_0$ factors through $\ker q_1 = \img q_2$,
+	and hence there exists $h_1: P_1 \to Q_2$ with $q_2h_1-g_1-g_1'-h_0p_1$, etc.
+\end{proof}
+
+Hence, we can regard the construction of projective resolutions as defining a functor $\mathcal{A} \to c\mathcal{A}/\simeq$.
+
+\begin{definition}
+	Let $\mathcal{A}, \mathcal{B}$ be abelian categories such that $\mathcal{A}$ has enough projectives
+	and let $F: \mathcal{A} \to \mathcal{B}$ be an additive functor.
+	The \textbf{left derived functors} $L^nF$ of $F$ are defined as follows:
+	given $A$, let $P_\bullet$ be a projective resolution of $A$ and define
+	$L^nF(A) = H_n(FP_\bullet)$ for all $n \geq 0$.
+	\label{723}
+\end{definition}
+
+This is well defined by \ref{720} and \ref{722}:
+it's the composite
+$$\begin{tikzcd} \mathcal{A} \ar{r}{PR} & c\mathcal{A}/\simeq \ar{r}{cF/\simeq} & c\mathcal{B}/\simeq \ar{r}{H_n} & B\end{tikzcd}$$
+(In fact, it's an additive functor.)
+If $F$ is exact, then $L^0F \cong F$ and $L^n F =0$ for all $n > 0$.
+
+If $F$ is right exact (i.e. preserves cokernels),
+we still have $L^0F \cong F$, since $FP_1 \to FP_0 \to FA \to 0$ is exact,
+but the $L^nF$ may be nonzero.
+
+\begin{theorem}
+	Let $\mathcal{A}, \mathcal{B}$ and $F$ be as in \ref{723}.
+	Then for any short exact sequence $0 \to A \to B \to C \to 0$ in $\mathcal{A}$,
+	there is a long exact sequence
+	$$\dots \to L^1FC \to L^0FA \to L^0FB \to L^0FC \to 0$$
+	in $\mathcal{B}$
+	(so if $ F$ is right exact then $L^nF$ repair the lack of left exactness).
+\end{theorem}
+\begin{proof}
+	We show that if $P_\bullet$ and $R_\bullet$ are projective resolutions of $A$ and $C$,
+	then there's a projective resolution $Q_\bullet$ of $B$ for which $Q_n=P_n\oplus R_n$ for all $n$
+	and the morphisms $P_n \to Q_n \to R_n$ are
+	$P_n \overset{\col{1}{0}}{\longrightarrow} P_n \oplus R_n \overset{(0, 1)}{\longrightarrow} R_n$.
+	
+	\begin{center}
+		\begin{tikzcd}
+			& 0 \ar{d} & 0 \ar{d} & 0 \ar{d} \\
+			P_1 \ar[two heads]{r} \ar{d}{\col{1}{0}} & K_0 \ar{r} \ar{d} & P_0 \ar{r}{p_0} \ar{d}{\col{1}{0}} & A \ar{r} \ar{d}{f} & 0 \\
+			P_1 \oplus R_1 \ar{r} \ar{d}{(0, 1)} & L_0 \ar{r} \ar{d} & P_0 \oplus R_0 \ar{r}{(fp_0, t)} \ar{d}{(0, 1)} & B \ar{r} \ar{d}{g} & 0 \\
+			R_1 \ar[two heads]{r} & M_0 \ar{r} \ar{d} & R_0 \ar{r}{r_0} \ar{ur}{t} \ar{d} & C \ar{r} \ar{d} & 0 \\
+			& 0 & 0 & 0
+		\end{tikzcd}
+	\end{center}
+	
+	Let $t$ be such that $gt = r_0$.
+	Suppose $x(fp_0, t)=0$, then $xfp_0 = 0 \implies xf = 0$,
+	so $x = yg$ for some $y$ and $0=xt=ygt=yr_0$, so $y=0$. So $x=0$.
+	
+	Now $0 \to K_0 \to L_0 \to M_0 \to 0$ is exact by the Snake Lemma.
+	
+	Hence, we can construct an epimorphism $P_1 \oplus R_1 \twoheadrightarrow L_0$ from the epimorphisms
+	$P_1 \twoheadrightarrow K_0$ and $R_1 \twoheadrightarrow M_0$ as before.
+	
+	Continue in the same way.
+	
+	Since $f$ is additive, it preserves the exactness of the columns
+	$0 \to P_n \to P_n \oplus R_n \to R_n \to 0$,
+	so the result follows from \ref{718} applied to the exact sequence
+	$0 \to FP_\bullet \to FQ_\bullet \to FR_\bullet \to 0$ in $\mathcal{B}$.
 \end{proof}
 \end{document}
