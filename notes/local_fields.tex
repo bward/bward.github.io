@@ -38,6 +38,8 @@
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\Frob}{Frob}
 \DeclareMathOperator{\Art}{Art}
+\DeclareMathOperator{\End}{End}
+
 \begin{document}
 \maketitle
 \tableofcontents
@@ -1788,5 +1790,685 @@ Write $N(L/K) = N_{L/K}(L^\times)$ for $L/K$ finite.
 	Then $W(K^{ab}/L) = \Art_K(N(L/K)) \subseteq \Art_K(N(M/K)) \implies \exists m \in M^\times$ such that $\sigma = \Art_K(N_{M/K}(x))$.
 	
 	Then $\sigma|_M = id_M$ by Theorem \ref{103}.
+\end{proof}
+
+\begin{theorem}
+	let $L/K$, $M/K$ be finite abelian extensions of a local field $K$.
+	Then $N(LM/K) = N(L/K) \cap N(M/K)$
+	and $N(L \cap M/K) = N(L/K)\cdot N(M/K)$.
+\end{theorem}
+
+\begin{theorem}[Existence Theorem]
+	For every open subgroup $H \subseteq K^\times$ of finite index,
+	$\exists !\ L/K$ finite abelian such that $H=N(L/K)$.
+\end{theorem}
+
+Summary:
+\begin{align*}
+	\left\{\begin{tabular}{c}
+	Open finite \\ index subgroups \\ of $K^\times$
+	\end{tabular}\right\} &\longleftrightarrow
+	\left\{\begin{tabular}{c}
+	Finite abelian \\ extensions \\ $L/K$
+	\end{tabular}\right\} \\
+	H & \longmapsto (K^{ab})^{\Art_K(H)} \\
+	N(L/K) &\longmapsfrom L/K
+\end{align*}
+
+Goal for the rest of the course:
+indicate how one can explicitly construct the field $K^{ab}$ and $\Art_K$ (Lubin-Tate theory).
+
+\begin{lemma}
+	Let $L/K$ be a finite abelian extension.
+	Then $$e_{L/K} = (\mathcal{O}_L^\times : N_{L/K}(\mathcal{O}_L^\times))$$
+	\label{108}
+\end{lemma}
+\begin{proof}
+	Let $x \in L^\times$,
+	$w$ valuation on $L$ extending $v_K$.
+	$n=[L:K]$.
+	
+	$$v_K(N_{L/K}(x)) = nw(x) = f_{L/K} v_L(x)$$
+	
+	Thus $$\frac{K^\times}{N(L/K)} \overset{v_K}{\twoheadrightarrow} \frac{\mathbb{Z}}{f_{L/K}(\mathbb{Z})}$$
+	
+	Kernel $= \frac{\mathcal{O}_K^\times N(L/K)}{N(L/K)} \cong \frac{\mathcal{O}_K^\times}{\mathcal{O}_K^\times \cap N(L/K)} = \frac{\mathcal{O}_K^\times}{N_{L/K}(\mathcal{O}_L^\times)}$
+	
+	$$\implies n \overset{\text{LCFT}}{=} (K^\times: N(L/K)) = f_{L/K}(\mathcal{O}_K^\times : N_{L/K}(\mathcal{O}_L^\times))$$
+	$$\implies (\mathcal{O}_K^\times: N_{L/K}(\mathcal{O}_L^\times)) = e_{L/K}$$
+\end{proof}
+
+\begin{corollary}
+	$L/K$ finite abelian.
+	Then $L/K$ unramified $\implies N_{L/K}(\mathcal{O}_L^\times) = \mathcal{O}_K^\times$.
+\end{corollary}
+
+Fix a uniformiser $\pi_K$.
+$K^\times \cong \langle \pi_K \rangle \times \mathcal{O}_K^\times$ (topologically as well).
+To construct $K^{ab}$,
+we need extensions with norm groups $\langle \pi_K^m \rangle \times U_K^{(n)}$
+for all $m,n \in \mathbb{Z}_{\geq 0}$.
+Suffices to consider $\langle \pi_K^m \rangle \times \mathcal{O}_K^\times$ and $\langle \pi_K \rangle \times U_K^{(n)}$.
+
+By Lemma \ref{108},
+$\langle \pi_K^m \rangle \times \mathcal{O}_K^\times$ is the norm group of the unique unramified extension of degree $m$.
+So we need to focus on $\langle \pi_K \rangle \times U_K^{(n)}$
+(note the groups depend on the choice of $\pi_K$).
+
+$K= \mathbb{Q}_p$, $\pi_K = p$, $\zeta_{p^n}$ a primitive root of 1:
+
+$L_n = \mathbb{Q}_p(\zeta^n)$ is the field with norm group $\langle p \rangle \times (1+ p^n\mathbb{Z}_p)$.
+
+Put $\mathbb{Q}_p(\zeta_{p^\infty}) = \bigcup_{n=1}^\infty \mathbb{Q}_p(\zeta_{p^n})$.
+We have
+\begin{center}
+	\begin{tikzcd}
+		\Gal(\mathbb{Q}_p(\zeta_{p^\infty}) / \mathbb{Q}_p) \ar{r}{\sim} & \varprojlim_n \Gal(\mathbb{Q}_p(\zeta_{p^n}) / \mathbb{Q}_p)  & (\sigma_m, \sigma_m(\zeta_{p^n}) = \zeta_{p^n}^m)\\
+		\mathbb{Z}_p^\times \ar{r}{\sim}  \ar{u}{\Art_{\mathbb{Q}_p}|_{\mathbb{Z}_p^\times}} & \varprojlim_n (\mathbb{Z}/p^n\mathbb{Z})^\times \ar{u} & m \ar[maps to]{u}
+	\end{tikzcd}
+\end{center}
+
+Explicitly, if $m \in \mathbb{Z}_p^\times$,
+$m = a_0 + a_1 p + \dots$,
+$a_i \in \{0, \dots, p-1\}$,
+$a_0 \neq 0$
+then $\Art_{\mathbb{Q}_p}(m) = \sigma_m$,
+\begin{align*}
+	\sigma_m(\zeta_{p^n}) &= \zeta_{p^n}^{a_0 + a_1 p + \dots + a_{n-1}p^{n-1}} \\
+	&= \lim_{k \to \infty} \zeta_{p^n}^{a_0 + a_1 p + \dots + a_k p^k} \text{ `=' } \zeta_{p^n}^m
+\end{align*}
+for all $m, n$.
+
+\begin{center}
+	\begin{tikzcd}
+		\mathbb{Q}_p^\times \ar[draw=none, sloped, xshift=-1ex]{d}{\cong} \ar{r}{\sim}[swap]{\Art_{\mathbb{Q}_p}} & W(\mathbb{Q}_p^{ab}/\mathbb{Q}_p) = W(\mathbb{Q}_p^{ur}\cdot\mathbb{Q}_p(\zeta_{p^\infty})/\mathbb{Q}_p) \ar{d}[rotate=90,anchor=center,yshift=1ex]{\sim} & \sigma \ar[maps to]{d} \\
+		\langle p \rangle \times \mathbb{Z}_p^\times \ar{r}{\sim} & W(\mathbb{Q}_p^{ur}/\mathbb{Q}_p) \times \Gal(\mathbb{Q}_p(\zeta_{p^\infty})/\mathbb{Q}_p) & (\sigma|_{\mathbb{Q}_p^{ur}}, \sigma|_{\mathbb{Q}_p(\zeta_{p^\infty})}) \\
+		\langle p^n, m \rangle \ar[maps to]{r} & (\Frob^n_{\mathbb{Q}_p}, \sigma_m)
+	\end{tikzcd}
+\end{center}
+
+\begin{theorem}[Local Kronecker-Weber Theorem]
+	$$\mathbb{Q}_p^{ab} = \bigcup_{n \in \mathbb{Z}_{\geq 1}} \mathbb{Q}_p(\zeta_n)$$
+	(Since $\mathbb{Q}_p^{ur} = \bigcup_{\substack{n \in \mathbb{Z}_{\geq 1} \\ (n, p) = 1}} \mathbb{Q}_p(\zeta_n)$, Q2 sheet 3).
+\end{theorem}
+
+\begin{definition}
+	Let $K$ be a local field, $M/K$ a Galois extension.
+	Define, for $s \in \mathbb{R}_{\geq -1}$,
+	$$G^s(M/K) = \{\sigma \in \Gal(M/K) \,|\, \sigma|_L \in G^s(L/K)\ \substack{\forall L/K \text{ finite Galois}\\ \text{subextensions of }M/K} \}$$
+\end{definition}
+
+Note that $G^s(M/K) = \varprojlim_{L/K} G^s(L/K)$.
+
+$K = \mathbb{Q}_p$, write $\mathbb{Q}_{p^n}$ for the unramified extension of degree $n$ of $\mathbb{Q}_p$.
+
+Q11 on sheet 3 $\implies$
+
+\begin{equation*}
+\resizebox{\hsize}{!}{
+	$G^s(\mathbb{Q}_p(\zeta_{p^m})/\mathbb{Q}_p) =
+\begin{cases}
+	\Gal(\mathbb{Q}_{p^n}(\zeta_{p^m})/\mathbb{Q}_p) & s = -1 \\
+	\Gal(\mathbb{Q}_{p^n}(\zeta_{p^m})/\mathbb{Q}_{p^n}) \cong \Gal(\mathbb{Q}_p(\zeta_{p^m})/\mathbb{Q}_p) & -1 < s \leq 0 \\
+	\Gal(\mathbb{Q}_{p^n}(\zeta_{p^m})/\mathbb{Q}_{p^n}(\zeta_{p^k})) & k-1 < s \leq k,\, k = 1,\dots,m-1 \\
+	1 & s > m-1
+\end{cases}$}\end{equation*}
+
+Which corresponds to
+
+$$\begin{cases}
+	\langle p \rangle \times \mathbb{Z}_p^\times / \langle p^n \rangle \times (1+ p^m \mathbb{Z}_p) & s= -1 \\
+	\langle p^n \rangle \times \mathbb{Z}_p^\times / \langle p^n \rangle \times (1+ p^m \mathbb{Z}_p) & -1 < s \leq 0 \\
+	\langle p^n \rangle \times (1+p^k \mathbb{Z}_p) / \langle p^n \rangle \times (1+ p^m \mathbb{Z}_p) & k-1 < s \leq k,\, k = 1,\dots,m-1 \\
+	1 & s > m-1
+\end{cases}$$
+under $\Art_{\mathbb{Q}_p}$.
+
+\begin{theorem}
+	$G^s(\mathbb{Q}_p^{ab}/\mathbb{Q}_p) = \Art_{\mathbb{Q}_p}(1+p^n \mathbb{Z}_p) \left(= \Art_{\mathbb{Q}_p}(U^{(n)})\right)$
+	where $n-1 < s \leq n$, $n \in \mathbb{Z}_{\geq 0}$.
+\end{theorem}
+
+\begin{corollary}
+	Let $L/\mathbb{Q}_p$ be a finite abelian extension.
+	Then $$G^s(L/\mathbb{Q}_p) = \Art_{\mathbb{Q}_p}\left(\frac{N(L/\mathbb{Q}_p)(1+p^n\mathbb{Z}_p)}{N(L/\mathbb{Q}_p)}\right)$$
+	for $n-1 < s \leq n$.
+	
+	($\Art_{\mathbb{Q}_p}: \frac{\mathbb{Q}_p^\times}{N(L/\mathbb{Q}_p)} \overset{\sim}{\longrightarrow} \Gal(L/\mathbb{Q}_p)$)
+\end{corollary}
+
+It follows that $L \subseteq \mathbb{Q}_{p^n}(\zeta_{p^m})$ for some $n \iff$ $G^s(L/\mathbb{Q}_p) = 1\ \forall s > m-1$.
+
+\subsection{Formal Groups}
+Let $R$ be a ring.
+
+Write $$R[[X_1,\dots,X_n]] = \left\{\sum_{k_1,\dots,k_n \in \mathbb{Z}_{\geq 0}} a_{k_1, \dots, k_n}X_1^{k_1}\dots X_n^{k_n} \,|\, a_{k_1, \dots, k_n} \in R \right\}$$
+the ring of formal power series in $n$ variables over $R$.
+
+\begin{definition}
+	A (one-dimensional, commutative) \textbf{formal group} over $R$ is a power series $F(X, Y) \in R[X, Y]$ such that
+	\begin{enumerate}
+		\item $F(X, Y) = X+Y \mod (X^2, XY, Y^2)$
+		\item $F(X,Y) = F(Y, X)$ (commutativity)
+		\item $F(X, F(Y,Z)) = F(F(X,Y), Z)$ (associativity)
+	\end{enumerate}
+\end{definition}
+
+If $F$ is a formal group over $\mathcal{O}_K$,
+$K$ a complete valued field,
+then $F(x, y)$ converges for all $x, y \in \mathfrak{m}_K$,
+so $\mathfrak{m}_K$ becomes a (semi)group under the multiplication
+$$(x, y) \mapsto F(x, y) \in \mathfrak{m}_K$$
+
+For example,
+\begin{enumerate}
+	\item $\hat{\mathbb{G}}_a(X,Y) = X + Y$, the formal additive group
+	\item $\hat{\mathbb{G}}_m(X,Y) = X+Y+XY$, the formal multiplicative group
+\end{enumerate}
+Note that $X+Y+XY = (1+X)(1+Y)-1$.
+If $K$ is a complete valued field then
+\begin{align*}
+	\mathfrak{m}_K & \overset{\sim}{\longrightarrow} 1+ \mathfrak{m}_K \\
+	x &\mapsto 1+x
+\end{align*}
+and the rule $(x, y) \in \mathfrak{m}_K^2 \mapsto x+y+xy \in \mathfrak{m}_K$ is just the usual multiplication
+on $1+\mathfrak{m}_K$ transported to $\mathfrak{m}_K$ via the bijection above.
+
+\begin{lemma}
+	Let $R$ be a ring and $F$ a formal group over $R$.
+	Then
+	\begin{enumerate}
+		\item $F(X, 0) = X$ (existence of identity)
+		\item $\exists i(X) \in XR[[X]]$ such that $F(X, i(X)) = 0$ (inverses)
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Example sheet 4
+\end{proof}
+
+\begin{definition}
+	Let $R$ be a ring, $F, G$ formal groups over $R$.
+	A \textbf{homomorphism} $f: F \to G$ is an element $f \in R[[X]]$ such that $f(X) \equiv 0 \mod X$ and 
+	$$f(F(X, Y)) = G(f(X), f(Y))$$
+	
+	The endomorphisms $f: F \to F$ form a ring $\End_R(F)$
+	with addition $+_F$ given by
+	$$(f +_F g)(X) = F(f(X), g(X))$$
+	and multiplication
+	$$(f \circ g)(X) = f(g(X))$$
+\end{definition}
+
+\begin{definition}
+	Let $\mathcal{O}$ be a ring.
+	A \textbf{formal $\mathbf{\mathcal{O}}$-module} $F$ is a formal group $F$ with a ring homomorphism
+	\begin{align*}
+		\mathcal{O} & \rightarrow \End_\mathcal{O}(F) \\
+		a &\mapsto [a]_F
+	\end{align*}
+	such that
+	$$[a]_F(X) \equiv aX \mod X^2$$
+\end{definition}
+
+Now let $K$ be a local field,
+$q = \# k_K$ and $\pi \in \mathcal{O}_K$ a uniformiser.
+
+\begin{definition}
+	A \textbf{Lubin-Tate module} over $\mathcal{O}_K$ with respect to $\pi$
+	is a formal $\mathcal{O}_K$-module $F$ such that
+	$[\pi]_F(X) \equiv X^q \mod \pi$
+\end{definition}
+
+Think of this condition as `uniformiser $\iff$ Frobenius'.
+
+$\hat{\mathbb{G}}_m$ is a Lubin-Tate $\mathbb{Z}_p$-module with respect to $p$.
+If $a \in \mathbb{Z}_p$, define
+$$[a]_{\hat{\mathbb{G}}_m}(X) = (1+X)^a-1 = \sum_{n=1}^\infty {a \choose n}X^n$$
+Note that $(1+X)^a-1 \equiv aX \mod X^2$.
+That $a \mapsto [a]_F$ is a ring homomorphism follows from the identities
+$$((1+X)^a)^b = (1+X)^{ab}$$
+$$(1+X)^a(1+X)^b = (1+X)^{a+b}$$
+So $\hat{\mathbb{G}}_m$ is a formal $\mathbb{Z}_p$-module, and
+$$[p]_{\hat{\mathbb{G}}_m}(X) = \sum_{n=1}^p {p \choose n} X^n \equiv X^p \mod p$$
+So $\hat{\mathbb{G}}_m$ is a Lubin-Tate $\mathbb{Z}_p$-module for $p$.
+
+\begin{definition}
+	A \textbf{Lubin-Tate series} for $\pi$ is a power series $e(X) \in \mathcal{O}_K[[X]]$
+	such that $e(X) \equiv \pi X \mod X^2$,
+	and $e(X) \equiv X^q \mod \pi$.
+	We denote the set of Lubin-Tate series for $\pi$ by $\mathcal{E}_\pi$.
+	
+	Inside $\mathcal{E}_\pi$ we have the polynomials
+	$$uX^q + \pi(a_{q-1}X^{q-1} + \dots + a_2 X^2) + \pi X$$
+	with $u \in U_K^{(1)}$ and $a_2, \dots, a_{q-1} \in \mathcal{O}_K$.
+	These are called \textbf{Lubin-Tate polynomials}.
+\end{definition}
+
+For example, $X^q + \pi X$.
+
+If $K = \mathbb{Q}_p$, $\pi = p$ then $(1+X)^p-1$ is a Lubin-Tate polynomial.
+
+Note that, by definition,
+if $F$ is a Lubin-Tate $\mathcal{O}_K$-module for $\pi$,
+then $[\pi]_F$ is a Lubin-Tate series for $\pi$.
+
+\begin{prop}
+	Let $e_1, e_2 \in \mathcal{E}_\pi$ and a linear form $L(X_1, \dots, X_n) = \sum_{i=1}^n a_i X_i$,
+	$a_i \in \mathcal{O}_K$.
+	Then $\exists!$ power series $F(X_1, \dots, X_n) \in \mathcal{O}_K[[X_1, \dots, X_n]]$ such that
+	$$F(X_1, \dots, X_n) \equiv L(X_1, \dots, X_n) \mod (X_1, \dots, X_n)^2$$
+	$$e_1(F(X_1, \dots, X_n)) = F(e_2(X_1), \dots, e_2(X_n))$$
+	\label{120}
+\end{prop}
+
+Now let $e, e_1, e_2 \in \mathcal{E}_\pi$ and $a \in \mathcal{O}_K$.
+Proposition \ref{120} $\implies \exists!\ F_e(X,Y) \in \mathcal{O}_K[X, Y]$
+and $[a]_{e_1, e_2}(X) \in \mathcal{O}_K[[X]]$ such that
+$$F_e(X, Y) \equiv X + Y \mod (X, Y)^2,\, e(F_e(X,Y)) = F_e(e(X), e(Y))$$
+$$[a]_{e_1, e_2}(X) \equiv aX \mod X^2,\, e_1([a]_{e_1, e_2}(X)) = [a]_{e_1, e_2}(e_2(X))$$
+
+If $e_1 = e_2 = e$, write $[a]_e = [a]_{e, e}$.
+
+\begin{theorem}
+	The Lubin-Tate $\mathcal{O}_K$-modules for $\pi$ are precisely the series $F_e$
+	for $e \in \mathcal{E}_\pi$,
+	with formal $\mathcal{O}_K$-module structure given by $a \mapsto [a]_e$.
+	
+	Moreover, if $e_1, e_2 \in \mathcal{E}_\pi$ and $a \in \mathcal{O}_K$,
+	then $[a]_{e_1, e_2}$ is a homomorphism $F_{e_2} \to F_{e_1}$.
+	If $a \in \mathcal{O}_K^\times$,
+	then it is an isomorphism with inverse $[a^{-1}]_{e_2, e_1}$.
+	\label{121}
+\end{theorem}
+\begin{proof}[Proof (sketch)]
+	If $F$ is a Lubin-Tate $\mathcal{O}_K$-module for $\pi$,
+	then $e=[\pi]_F \in \mathcal{E}_\pi$ and $F$ satisfies the properties that characterise $F_e$,
+	so Proposition \ref{120} $\implies F=F_e$.
+	
+	For the remaining parts, one has to verify
+	\begin{enumerate}
+		\item $F_e(X,Y) = F_e(Y, X)$
+		\item $F_e(X, F_e(Y,Z)) = F_e(F_E(X, Y), Z)$
+		\item $[a]_{e_1, e_2}(F_{e_2}(X, Y)) = F_{e_1}([a]_{e_1, e_2}(X), [a]_{e_1, e_2}(Y))$
+		\item $[ab]_{e_1, e_3}(X) = [a]_{e_1, e_2}([b]_{e_2, e_3}(X))$
+		\item $[a+b]_{e_1, e_2}(X) = F_{e_1}([a]_{e_1, e_2}(X), [b]_{e_1, e_2}(X))$
+		\item $[\pi]_e(X) = e(X)$
+	\end{enumerate}
+	for all $e, e_1, e_2, e_3 \in \mathcal{E}_\pi$ and $a, b \in \mathcal{O}_K$.
+	
+	The proof of these all follow the same pattern:
+	show that LHS and RHS satisfy the same `characterising properties' in Proposition \ref{120}
+	and use uniqueness.
+\end{proof}
+
+\subsection{Lubin-Tate Extensions}
+Recall $\bar{K}$, a fixed algebraic closure of $K$.
+Let $\bar{\mathfrak{m}} = \mathfrak{m}_{\bar{K}}$,
+the maximal ideal in $\mathcal{O}_{\bar{K}}$.
+
+\begin{prop}
+	If $F$ is a formal $\mathcal{O}_K$-module,
+	then $\bar{\mathfrak{m}}$ becomes an $\mathcal{O}_K$-module under the operations $+_F, \cdot$.
+	$$x +_F y = F(x, y) \quad x,y \in \bar{\mathfrak{m}}$$
+	$$a \cdot x = [a]_F(x) \quad a \in \mathcal{O}_K,\, x \in \bar{\mathfrak{m}}$$
+	which we denote $\mathfrak{m}_F$.
+\end{prop}
+\begin{proof}
+	Note that if $x, y \in \bar{\mathfrak{m}}$,
+	then $F(x, y)$ is a series in $K(x, y) \subseteq \bar{K}$
+	with coefficients of absolute value $<1$ and $\to 0$,
+	so it converges to an element in $\mathfrak{m}_{K(x, y)} \subseteq \bar{\mathfrak{m}}$.
+	The rest follows from the definitions.
+\end{proof}
+
+Let $F$ be a Lubin-Tate $\mathcal{O}_K$-module for $\pi$.
+
+\begin{definition}
+	Let $n\geq 1$. The group $F(n)$ of $\mathbf{\pi^n}$\textbf{-division points} of $F$
+	is defined to be
+	\begin{align*}
+		F(n) &= \{x \in \bar{\mathfrak{m}}_F \,|\, \pi^n \cdot x = 0\} \\
+		&= \ker [\pi^n]_F
+	\end{align*}
+\end{definition}
+
+For example, $F=\hat{\mathbb{G}}_m$, $K=\mathbb{Q}_p$, $\pi = p$:
+
+$$p^n \cdot x = (1+x)^{p^n} - 1,\, x \in \bar{\mathfrak{m}}_{\hat{\mathbb{G}}_m}$$
+So $\hat{\mathbb{G}}_m(n) = \{\zeta_{p^n}^i - 1 \,|\, i =0, 1, \dots, p^n-1 \}$,
+$\zeta_{p^n} \in \mathbb{Q}_p$ primitive $p^n$-th root.
+
+So $\hat{\mathbb{G}}_m(n)$ generates $\mathbb{Q}_p(\zeta_{p^n})$.
+
+\begin{lemma}
+	Let $e(X) = X^q+\pi X$, $f_n(X) = (e \circ \dots \circ e)(X)$ (composed $n$ times).
+	
+	Then $f_n$ has no repeated roots.
+	\label{124}
+\end{lemma}
+\begin{proof}
+	Let $x \in \bar{K}$.
+	
+	Claim: if $\abs{f_i(x)} < 1$ for $i=0, \dots, n-1$ then $f_n'(x) \neq 0$.
+	
+	Induction on $n$. $n=1$: assume $\abs{X} < 1$, then
+	\begin{align*}
+		f_1'(X) &= e'(X) \\
+		&= qX^{q-1} + \pi \\
+		&= \pi(1+\frac{q}{\pi}X^{q-1}) \neq 0
+	\end{align*}
+	since $\abs{1+\frac{1}{\pi}X^{q-1}} < 1$.
+	
+	Induction step:
+	\begin{align*}
+		f'_{n+1}(X) &= (qf_n(X)^{q-1} + \pi)f_n'(X) \\
+		&= \pi(1+\frac{q}{\pi}f_n(X)^{q-1})f_n'(X)
+	\end{align*}
+	By induction $f_n'(X) \neq 0$, and by assumption $\abs{f_n(X)} < 1$,
+	so the same argument works.
+	
+	We now prove the lemma by showing that if $f_n(X) = 0$,
+	then $\abs{f_i(X)} < 1\ \forall i = 0, 1, \dots, n-1$.
+	By induction,
+	$$f_n(X) = X^{q^n}+\pi g_n(X)$$
+	for some $g_n \in \mathcal{O}_K[X]$.
+	
+	It follows that if $f_n(X)=0$,
+	then $\abs{X} < 1 \implies \abs{f_i(X)} < 1\ \forall i$.
+\end{proof}
+
+\begin{prop}
+	$F(n)$ is a free $\mathcal{O}_K/\pi^n\mathcal{O}_K $-module of rank 1.
+\end{prop}
+\begin{proof}
+	By Theorem \ref{121} all Lubin-Tate modules for $\pi$ are isomorphic
+	$\implies$ all the $\mathcal{O}_K$-modules $F(n)$ are isomorphic.
+	By definition $\pi^n \cdot F(n) = 0$,
+	so $F(n)$ is an $\mathcal{O}_K/\pi^n\mathcal{O}_K$-module.
+	
+	Choose $F=F_e$, $e(X) = X^q+\pi X$.
+	$F(n)$ consists of the roots of the polynomial $f_n(X)=e^n(X)$,
+	which os of degree $q^n$ and has no repeated roots (Lemma \ref{124}).
+	
+	So $\# F(n) = q^n$.
+	
+	If $\lambda_n \in F(n)\backslash F(n-1)$,
+	then we have a homomorphism
+	\begin{align*}
+		\mathcal{O}_K &\to F(n) \\
+		a &\mapsto a \cdot \lambda_n
+	\end{align*}
+	with kernel $\pi^n \mathcal{O}_K$ by choice of $\lambda_n$.
+	By counting we get an $\mathcal{O}_K$-module isomorphism
+	$\mathcal{O}_K/\pi^n\mathcal{O}_K \overset{\sim}{\longrightarrow} F(n)$ as desired.
+\end{proof}
+
+\begin{corollary}
+	We have isomorphisms
+	$$\mathcal{O}_K/\pi^n\mathcal{O}_K \cong \End_{\mathcal{O}_K}(F(n))$$
+	$$U_K/U_K^{(n)} \cong \Aut_{\mathcal{O}_K}(F(n))$$
+\end{corollary}
+
+Given a Lubin-Tate $\mathcal{O}_K$-module $F$ for $\pi$,
+consider $L_{n, \pi} = L_n = K(F(n))$
+of $\pi^n$-division points of $F$.
+We have inclusions $F(n) \subseteq F(n+1)\ \forall n$,
+so $L_n \subseteq L_{n+1}$.
+The field $L_n$ only depends on $\pi$ and \textbf{not} on $F$.
+To see this, let $G$ be another Lubin-Tate $\mathcal{O}_K$-module,
+and let $f: F \to G$ be an isomorphism of formal $\mathcal{O}_K$-modules.
+
+Then $G(n) = f(F(n)) \subseteq K(F(n)) \implies K(G(n)) \subseteq K(F(n))$. By symmetry, $K(G(n)) = K(F(n))$.
+
+\begin{theorem}
+	$L_n/K$ is a totally ramified abelian extension of degree $q^{n-1}(q-1)$
+	with Galois group $\Gal(L_n/K) \cong \Aut_{\mathcal{O}_K}(F(n)) \cong U_K/U_K^{(n)}$.
+	
+	Here $\forall \sigma \in \Gal(L_n/K)\ \exists!\, u \in U_K/U_K^{(n)}$ such that
+	$\sigma(\lambda)=[u]_F(\lambda)\ \forall \lambda \in F(n)$.
+	
+	Moreover, if $F=F_e$, where $e(X)=X^q + \pi(a_{q-1}X^{q-1} + \dots + a_2X^2)+ \pi X$,
+	and $\lambda_n \in F_n \backslash F_{n-1}$,
+	then $\lambda_n$ is a uniformiser of $L_n$ and 
+	$$\phi_n(X) = \frac{e^n(X)}{e^{n-1}(X)} = X^{q^{n-1}(q-1)} + \dots + \pi$$
+	is the minimal polynomial of $\lambda_n$.
+	In particular, $N_{L_n/K}(-\lambda_n)=\pi$.
+\end{theorem}
+\begin{proof}
+	If $e(X) = X^q + \pi(a_{q-1}X^{q-1} + \dots + a_2X^2) + \pi X$, set $F=F_e$.
+	
+	Then $\phi_n(X) = \frac{e^n(X)}{e^{n-1}(X)} = e^{n-1}(X)^{q-1}+\pi(a_{q-1}e^{n-1}(X)^{q-2} + \dots + a_2 e^{n-1}(X)) + \pi$
+	is an Eisenstein polynomial of degree $q^{n-1}(q-1)$.
+	If $\lambda_n \in F(n)\backslash F(n-1)$
+	then $\lambda_n$ is a root of $\phi_n(X)$,
+	so $K(\lambda_n)/K$ is totally ramified of degree $q^{n-1}(q-1)$
+	and $\lambda_n$ is a uniformiser, and $N_{K(\lambda_n)/K}(-\lambda_n)=\pi$.
+	
+	Now let $\sigma \in \Gal(L_n/K)$.
+	$\sigma$ induces a permutation of $F(n)$,
+	which is $\mathcal{O}_K$-linear:
+	$$\sigma(x) +_F \sigma(y) = F(\sigma(x), \sigma(y)) = \sigma(F(x, y)) = \sigma(x +_F y)$$
+	$$\sigma(a \cdot x) = \sigma([a]_F(X)) = [a]_F(\sigma(x)) = a \cdot \sigma(x)$$
+	for all $x,y \in \mathfrak{m}_{L_n}$ and $a \in \mathcal{O}_K$.
+	
+	So we have an injection $\Gal(L_n/K) \hookrightarrow \Aut_{G_K}(F(n)) \cong U_K/U_K^{(n)}$
+	of groups. Since
+	$$\#(U_K/U_K^{(n)})) = q^{n-1}(q-1) = [K(\lambda_n):K] \leq [L_n : K] = \# \Gal(L_n/K)$$
+	we must have equality and $\Gal(L_n/K) \overset{\sim}{\longrightarrow} U_K/U_K^{(n)}$,
+	moreover $K(\lambda_n)=L_n$.
+\end{proof}
+
+$K=\mathbb{Q}_p$, $\pi = p$,
+recall that $\hat{\mathbb{G}}_m(n) = \{\zeta_{p^n}^i - 1 \,|\, i = 0, \dots, p^n-1 \}$,
+$\zeta_{p^n}$ primitive $p^n$-th root of 1.
+The theorem gives $\Gal(\mathbb{Q}_p(\zeta_{p^n})/\mathbb{Q}_p) \cong (\mathbb{Z}/p^n\mathbb{Z})^\times$,
+given by, if $a \in \mathbb{Z}_{\geq 0}$, $(a, p)=1$ then
+\begin{align*}
+	\sigma_a(\zeta_{p^n}^i - 1) &= [a]_{\hat{\mathbb{G}}_m(n)}(\zeta_{p^n}^i - 1) \\
+	&= (1+(\zeta_{p^n}^i - 1))^a -1 \\
+	&= \zeta_{P^n}^{ia}-1
+\end{align*}
+so this agrees with the isomorphism $\Gal(\mathbb{Q}_p(\zeta_{p^n})/\mathbb{Q}_p) \cong (\mathbb{Z}/p^n\mathbb{Z})^\times$
+constructed by hand.
+
+Back to the general situation: set $L_\infty = \bigcup_{n=1}^\infty L_n$, we have
+\begin{align*}
+	\Gal(L_\infty/K) &\overset{\sim}{\longrightarrow} \varprojlim_n \Gal(L_n/K) \overset{\sim}{\longrightarrow} \lim_n U_K/U_K^{(n)} \cong U_K \\
+	\sigma & \longmapsto (\sigma|_{L_n})_n
+\end{align*}
+This is $\Art_K|_{L_\infty}$.
+
+\begin{theorem}[Generalised Local Kronecker-Weber Theorem]
+	$$K^{ab} = K^{ur}\cdot L_\infty\ \forall \pi$$
+\end{theorem}
+
+\begin{theorem}
+	$$N(L_n/K) = \langle \pi \rangle \times U_K^{(n)}$$
+\end{theorem}
+
+Full Artin map for $K$:
+\begin{center}
+	\begin{tikzcd}
+		K^\times \ar{r}{\sim}[swap]{\Art_K} \ar[draw=none, sloped, xshift=-1ex]{d}{\cong} & W(K^{ab}/K)  \ar{d}[rotate=90,anchor=center,yshift=1ex]{\sim} & \sigma \ar[maps to]{d} \\
+		\langle \pi \rangle \times U_K \ar{r}{\sim} & W(K^{ur}/K) \times \Gal(L_\infty/K) & (\sigma|_{K^{ur}}, \sigma|_{L^\infty}) \\
+		(\pi^m, u) \ar[maps to]{r} & (\Frob_K^m, \sigma_u)
+	\end{tikzcd}
+\end{center}
+where $\sigma_u(\lambda) = [u]_F(\lambda)$ for all $\lambda \in \bigcup_{n=1}^\infty F(n)$.
+
+\begin{lemma}
+	The following diagram commutes ($m \geq n$)
+	\begin{center}
+		\begin{tikzcd}
+			\Gal(L_m/K) \ar{r}{\sim}[swap]{127} \ar{d}[left]{\text{restriction}} & U_K/U_K^{(m)} \ar{d}{\text{quotient}} \\
+			\Gal(L_n/K) \ar{r}{\sim}[swap]{127} & U_K/U_K^{(n)}
+		\end{tikzcd}
+	\end{center}
+	\label{130}
+\end{lemma}
+\begin{proof}
+	Let $u \in U_K$, $\sigma = \sigma_u \in \Gal(L_m/K)$.
+	Then $\sigma_u(\lambda) = [u]_F(\lambda)$ for all $\lambda \in F(m)$
+	$\implies \sigma_u(\lambda) = [u]_F(\lambda)$ for all $\lambda \in F(n) \subseteq F(m)$
+	
+	So $\sigma_u|_{L_n}$ corresponds to $u$ under $\Gal(L_n/K) \cong U_K/U_K^{(n)}$.
+\end{proof}
+
+\begin{corollary}
+	If $m \geq n$, then under the isomorphism $\Gal(L_m/K) \cong U_K/U_K^{(m)}$
+	we have $\Gal(L_m/L_n) \cong U_K^{(n)}/U_K^{(m)}$.
+	\label{131}
+\end{corollary}
+\begin{proof}
+	Look at the kernels of the vertical maps in the diagram in Lemma \ref{130}.
+\end{proof}
+\subsection{Ramification Groups of $L_n/K$}
+\begin{theorem}
+	$$G_s(L_n/K) = \begin{cases}
+		\Gal(L_n/L) & -1 \leq s \leq 0 \\
+		\Gal(L_n/L_k) & q^{k-1}  < s\leq q^k-1,\, k=1, \dots, n-1 \\
+		1 & s>q^{n-1}-1
+	\end{cases}$$
+\end{theorem}
+\begin{proof}
+	By Corollary \ref{131}, $\Gal(L_n/L_k) \cong U_K^{(k)}/U_K^{(n)}$
+	under $\Gal(L_n/K) \cong U_K/U_K^{(n)}$.
+	
+	In particular, $G_1(L_n/K)$ is a Sylow $p$-subgroup of $\Gal(L_n/K)$,
+	so we must have $G_1(L_n/K) \cong U_K^{(1)}/U_K^{(n)}$.
+	$$\implies G_1(L_n/K) = \Gal(L_n/L_1)$$
+	$$\implies G_s(L_n/K) = \Gal(L_n/L_1)\ \text{for } 0< s \leq 1$$
+	
+	Let $\sigma = \sigma_u \in G_1(L_n/K)$, $u \in U_K^{(1)}/U_K^{(n)}$.
+	
+	Write $u=1+\epsilon \pi^k$, $\epsilon \in U_K$,
+	some $k=k(u) \geq 1$.
+	Let $\lambda \in F(n) \backslash F(n-1)$
+	($F$ a choice of Lubin-Tate $\mathcal{O}_K$-module for $\pi$),
+	$\lambda$ is a uniformiser of $L_n$ and $\mathcal{O}_{L_n} = \mathcal{O}_K[\lambda]$.
+	
+	We have
+	\begin{align*}
+		\sigma_u(\lambda) &= [u]_F(\lambda) \\
+		&= [1+\epsilon \pi^k]_F(\lambda) \\
+		&= F(\lambda, [\epsilon \pi^k]_F(\lambda))
+	\end{align*}
+	
+	If $k \geq n$, $\sigma=1$ so $v_{L_n}(\sigma(\lambda)-\lambda) = \infty$.
+	If $k<n$, then $[\epsilon \pi^k]_F(\lambda) = [\epsilon]_F([\pi^k]_F(\lambda)) \in F(n-k)\backslash F(n-k-1)$
+	so $[\epsilon \pi^k]_F(\lambda)$ is a uniformiser of $L_{n-k}$.
+	
+	$L_n/L_{n-k}$ is totally ramified of degree $q^k$,
+	so $[\epsilon \pi^k]_F(\lambda) = \epsilon_0 \lambda^{q^k}$,
+	$\epsilon_0 \in \mathcal{O}_{L_n}^\times$.
+	
+	Recall that $F(X,0)=X$, $F(0, Y)=Y$, so
+	$$F(X, Y) = X+Y+XYG(X,Y),\, G(X,Y) \in \mathcal{O}_K[[X, Y]]$$
+	So
+	\begin{align*}
+		\sigma(\lambda)-\lambda &= F(\lambda, [\epsilon\pi^k]_F(\lambda))-\lambda \\
+		&= F(\lambda, \epsilon_0\lambda^{q^k}) - \lambda \\
+		&= \lambda + \epsilon_0 \lambda^{q^k} + \epsilon_0 \lambda^{q^k+1}G(\lambda, \epsilon_0^{q^k}) - \lambda \\
+		&= \epsilon_0\lambda^{q^k}+\epsilon_0\lambda^{q^k+1}G(\lambda, \epsilon_0^{q^k})
+	\end{align*}
+	$\implies v_{L_n}(\sigma(\lambda)-\lambda) = q^k$
+	
+	So $i_{L_n/K}(\sigma_u) \geq s+1 \iff q^{k(u)} -1 \geq s$
+	\begin{align*}
+		\implies G_s(L_n/K) &= \{\sigma_u \in G_1(L_n/K) \,|\, q^{k(u)} - 1 \geq s \} \\
+		&= \begin{cases}
+			\Gal(L_n/L_k) & q^{k-1} -1 < s \leq q^k-1 \text{ for } k=1, \dots, n-1 \\
+			1 & s > q^{n-1} - 1
+		\end{cases}
+	\end{align*}
+\end{proof}
+
+\begin{corollary}
+	$$G^t(L_n/K) = 
+		\begin{cases}
+			\Gal(L_n/K) & -1 \leq t \leq 0 \\
+			\Gal(L_n/L_k) & k-1 < t \leq k,\ k=1,2,\dots,n-1 \\
+			1 & t > n-1
+		\end{cases}$$
+		\label{133}
+\end{corollary}
+\begin{proof}
+	Invert:
+	$$\chi_{L_n/K}(t) = \begin{cases}
+		t & -1 \leq t \leq 0 \\
+		q^{q-1}(q-1)(t-(k-1))+q^{k-1}-1 & k-1 < t \leq k,\ k=1,2,\dots,n-1 \\
+		q^{q-1}(q-1)(t-(n-1))+q^{n-1}-1 & t > n-1\end{cases}$$
+		
+	$$\eta_{L_n/K}(s) = \begin{cases}
+		s & -1 \leq s \leq 0 \\
+		(k-1) + \frac{s-(q^{k-1})}{q^{k-1}(q-1)} & q^{k-1}-1 \leq s \leq q^{k-1}-1 \\
+		(n-1) + \frac{s-(q^{n-1})}{q^{n-1}(q-1)} & s \geq q^{n-1}-1 \\
+	\end{cases}$$
+		
+	$\implies G^t(L_n/K) = G_{\chi_{L_n/K}(t)}(L_n/K)$ is as claimed.
+\end{proof}
+
+In other words,
+$$G^t(L_n/K) = \begin{cases}
+	\Gal(L_n/L_{\lceil t \rceil}) &  -1 < t \leq n \\
+	1 & t \geq n
+\end{cases}$$
+where $\lceil t \rceil =$ smallest integer $m$ such that $t \leq m$ (here $L_0=K$). So
+$$\Art_K^{-1}(G^t(L_n/K)) = \begin{cases}
+	U_K^{(\lceil t \rceil)}/U_K^{(n)} & -1 \leq t \leq n \\
+	1 & t \geq n
+\end{cases}$$
+
+\begin{corollary}
+	When $t>-1$,
+	$G^t(K^{ab}/K) = \Gal(K^{ab}/K^{ur}\cdot L_{\lceil t \rceil})$
+	and $\Art_K^{-1}(G^t(K^{ab}/K)=U_K^{(\lceil t \rceil)}$.
+\end{corollary}
+\begin{proof}\renewcommand{\qedsymbol}{}
+	Recall from examples class:
+\end{proof}
+\begin{lemma}
+	If $L/K$ is a finite unramified extension and $M/K$ is a finite totally ramified extension,
+	then $LM/L$ is totally ramified and 
+	\begin{align*}
+		\Gal(LM/L) &\cong \Gal(M/K) \\
+		\sigma &\mapsto \sigma|_M
+	\end{align*}
+	and $G^t(LM/L) \cong G^t(M/K)$ via this isomorphism ($t > -1$).
+\end{lemma}
+\begin{proof}[Proof cont]
+	Let $K_M/K$ be the unramified extension of degree $m$.
+	By the Lemma and Corollary \ref{133},
+	$$G^t(K_mL_n/K) \cong G^t(L_n/K) = \begin{cases}
+		\Gal(L_n/L_{\lceil t \rceil}) & 1 < t \leq n \\
+		1 & t \geq n
+	\end{cases}$$
+	$$\implies G^t(K_mL_n/K) = \begin{cases}
+		\Gal(K_mL_n/K_mL_{\lceil t \rceil}) & -1 < t \leq n \\
+		1 & t \leq n
+	\end{cases}$$
+	\begin{align*}
+		\implies G^t(K^{ab}/K) &= G^t(K^{ur}L_\infty/K) \\
+		&= \varprojlim_{m,n} G^t(K_mL_n/K) \\
+		&= \varprojlim_{\substack{m,n \\ n \geq \lceil t \rceil}} \Gal(K_mL_n/K_mL_{\lceil t \rceil}) \\
+		&= \Gal(K^{ur}L_\infty/K^{ur}L_{\lceil t \rceil}) = \Gal(K^{ab}/K^{ur}L_{\lceil t \rceil})
+	\end{align*}
+	and 
+	\begin{align*}
+		\Art_K^{-1}(\Gal(K^{ab}/K^{ur}L_{\lceil t \rceil})) &= \Art_K^{-1}\left(\varprojlim_{\substack{m,n \\ n \geq \lceil t \rceil}}  \Gal(K_mL_n/K_mL_{\lceil t \rceil})\right) \\
+		&= \varprojlim_{\substack{m,n \\ n \geq \lceil t \rceil}} \Art_K^{-1}\Gal(K_mL_n/K_mL_{\lceil t \rceil}) \\
+		&= \varprojlim_{\substack{m,n \\ n \geq \lceil t \rceil}} U_K^{(\lceil t \rceil)}/U_K^{(\lceil t \rceil)} = U^{(\lceil t \rceil)}
+	\end{align*}
+\end{proof}
+
+\begin{corollary}
+	Let $M/K$ be a finite abelian extension.
+	Then, under $\Art_K: \frac{K^\times}{N(M/K)} \overset{\sim}{\longrightarrow} \Gal(M/K)$,
+	$$G^t(M/K) = \Art_K\left(\frac{U_K^{(\lceil t \rceil)}N(M/K)}{N(M/K)}\right) \qquad (t > 1)$$
+\end{corollary}
+\begin{proof}
+	\begin{align*}
+		G^t(M/K) &= \frac{G^t(K^{ab}/K)G(K^{ab}/M)}{G(K^{ab}/M)}\\
+		&= \Art_K\left(\frac{U_K^{(\lceil t \rceil)}N(M/K)}{N(M/K)}\right)
+	\end{align*}
 \end{proof}
 \end{document}
